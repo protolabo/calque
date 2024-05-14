@@ -150,13 +150,53 @@
 - Étudier le domaine, les notions et outils envisagés pour le projet
 
 ### Réalisations
+Brouillon de la portion Pré-design
+- Rédaction d'un glossaire de terminologies utiles pour la compréhension du projet
+- Identification des utilisateurs potentiels
+- Identification de contextes d'utilisation possible
+- Identification des activités réalisées par les utilisateurs
+- Identification des tâches (sous-activités) essentielles
+- Raffinement du modèle mental de notre interface
 
+Brouillon de la portion Permier Design
+- Identification de quelques exigences
+- Identification de quelques besoins fonctionnels
+- Identification de quelques besoins non fonctionnels
+- 
+
+Lien du brouillon:
+https://docs.google.com/document/d/1g8vHeiVHomiLQ1JzeRc9UT3FZ8ufI8jstZl4XTcKcPk/edit#heading=h.wz92bmfmmjk9
 <!-- Description des tâches accomplies -->
 
 ### Observations
+Plusieurs cartes interactives ont été trouvées qui illustrent bien la représentation du modèle mental du côté utilisateur.
+
 
 <!-- Description des observations importantes (ex: remarque ou trouvaille intéressante, difficultés rencontrées) de la semaine -->
 
 ### Ressources
 
+Modèles intéressants :
+
+Carte interactive Carrefour Laval :
+
+https://shops.cadillacfairview.com/property/cf-carrefour-laval/mall-map?storeID=R040A#/?location=5affac42f0e7e17a83b0cf03
+
+Carte interactive du American Museum of Natural History:
+
+https://www.amnh.org/interactive-map/floor-2
+
 <!-- Matériels consultés (vidéo, article, documentation, livres)-->
+
+
+
+
+## Semaine 2 (2024-05-13)
+
+### Objectifs
+
+### Réalisations
+
+### Observations
+
+### Ressources -->
