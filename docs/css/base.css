@@ -1,9 +1,8 @@
 ﻿:root {
     --accent: 31, 117, 254;
-    --accent-bright: 255, 181, 31; /* yellow */
     --accent-light: 119, 181, 254;
-    --accent-dark: 21, 82, 179;
     --accent-dead: 71, 117, 191;
+    --accent-dark: 21, 82, 179;
     --accent-gradient: linear-gradient(
         45deg,
         rgb(var(--accent)),

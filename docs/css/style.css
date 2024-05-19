@@ -4,10 +4,19 @@
     padding-right: 5%;
 }
 
+body:after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; left: 0; bottom: 0;
+    background: #222 url('../images/logo_calque_dark.png') 50%/cover no-repeat;
+    opacity: 0.2;
+    z-index: -1;
+}
+
 .page-header {
     display: flex; flex-direction: column; align-items: center;
     padding-top: 24px; padding-bottom: 24px;
-    /* background-color: #f5f5f5; */
+    background: url('../images/logo_calque.png') 100%/contain no-repeat;
 }
 
 .page-title {
@@ -16,9 +25,8 @@
 }
 
 .page-info {
-    display: flex; 
+    display: flex; flex-direction: row;
 }
-
 
     .contributors {
         margin-right: 6px;
@@ -31,8 +39,7 @@
 
     .doc a {
         display: flex; place-items: center;
-        height: 100%;
-        padding-left: 6px; padding-right: 6px;
+        padding: 8px 12px;
         border-radius: 180px;
         font-weight: bold;
         color: #fff;
@@ -59,10 +66,9 @@
 
 .page-footer {
     padding-top: 24px; padding-bottom: 30px;
-    background-color: rgb(var(--accent-dark));
+    background-color: #424859;
     color: #fff;
     text-align: center;
-    border-top: 1px solid #d5d5d5;
 }
 
     .page-footer a {
@@ -73,10 +79,12 @@
 
 .page-body {
     padding-top: 24px;
+    /* color: #fff; */
 }
 
 
 .progress-section {
+    color: #222;
     background-color: #eee;
     padding-top: 24px;
     padding-bottom: 60px;
