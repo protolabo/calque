@@ -41,29 +41,69 @@
     <main class="page-body">
         <header class="content-wrapper">
             <h2>Description du projet</h2>
-            
+            <div>
             <!-- Contexte -->
-            <p>
-            </p>
+            <p>Les cartes traditionnelles, telles que celles exposées dans les stations de métro de la STM, présentent des lacunes en termes d'accessibilité et d'interactivité dues en partie à leur format statique qui n'est pas adéquat pour répondre à la diversité des usagers et leurs besoins.</p>
 
             <!-- Problématique -->
-            <p></p>		
+            <p>Cette limitation entrave la capacité des usagers à se repérer, à planifier des trajets et à obtenir des informations pertinentes.</p>		
 
             <!-- Proposition -->
-          <p></p>
-
+          <p>Ce projet consiste à concevoir et développer une solution répondant à cette problématique. La solution devrait permettre de construire ou charger une carte avec des annotations, simuler des trajets (sur la carte) et proposer des chemins (itinéraires) ou destinations basés sur des requêtes.</p>
+            </div>
         </header>
 
         
         <section class="content-wrapper">
             <h2>Exigences</h2>
-
+            <table>
+                <tr>
+                    <th>
+                            <ul>
+                                <p>Besoins d'un designer de carte</p>
+                                <li>Mode designer vs Mode alerte</li>
+                                <li>Manipuler les noeuds et leurs attributs (services, tags, lignes)</li>
+                                <li>Manipuler les edges (direction, ligne, bloquée ou non)</li>
+                                <li>Mode designer vs Mode alerte</li>
+                                <li>Navigation entre les étages, sous-cartes et l'environnement / background</li>
+                                <li>Importer un terrain ou une icône représentant un service</li>
+                                <li>Mode designer vs Mode alerte</li>
+                                <li>Définir les valeurs par défaut du toggle</li>
+                                <li>Exporter la carte en un ficher d'objet et possiblement en fichier d'image</li>
+                                <li>Mode designer : s'occupe de la création de la carte</li>
+                                <li>Mode alerte : s'occupe de la création de l'alerte, additive à la carte</li>
+                            </ul>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                            <ul>
+                                <p>Besoins d'un utilisateur (End user)</p>
+                                <li>Pouvoir tracer un un itinéraire (Ici vers B, A vers B, A vers B vers C)</li>
+                                <li>Offrir un bloc d'information du noeud sélectionné afin d'afficher les services offerts à l'emplacement</li>
+                                <li>Permettre d'afficher / masquer certains éléments de la carte (environnement, labels, lignes spécifiques...)</li>
+                                <li>Offrir une façon d'afficher différent types d'alertes (bloquantes ou non)</li>
+                                <li>Permettre aux alertes de modifier la carte (altérer les attributs des éléments, ajouter des éléments...)</li>
+                                <li>On veut que l'utilisateur puisse "reset" la carte à son état de départ</li>
+                                <li>On veut que l'utilisateur puisse rechercher un élément (service, noeud, point d'intérêt...)</li>
+                                <li>On veut que l'utilisateur puisse naviguer selon les étages et minimap</li>
+                                <li>Mode privilégié : Permissions pour importer un projet Calque, définir l'emplacement de dếpart</li>
+                                <li>Mode utilisateur : Mode de base pour l'utilisation de l'interface</li>
+                            </ul>
+                    </th>
+                </tr>
+            </table>
             <h3>Besoins fonctionnels</h3>
             <!-- TODO: Ajouter la liste des besoins fonctionnels de l'application -->
 
             <h3>Besoins non-fonctionnels</h3>
 
-            <!-- TODO: Ajouter la liste des besoins non-fonctionnels de l'application -->
+            <ul>
+                <li>Flexibilité: Accomoder le designer s'il désire importer un style non implémenté par le builder</li>
+                <li>Documentation: Donner les ressources nécessaires aux utilisateurs futurs pour mieux comprendre le système</li>
+                <li>Portabilité: Le PWA permet la compatibilité maximale parmis les OS / systèmes</li>
+                <li>Évolutivité: On veut que les développeurs puissent améliorer le projet de la façon la moins destructive possible</li>
+            </ul>
 
         </section>
 
