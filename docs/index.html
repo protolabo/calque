@@ -42,7 +42,7 @@
     <main class="page-body">
         <header class="content-wrapper">
             <h2>Description du projet</h2>
-            <div>
+            <blockquote style="color:gray;font-style: italic; opacity: 0.5;">
             <!-- Contexte -->
             <p>Les cartes traditionnelles, telles que celles exposées dans les stations de métro de la STM, présentent des lacunes en termes d'accessibilité et d'interactivité dues en partie à leur format statique qui n'est pas adéquat pour répondre à la diversité des usagers et leurs besoins.</p>
 
@@ -51,8 +51,25 @@
 
             <!-- Proposition -->
           <p>Ce projet consiste à concevoir et développer une solution répondant à cette problématique. La solution devrait permettre de construire ou charger une carte avec des annotations, simuler des trajets (sur la carte) et proposer des chemins (itinéraires) ou destinations basés sur des requêtes.</p>
-            </div>
+            </blockquote>
+
+            <h2>Interprétation: </h2>
+             <!-- Contexte -->
+             <p>S'orienter dans l'espace est un défi du quotidien. L'expérience gagne en complexité lorsqu'on explore un endroit inconnu; Les cartes demeurent un outil ubiquitaire pour surmonter ce défi, mais leur nature statique
+                comporte plusieurs défauts qui affectent leur accessibilité. Dans l'idée de faciliter l'accessbilité des cartes aux utilisateurs ainsi que la maintenabilité et flexibilité d'une carte interactive par son designer, 
+                on s'intéresse à offrir un outil de génération de cartes interactives. Plusieurs cartes interactives existent dans différents contextes; Dans l'extrême en terme de flexibilité, on peut penser à AllTrails (contexte de randonnée), qui offre aussi une application pour s'orienter sur les sentiers partout en Amérique du Nord et permet la création de nouveaux sentiers via les contributions de ses utilisateurs.
+                Un autre exemple de carte interactive serait celles associées aux musées et centres d'achat qui proposent une site web interactif ou une borne contenant leur carte interactive, facilitant leur navigation sur leur site.
+             <br>
+                Notre proposition est de fournir l'outil de génération de carte interactive tel qu'un designer de carte pourrait fournir une carte interactive à son audience facilement et exporter celle-ci dans un format intéressant pour son  établissement.             </p>
+                Le designer pourrait représenter les points d'intérêts, ses propriétés et tracer les chemins entre les différents points d'intérêts afin de représenter son réseau. 
+             <!-- Problématique -->
+             <p>Cette limitation entrave la capacité des usagers à se repérer, à planifier des trajets et à obtenir des informations pertinentes.</p>		
+ 
+             <!-- Proposition -->
+           <p>Ce projet consiste à concevoir et développer une solution répondant à cette problématique. La solution devrait permettre de construire ou charger une carte avec des annotations, simuler des trajets (sur la carte) et proposer des chemins (itinéraires) ou destinations basés sur des requêtes.</p>
+ 
         </header>
+
 
         
         <section class="content-wrapper requirements-section">
@@ -138,6 +155,31 @@
                 <div class="week-content">
                     <h4 class="title">Objectifs</h4>
                     <ul>
+                        <li>Prototypes</li>
+                        <ul>
+                            <li>Prototype jetable designer</li>
+                            <li>Prototype jetable user</li>
+                            <li>Figma?</li>
+                        </ul>
+                        <li>Exigences</li>
+                        <ul>
+                            <li>Utiliser les prototypes pour identifier les dernières exigences</li>
+                            <li>Prendre en compte l'évolutivité du projet</li>
+                            <li>Anticiper les potentiels changements</li>
+                            <li>Commencer à penser aux stratégie de développement</li>
+                        </ul>
+                        <li>Design / Interface</li>
+                        <ul>
+                            <li>Raffiner notre modèle conceptuel et schématiser</li>
+                            <li>Comprendre le design, l'espace de design, choisir une approche</li>
+                            <li>Utiliser les exigences, l'analyse des tâches, les options technologiques, les différents types d'utilisateurs</li>
+                        </ul>
+                        <li>Diagrammes</li>
+                        <ul>
+                            <li>Produire un diagramme d'activité et le comparer aux références et à la documentation disponible</li>
+                            <li>Étudier la pertinence d'un diagramme de cas d'utilisation</li>
+                            <li>Produire un diagramme de cas d'utilisations, si ce dernier est jugé pertinent</li>
+                        </ul>
                     </ul>
 
                     <h4 class="title">Réalisations</h4>
@@ -159,14 +201,25 @@
                 <div class="week-content">
                     <h4 class="title">Objectifs</h4>
                     <ul>
+                        <li>Finir les cas d'utilisation</li>
+                        <li>Finir le site web de la description du projet</li>
+                        <li>Raffiner les exigences (Fonctionnelles et non fonctionnelles)</li>
+                        <li>Raffiner la timeline (Planifier la portion Prototypage et Conception)</li>
+                        <li>Décider des tâches / cas d'utilisation à implémenter pendant le projet</li>
+                        <li>Élaborer sur les besoins de l'utilisateur de notre PWA</li>
+                        <li>Élaborer sur les risques, objectifs, (description du projet)</li>
                     </ul>
 
                     <h4 class="title">Réalisations</h4>
                     <ul>
+                        <li>Finir les cas d'utilisation</li>
+                        <li>Finir le site web de la description du projet</li>
+                        <li>Raffiner les exigences</li>
+                        <li>Raffiner la timeline (Planifier la portion Prototypage et Conception)</li>
                     </ul>
 
                     <h4 class="title">Notes</h4>
-                    <p></p>
+                    <p>Interrogation sur le format d'exportation (JSON vs XML)</p>
                 </div>
             </section>
 
@@ -187,11 +240,24 @@
                     </ul>
 
                     <h4 class="title">Réalisations</h4>
+                    <p>Brouillon de la portion Pré-design</p>
                     <ul>
+                        <li>Rédaction d'un glossaire de terminologies utiles pour la compréhension du projet</li>
+                        <li>Identification des utilisateurs potentiels</li>
+                        <li>Identification de contextes d'utilisation possible</li>
+                        <li>Identification des activités réalisées par les utilisateurs</li>
+                        <li>Identification des tâches (sous-activités) essentielles</li>
+                        <li>Raffinement du modèle mental de notre interface</li>
+                    </ul>
+                    <p>Brouillon de la portion Permier Design</p>
+                    <ul>
+                        <li>Identification de quelques exigences</li>
+                        <li>Identification de quelques besoins fonctionnels</li>
+                        <li>Identification de quelques besoins non fonctionnels</li>
                     </ul>
 
                     <h4 class="title">Notes</h4>
-                    <p></p>
+                    <p>Plusieurs cartes interactives ont été trouvées qui illustrent bien la représentation du modèle mental du côté utilisateur.</p>
                 </div>
             </section>
         </section>

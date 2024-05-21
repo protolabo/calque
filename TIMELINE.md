@@ -224,7 +224,6 @@ Brouillon de la portion Permier Design
 - Identification de quelques exigences
 - Identification de quelques besoins fonctionnels
 - Identification de quelques besoins non fonctionnels
-- 
 
 Lien du brouillon:
 https://docs.google.com/document/d/1g8vHeiVHomiLQ1JzeRc9UT3FZ8ufI8jstZl4XTcKcPk/edit#heading=h.wz92bmfmmjk9
