@@ -20,8 +20,7 @@ body:after {
 }
 
 .page-title {
-    margin-top: 0;
-    margin-bottom: 12px;
+    margin: 0;
 }
 
 .page-info {
@@ -82,6 +81,33 @@ body:after {
     /* color: #fff; */
 }
 
+.requirements-section h3 {
+    margin-bottom: 12px;
+}
+
+.func-requirements {
+    display: flex;
+    justify-content: space-between;
+}
+
+.func-group {
+    width: 49.5%;
+    padding: 12px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.func-group-title {
+    margin: 0;
+}
+
+.func-list {
+    display: flex; flex-direction: column;
+}
+
+    .func {
+        line-height: 1.5;
+    }
 
 .progress-section {
     color: #222;
