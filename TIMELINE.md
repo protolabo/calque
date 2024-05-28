@@ -116,20 +116,41 @@
 
 ### Observations
 
-### Ressources
+### Ressources-->
 
 ## Semaine 4 (2024-05-27)
 
 ### Objectifs
 
+Prototypes:
+- Tester les prototypes jetables (utilisateur et designer)
+- Noter les échecs et les succès des prototypes
+- Noter les ajouts aux exigences
+- Identifier les fonctionnalités prioritaires
+
+Diagrammes:
+- Faire les diagrammes d'activités pour les activités (cas d'utilisation) à supporter
+- Identifier les activités prioritaires à supporter
+- Repérer les étapes de création, d'intégration, les étapes algorithmiques
+
+Developpement : 
+- Penser aux classes nécessaires
+- Penser au découplage des classes
+- Penser aux design patterns
+
 ### Réalisations
+
+- ...
 
 ### Observations
 
-### Ressources-->
+- ...
 
+### Ressources
 
-## Semaine 3-6 (2024-05-20) (Prototypage et conception)
+- ...
+
+## Semaine 3-4 (2024-05-20) (Prototypage et conception)
 
 ### Objectifs
 
@@ -166,11 +187,46 @@ Diagrammes :
 
 ### Réalisations
 
+Exigences:
+- Ajout de cas d'utilisations / activités suite à l'élaboration du prototype utilisateur
+- Ajout de quelques cas d'utilisation / activités suite à la finalisation du prototype utilisateur
+
+Protoypes :
+- Prototype designer presque terminé 
+- Prototype user avancé
+
+Diagrammes d'activités :
+- Créer un noeud
+- Modifier un noeud
+- Manipuler un noeud
+- Ajouter un edge
+- Créer une ligne
+- Modifier une ligne
+- Créer un service
+- Créer un tag
+
+  
+
+
 ### Observations
+
+
+- Beaucoup de découplage à prévoir
+- Notre modèle mental semble nécessiter un nombre élévé d'abstractions / classes
+- Difficile de prévoir une architecture idéale pour l'ajout de fonctionnalités
+
 
 ## Ressources ­
 
-
+Exploration sur les design patterns et leur correspondance avec notre contexte:
+https://www.youtube.com/watch?v=QNpwWkdFvgQ&ab_channel=Geekific
+https://www.youtube.com/watch?v=tv-_1er1mWI&ab_channel=Fireship
+https://www.youtube.com/watch?v=tAuRQs_d9F8&ab_channel=NeetCode
+https://www.youtube.com/watch?v=YMAwgRwjEOQ&ab_channel=AlexHyett
+https://codewithpawan.medium.com/understanding-solid-principles-in-javascript-and-node-js-9abb09760049
+https://refactoring.guru/design-patterns
+https://en.wikipedia.org/wiki/SOLID
+https://en.wikipedia.org/wiki/List_of_software_development_philosophies
 
 
 ## Semaine 2 (2024-05-13)
