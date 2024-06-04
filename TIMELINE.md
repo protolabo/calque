@@ -106,17 +106,33 @@
 
 ### Observations
 
-### Ressources
+### Ressources-->
 
 ## Semaine 5 (2024-06-03)
 
 ### Objectifs
 
+Prototypes:
+- Élaborer et raffiner les prototypes figma
+- Tester le prototype Figma et mesurer l'utilisabilité
+
+Développement :
+- Commencer à penser aux diagrammes de classe pour les premières fonctionnalités à implémenter
+- Repérer des design patterns efficaces pour supporter l'architecture du projet et aux endroits spécifiques concernés par le diagramme de classe
+- Repérer les technologies (langages, frameworks, librairies...) supportant notre architecture
+
+
+
 ### Réalisations
 
 ### Observations
 
-### Ressources-->
+### Ressources
+
+
+
+
+
 
 ## Semaine 4 (2024-05-27)
 
@@ -140,15 +156,24 @@ Developpement :
 
 ### Réalisations
 
-- ...
+- Test #1 du prototype designer avec notre superviseur
+- Création de plusieurs diagrammes d'activité pour les fonctionnalités de base du designer
+- Première ébauche d'un prototype jetable pour l'utilisateur 
+- Avancement du prototype Figma
+- Éléments prioritaires suivants ont étés identifiés comme prioritaires : Éditeur de lignes, Éditeur de node, Éditeur de edges, Tool ajout noeud, Tool ajout edge
+
 
 ### Observations
 
-- ...
+- Utilisabilité à revoir / améliorer pour le protype designer
+- Style de l'interface à améliorer
+- Interrogation sur l'ajout de fonctionnalités comme une échelle de distance
+- Design patterns à identifier sur les diagrammes d'activité
+
 
 ### Ressources
 
-- ...
+- Voir issues github.
 
 ## Semaine 3-4 (2024-05-20) (Prototypage et conception)
 
