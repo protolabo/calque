@@ -121,11 +121,14 @@ Développement :
 - Repérer des design patterns efficaces pour supporter l'architecture du projet et aux endroits spécifiques concernés par le diagramme de classe
 - Repérer les technologies (langages, frameworks, librairies...) supportant notre architecture
 
-
-
 ### Réalisations
 
+-Brouillon des diagrammes de classes 
+-Avancement du prototype Figma
+
 ### Observations
+
+-https://d3js.org/ semble un outil intéressant pour le canvas
 
 ### Ressources
 
