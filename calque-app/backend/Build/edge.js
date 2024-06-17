@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Edge = void 0;
-var style_js_1 = require("./style.js");
+var style_js_1 = require("../TS/style.js");
 var Edge = /** @class */ (function () {
     function Edge(name, node1, node2, ligne, duree) {
         if (duree === void 0) { duree = undefined; }
