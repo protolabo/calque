@@ -4,9 +4,9 @@ import { Style } from './style.js';
 
 export class Edge {
     name: string;
-    node1: Node;
-    node2: Node;
-    ligne: Ligne;
+    readonly node1: Node;
+    readonly node2: Node;
+    readonly ligne: Ligne;
     duree: Duree | undefined;
     style: Style = new Style("none", "black", 5);
     isBlocked: boolean = false;
