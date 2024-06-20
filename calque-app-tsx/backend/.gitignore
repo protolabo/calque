@@ -1,0 +1,5 @@
+.env
+#if you need to install depedencies, use "npm -install", and the dependencies will be automatically installed via package.json
+node_modules
+#if you need to compile the typescript file, use 'npm run build', the dist/ folder will be created automatically.
+dist/
