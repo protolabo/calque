@@ -92,3 +92,26 @@ If you need to install depedencies, use "npm -install", and the dependencies wil
 18-06-2024 : Configuring the MongoDB for the first time;
 20-06-2024 : Setting up the folder with the following ;
 ~
+
+
+
+
+
+## Notes on typescript:
+
+ - Regular Javascript can be written in a typescript file. It will be transpiled as is.
+ - ` const variable1 = ...; ` assures immutability.
+ - ` let variable2 = ...; ` allows mutability.
+ - ` let variable2 : "value" = ...; ` limit to a value;
+ - ` let variable3 : any = ...;` explicitely allows all types;
+ - ` let variable4 = <type> variable3; ` converts an any type to a specific type. Type assertion will not influence the behavior of the variable, because assertion annotations are removed at compilation.
+ - ` let variable5 = <interface> { }; ` converts an undefined object to a specific object.
+ - ` const variable6 = variable1 as type ` specifies a type onto a more specific one.
+ - `const variable7 = variable1 as any as type` another assertion method.
+ - ` type NomType = { var1:type1; var2:type2;} ` allow struct like behavior.
+ - ` type NomType = ... | ... | ... ; ` allows custom datatypes with finite possibilities (narrowing).
+ - ` function fx1(): value1 | value2 | value3 {} ` narrows the possible inputs to a function.
+ - ` interface Interface1{ variable1: value1 | value2; } ` narrows the possible inputs to an interface attribute.
+
+### References:
+ [1]: <www.youtube.com/watch?v=d56mG7DezGs> "Typescript tutoriel 1"
