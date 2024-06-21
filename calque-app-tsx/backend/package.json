@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serverStart": "nodemon index.js",
+    "serve": "node dist/index.js",
+    "serverStart": "nodemon dist/index.js",
+    "tscVersion": "tsc --v",
     "build": "tsc"
   },
   "keywords": [],
@@ -16,6 +18,7 @@
     "mongoose": "^8.4.3"
   },
   "devDependencies": {
+    "@types/node": "^20.14.7",
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.4",
     "typescript": "^5.4.5"
