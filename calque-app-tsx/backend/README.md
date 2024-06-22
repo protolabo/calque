@@ -46,7 +46,12 @@
  `npm i mongoose `  <br>
  Will add content in node_modules, package-lock.json and also update package.json. <br>
 
- 4. Development dependencies :  <br>
+ 4. Prepare the MongoDB dependencies : <br>
+ *In console, change directory to the backend.* <br>
+ `npm install mongodb`
+ Will add content in node_modules, package-lock.json and also update package.json. <br>
+
+ 5. Development dependencies :  <br>
  *In console, change directory to the backend.* <br>
  `npm i --save-dev dotenv nodemon typescript @types/node`  <br>
  Will add Dotenv to manage environement variables.  <br>
@@ -55,7 +60,7 @@
  Will add @type/nodes to the project. <br>
  Will add content in node_modules, package-lock.json and also update package.json. <br>
 
- 5. Prepare the .gitignore : <br>
+ 6. Prepare the .gitignore : <br>
  *In .gitignore, add the lines:* <br>
  `.env ` <br>
  `node_modules `  <br>
