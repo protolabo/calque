@@ -3,23 +3,52 @@ import { Ligne } from './ligne.js';
 import { Style } from './style.js';
 
 export class Edge {
-    name: string;
-    readonly node1: Node;
-    readonly node2: Node;
-    readonly ligne: Ligne;
-    duree: Duree | undefined;
-    style: Style = new Style("none", "black", 5);
-    isBlocked: boolean = false;
+    private _name: string;
+    private readonly _node1: Node;
+    private readonly _node2: Node;
+    private readonly _ligne: Ligne;
+    private _duree: Duree | undefined;
+    private _style: Style = new Style("none", "black", 5);
+    private _isBlocked: boolean = false;
 
-    constructor(name: string, node1: Node, node2: Node, ligne: Ligne, duree: Duree | undefined = undefined) {}
+    constructor(_name: string, _node1: Node, _node2: Node, _ligne: Ligne, _duree: Duree | undefined = undefined) {}
 
-    swapBlockState(): void {
-        if (this.isBlocked) {
-            this.isBlocked = false
+    public swapBlockedStatus(): void {
+        if (this._isBlocked) {
+            this._isBlocked = false
         }
         else {
-            this.isBlocked = true
+            this._isBlocked = true
         }
+    }
+    public get name() : string {
+        return this._name;
+    }
+    public get node1() : Node {
+        return this._node1;
+    }
+    public get node2() : Node {
+        return this._node2;
+    }
+    public get ligne() : Ligne {
+        return this._ligne;
+    }
+    public get duree() : Duree | undefined {
+        return this._duree;
+    }
+    public get style() : Style {
+        return this._style;
+    }
+    
+    public set name(v : string) {
+        this._name = v;
+    }
+    public set duree(v : Duree | undefined) {
+        this._duree = v;
+    }
+    public setStyle(stroke: string, width: number): void {
+        this._style.stroke = stroke;
+        this._style.strokeWidth = width;
     }
 }
 
