@@ -5,8 +5,11 @@ export default {
 ],
 
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary:"#3E4256",
+    },
   },
   plugins: [],
 }
-
+}

@@ -1,11 +1,16 @@
-import React from 'react';
 import './App.css';
+import Layout from './components/Layout';
+import { Route, Routes } from 'react-router-dom';
+import Testpage from './pages/Testpage';
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline text-red-600">
-      Simple React Typescript Tailwind Sample
-    </h1>
+    <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route path="/test" element={<Testpage/>}/>
+        </Route>
+    </Routes>
+    
   );  
 }
 
