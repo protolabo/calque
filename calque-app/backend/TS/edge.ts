@@ -3,10 +3,10 @@ import { Ligne } from './ligne.js';
 import { Style } from './style.js';
 
 export class Edge {
-    private _name: string;
-    private readonly _node1: Node;
-    private readonly _node2: Node;
-    private readonly _ligne: Ligne;
+    private _name!: string;
+    private readonly _node1!: Node;
+    private readonly _node2!: Node;
+    private readonly _ligne!: Ligne;
     private _duree: Duree | undefined;
     private _style: Style = new Style("none", "black", 5);
     private _isBlocked: boolean = false;

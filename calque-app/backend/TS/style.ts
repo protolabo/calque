@@ -1,7 +1,7 @@
 export class Style {
-    private _fill: string;
-    private _stroke: string;
-    private _strokeWidth: number;
+    private _fill: string = "none";
+    private _stroke: string = "none";
+    private _strokeWidth: number = 0;
     private _opacity: number = 1;
 
     constructor(_fill: string, _stroke: string, _strokeWidth: number) {}

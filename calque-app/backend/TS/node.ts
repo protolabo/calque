@@ -1,9 +1,9 @@
 import { Style } from "./style";
 
 export class Node {
-    private _name : string;
-    private _posX : number;
-    private _posY : number;
+    private _name! : string;
+    private _posX! : number;
+    private _posY! : number;
     private _style: Style = new Style("black", "none", 0);
 
     constructor(_name: string, _posX: number, _posY: number) {}

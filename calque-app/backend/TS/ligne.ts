@@ -2,7 +2,7 @@ import { Duree } from "./edge";
 import { Style } from "./style";
 
 export class Ligne {
-    private _name: string;
+    private _name!: string;
     private _defaultDuree: Duree | undefined = undefined;
     private _style: Style = new Style("none", "black", 5);
     
