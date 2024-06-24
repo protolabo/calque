@@ -48,7 +48,7 @@
 
  4. Prepare the MongoDB dependencies : <br>
  *In console, change directory to the backend.* <br>
- `npm install mongodb`
+ `npm install mongodb` <br>
  Will add content in node_modules, package-lock.json and also update package.json. <br>
 
  5. Development dependencies :  <br>
@@ -75,9 +75,9 @@
 
 ### Ressources used :
 
- - https://www.youtube.com/watch?v=P6RZfI8KDYc&list=PL_cUvD4qzbkwjmjy-KjbieZ8J9cGwxZpC
- - https://www.youtube.com/watch?v=_7UQPve99r4
-
+ - https://www.youtube.com/watch?v=P6RZfI8KDYc&list=PL_cUvD4qzbkwjmjy-KjbieZ8J9cGwxZpC "playlist tutorial"
+ - https://www.youtube.com/watch?v=_7UQPve99r4 "1h30 tutorial"
+ - https://www.youtube.com/watch?v=fgTGADljAeg "30 mins tutorial"
 
 
 ## Timeline <br>
