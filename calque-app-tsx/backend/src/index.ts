@@ -5,18 +5,28 @@ If you need to include the dependencies or build artifacts, the process is detai
 
 */
 
-const mongoose = require('mongoose'); //import via node require
-mongoose.connect('mongodb+srv://calqueAdmin:IFT_3150_E24@calque.o9kagk1.mongodb.net/?retryWrites=true&w=majority&appName=Calque')
-.then(()=>{console.log("Connected to the database...");})
-.catch(()=>{console.log("Connection failed.");})
 
-/* valid express javascript boilerplate code */
-const express = require('express');
+/* import dependencies via node require */
+require('dotenv').config(); //for environment variables like DATABASE_URL
+
+const express = require('express'); //express facitates interaction with the database
 const app = express()
 const port = 3000
 
-//imports
+const mongoose = require('mongoose'); //mongoose facilitates interaction with the mongoDB database
+mongoose.connect(process.env.DATABASE_URL);
+//.then(()=>{console.log("Connected to the database...");})
+//.catch(()=>{console.log("Connection failed.");})
+//
+//via mongoose
+const db = mongoose.connection;
+db.on('error', (error:any)=>console.error(error)); //on error connecting to the db
+db.once('open', ()=>console.log('Connected to the Database.')); //execute once upon success
+
+
+//import routes
 const productRoute = require("./routes/table1.route.js");
+const productRoute = require("./routes/user.route.js");
 
 //middleware
 app.use(express.json()); //allows json to be sent in a POST request
@@ -134,9 +144,9 @@ app.delete('/api/products/:id', async (req:any,res:any)=>{
 
 
 
-/*   */
+/*  Executed every time the server is opened  */
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Listening to port ${port}`)
 })
 /* end */
 

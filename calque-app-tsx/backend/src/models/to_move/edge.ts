@@ -1,5 +1,5 @@
-import { Node } from './node.js';
-import { Ligne } from './ligne.js';
+import { Node } from '../node.js';
+import { Ligne } from '../ligne.js';
 import { Style } from './style.js';
 
 export class Edge {

@@ -1,8 +1,7 @@
 /* Part of the tutorial used to create the database collections
    The tables
 */
-
-//const mongoose = require('mongoose'); //import
+const mongoose = require('mongoose'); //import
 
 const ProductSchema = mongoose.Schema({
      name:{
