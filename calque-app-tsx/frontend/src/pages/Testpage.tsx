@@ -1,10 +1,14 @@
-import React from 'react'
+import NavbarTest from "../components/NavbarTest";
 
 function Testpage() {
   return (
-    <div>
-      TEST TEST TEST
-    </div>
+    <>
+        <NavbarTest/>
+        <div>
+          TEST TEST TEST
+        </div>
+    </>
+    
   )
 }
 

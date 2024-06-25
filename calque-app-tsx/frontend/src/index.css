@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+.logosvg {
+  max-width: 100%;
+  height: auto;
+  /* Optional */
+  display: block;
+}
+
+@layer base {
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/fonts/Roboto.woff2) format("woff2");
+  }
+}
+
 /*
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
