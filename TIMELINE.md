@@ -68,7 +68,10 @@
 
 ### Observations
 
-### Ressources
+### Ressources-->
+
+
+
 
 ## Semaine 8 (2024-06-24)
 
@@ -80,20 +83,50 @@
 
 ### Ressources
 
+
+
+
+
 ## Semaine 7 (2024-06-17)
 
 ### Objectifs
 
+- Setup le front end
+- Setup le backend
+- Préparer la database et la connectivité
 
--Diagramme de séquence + comparer avec les références / documentations / standards d'entreprise 
--Diagramme de classe
 ### Réalisations
+ 
+ Frontend: <br>
+ 1. À remplir.
+
+ <br>
+ Backend: (Voir README.md <br> 
+ 1.   Préparation du répertoire et de l'arbore backend.
+ 2.   Ajout des modeles pour les collections " user " et " project"
+ 3.   Ajout des routes et controlleurs pour les collections
+ 4.   Initialisation de la base de donnée MongoDB
+ 5.   Connectivité assurée.
+
 
 ### Observations
 
+S/O
+
 ### Ressources
+Setting up the express/mongoose API :
+- https://www.youtube.com/watch?v=P6RZfI8KDYc&list=PL_cUvD4qzbkwjmjy-KjbieZ8J9cGwxZpC "playlist tutorial"
+- https://www.youtube.com/watch?v=_7UQPve99r4 "1h30 tutorial"
+- https://www.youtube.com/watch?v=fgTGADljAeg "30 mins tutorial" <br>
 
+React:
+- www.youtube.com/watch?v=d56mG7DezGs "1h Introduction"
+- https://www.typescriptlang.org/docs/ "Typescript Documentation"
+- https://www.youtube.com/watch?v=EcCTIExsqmI "Generic types"
 
+Mongoose :
+- https://www.mongodb.com/docs/manual/core/document/
+- https://mongoosejs.com/docs/guide.html - https://mongoosejs.com/docs/api/schema.html
 
 
 
@@ -106,7 +139,9 @@
 
 ### Observations
 
-### Ressources-->
+### Ressources
+
+
 
 ## Semaine 5 (2024-06-03)
 
