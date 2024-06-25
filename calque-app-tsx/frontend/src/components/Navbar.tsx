@@ -9,7 +9,7 @@ function Navbar() {
   return (
     <div className=" bg-primary text-white flex items-center justify-between mx-auto p-4">
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 justify-start">
             <div className="flex flex-wrap items-center">
                 <Logo />
                 <Arrow/>
@@ -28,16 +28,20 @@ function Navbar() {
             </div>   
         </div>
         
-        <div className="text-white flex justify-items-center gap-2 items-center font-bold text-xl">
+        <div className="text-white flex justify-items-center gap-2 items-center font-bold text-xl p-1">
             <div>Carte-globale</div>
             <div>/</div>
             <div>Sous-carte-1</div>
         </div>
 
         <div className="flex gap-4">
-            <div className="flex flex-wrap items-center">
-                <FaPlay className="w-6 h-6"/>
-                <Arrow/>
+            <div className="flex flex-wrap items-center mx-auto gap-8">
+                <div className="text-lg">Prototype 1.0</div>
+                <div className="flex flex-wrap items-center">
+                    <FaPlay className="w-6 h-6"/>
+                    <Arrow/>
+                </div>
+                
             </div>
         </div>
       
