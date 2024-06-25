@@ -1,4 +1,4 @@
-import { Duree } from "./to_move/edge";
+import { Duree } from "./edge";
 import { Style } from "./style";
 
 export class Ligne {
