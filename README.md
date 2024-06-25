@@ -52,12 +52,12 @@ Le développement du projet sera divisé en plusieurs phases:
 
 - Semaine 3 : Brouillon du prototype Designer
 - Semaine 4 : Brouillon du prototype Utilisateur
-- Semaine 5
-- Semaine 6
+- Semaine 5 : Raffiner prototype figma
+- Semaine 6 : Fin prototypage.
 
 ### Phase 3: Développement 
 
-- Semaine 7
+- Semaine 7 : Préparation du stack. Setup Front-End, Backend et Database.
 - Semaine 8
 - Semaine 9
 - Semaine 10
