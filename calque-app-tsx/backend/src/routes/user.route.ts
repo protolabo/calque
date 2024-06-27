@@ -3,6 +3,8 @@ import UserController from '../controllers/user.controller';
 
 const router: Router = express.Router();
 
+//middleware
+router.use(UserController.welcomeMessage);
 // Route: GET all users
 router.get('/', UserController.getAllUsers);
 

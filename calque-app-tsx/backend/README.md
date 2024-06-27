@@ -85,6 +85,7 @@
  *DD-MM-YYYY* <br>
  18-06-2024 : Configuring the MongoDB for the first time; <br>
  20-06-2024 : Setting up the folder with the following ; <br>
+ 26-06-2024 : Debugging the API using Insomnia ; <br>
 
 
 
@@ -140,10 +141,115 @@
  - ` interface { (arg1: Type, arg2 : Type) : Promise<Type>; } ` Interface with method 
  - ` function update(arg1 : Type1){...}; ` can tolerate other types than Type1 as long as they are made out of the exact same structure of primitive types.
  
-### References:
+ ### References:
  - www.youtube.com/watch?v=d56mG7DezGs "1h Introduction"
  - https://www.typescriptlang.org/docs/ "Typescript Documentation"
  - https://www.youtube.com/watch?v=EcCTIExsqmI "Generic types"
+
+
+## 🏃‍♂️ Notes on Express 🏃‍♂️ :
+
+ ### Inputs (Request)
+ - `req.body.attribute` = will access the data stored by the request. If sent from an HTML form, the attribute name of the `<input />` tag matches what was defined with `name="variable"` property and the value accessed is dictated by the `value="..."` property. The data cannot be accessed directly unless the server app is using the middleware `app.use(express.urlencoded({extended:true}));`.
+ - `req.query.attribute` will access the data stored in the URL such that `http://.../page?attribute=value...' will return the value associated to the attribute.
+
+ ### Outputs (Response)
+ - `res.setHeader("Content-type", "text/html")` will dictate / update the format of the send() method.
+ - `res.send("Hello world)` will send a simple string response. Will only be called ONCE in code.
+ - `res.send("<p> Hello world </p>")` will send HTML if the header was set properly.
+ - `res.write("<p> Hello world </p>")` and `res.end()` will work in a similar way than `res.send(...)` 
+ - `res.sendStatus(404)` will send an HTTP server status code.
+ - `res.status(500).send('message')` chain a message to the status.
+ - `res.status(400).json({...:...})` chain a json response.
+ - `res.download("file.ext")` send a file response to the client to be downloaded.
+ - `res.render("./file")` will prompt a view engine to render the specified file.
+ - `res.redirect('path/...')` will redirect the user after the response is sent.
+ 
+ ### Routes
+ ``` javascript
+ //basic router in our main app
+ const express = require("express");
+ const app = express();
+ app.get("/", (req,res)=>{
+    res.send("Hello world");
+ })
+ ``` 
+ 
+ <br>
+
+ This executes when we reach the path '/' which is the path of the current file. The req is a Request interface and the res is the Response interface. Upon reaching the file / page, the get method will be executed. <br>
+
+ ``` javascript
+ //independent router in its router file
+ const express = require("express");
+ const router = express().Router(); //independent from app=express() and has similar functionalities
+ router.get("/", (req,res)=>{  //  represents a subfolder or parent file
+    res.send("Hello world");
+ })
+  router.get("/action1", (req,res)=>{  // response associated with the parent/action1 path
+    res.send("...");
+ })
+   router.get("/action2/:var", (req,res)=>{  // response dictated by the dynamic parameter :var
+    req.params.var // is how we access the dynamic parameter var from the path / URL
+    res.send("...");
+ })
+ //...
+ module.exports = router;
+ ``` 
+ <br>
+
+ This router is associated with a path such that "/" represents the  and has actions associated with nested files. Upon reaching each file, the appropriate `router.get(...)` will be executed. Our server file will have to import this route with `const parentRouter = require('./routes/parent')'` and `app.use('/parent',parentRouter);`. <br>
+
+
+``` javascript
+ //...
+   router.route("/action2/:var") //define all the HTML requests with the same route
+   .get((req,res)=>{  // get
+    //...
+ })
+    .put((req,res)=>{  // put
+    //...
+ })
+    .delete((req,res)=>{  // delete
+    //...
+ })
+ ``` 
+ <br>
+ 
+ Interesting shorthand notation to define the various HTTP request in a chained manner instead of defining them with `router.get` , `router.put` and `router.delete`.
+
+
+ ### Middleware
+
+ Middleware is code executed after the request is recieved but before the response is sent. Middleware code is run before`router.get` , `router.put` and `router.delete`. Middleware in the server file will be executed before middleware in the routers. <br> 
+
+ ``` javascript
+ //In server file
+    app.use(middlewareFx1); //will execute the code defined in function middleWareFx1 before everything below.
+    const express = require("express");
+    const app = express();
+    app.get("/", (req, middlewareFx2 ,res)=>{ //middlewareFx2 is specific to that context 
+        res.send("Hello world");
+    })
+    //... 
+    function middleWareFx1(req, res, next){ //Will be able to access request and response and use them
+        console.log(req.originalUrl); //url of the API call
+        next(); //GOTO to the next middleware function call if it applies, execution will resume here after the HTTP request is answered. 
+        return; //will assure the end of the execution.
+    }
+
+ ``` 
+ <br>
+
+ If the next() GOTO is put at the beginning of the middleware function, the HTTP request will be treated before the content of the middleware is executed. If next() is at the end of the function, then the HTTP request will be handled at the end. To chain multiple middleware functions one after the other, the g.et / post / delete method should be written as `app.get("/", middlewareFx1, middlewareFx2, ... ,(req,res)=>{...})` such that the order of execution will be middlewareFx1, MiddlewareFx2 and get. That order may be altered depending on how next() is used.
+
+ <br>
+
+ ### References:
+ - https://www.youtube.com/watch?v=SccSCuHhOw0
+ - https://www.youtube.com/watch?v=lY6icfhap2o
+ - 
+
 
 
  ## 🦢 Notes on Mongoose 🦢 :

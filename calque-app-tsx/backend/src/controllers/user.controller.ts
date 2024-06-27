@@ -1,22 +1,28 @@
 // Import necessary modules and types
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import User, { IUser } from '../models/user.model'; // Assuming IUser defines the user schema interface
 
-// Interface for defining controller functions
-interface UserControllerI {
-    getAllUsers(req: Request, res: Response): Promise<void>;
-    getUserById(req: Request, res: Response): Promise<void>;
-    createUser(req: Request, res: Response): Promise<void>;
-    updateUser(req: Request, res: Response): Promise<void>;
-    deleteUser(req: Request, res: Response): Promise<void>;
-}
 
-// Controller class implementing UserController interface
-class UserController implements UserControllerI {
+
+class UserController {
+    public welcomeMessage(req: Request, res: Response, next:NextFunction) {
+        try {
+            console.log(`
+                call : ${req.originalUrl}
+                `)
+            next();
+
+        } catch (err:any) {
+            res.status(500).json({ message: err.message });
+        }
+    }
+
     // GET all users
     public async getAllUsers(req: Request, res: Response): Promise<void> {
         try {
-            const users: IUser[] = await User.find();
+            const users: IUser[] = await User.find({});
+            //response
+            //res.json(...) converts an array of objects to a json response that will be returned as a response
             res.json(users);
         } catch (err:any) {
             res.status(500).json({ message: err.message });
@@ -39,17 +45,50 @@ class UserController implements UserControllerI {
 
     // POST create a new user
     public async createUser(req: Request, res: Response): Promise<void> {
-        const newUser: IUser = new User({
-            username: req.body.username,
-            email: req.body.email,
-            // other fields as needed
-        });
 
         try {
-            const savedUser: IUser = await newUser.save();
-            res.status(201).json(savedUser);
-        } catch (err:any) {
-            res.status(400).json({ message: err.message });
+            // Destructure the properties from the request body
+            const { username, email, password, fullName, bio, age, gender, location, interests, role, avatarUrl } = req.body;
+
+            // Check for required fields
+            if (!username || !email || !password) {
+                res.status(400).json({ message: 'Username, email, and password are required.' });
+                return;
+            }
+
+            // Check if the username or email already exists
+            const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+            if (existingUser) {
+                res.status(400).json({ message: 'Username or email already exists.' });
+                return;
+            }
+
+            // Create a new user instance
+            const newUser: IUser  = new User({
+                username,
+                email,
+                password,
+                fullName,
+                bio,
+                age,
+                gender,
+                location,
+                interests,
+                role,
+                avatarUrl,
+                isActive: true,
+                createdAt: new Date(),
+                lastLogin: null,
+            });
+
+            // Save the new user to the database
+            await newUser.save();
+
+            // Respond with the created user
+            res.status(201).json(newUser);
+        } 
+        catch (error) {
+            res.status(500).json({ message: 'Server error', error });
         }
     }
 

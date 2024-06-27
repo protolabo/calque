@@ -9,6 +9,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 //
 //
 // Interface for defining the User document structure
+//It acts as our ORM
 export interface IUser extends Document {
     username: string;
     email: string;
