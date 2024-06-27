@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoute from './routes/user.route';
 import projectRoute from './routes/project.route';
-
+import responseLogger from './middleware/res_logger.middleware';
 dotenv.config();
 
 const app: Application = express();
@@ -20,7 +20,10 @@ db.once('open', () => console.log('Connected to the Database.'));
 app.use(express.json()); // Parse JSON bodies for API requests
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded bodies
 
-// Routes
+
+//Middleware
+app.use(responseLogger); //will print the return values in the console
+//Routers
 app.use('/api/user', userRoute);
 app.use('/api/project', projectRoute);
 

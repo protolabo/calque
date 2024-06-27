@@ -1,22 +1,14 @@
 import { Request, Response } from 'express';
 import Project, { IProject } from '../models/project.model';
 import { IUser } from '../models/user.model'; // Assuming IUser interface is defined in user.model.ts
+import mongoose, { Schema, Document } from 'mongoose'; //schema class and Document interface
 
-// Interface for defining controller functions
-interface ProjectController {
-    getAllProjects(req: Request, res: Response): Promise<void>;
-    getProjectById(req: Request, res: Response): Promise<void>;
-    createProject(req: Request, res: Response): Promise<void>;
-    updateProject(req: Request, res: Response): Promise<void>;
-    deleteProject(req: Request, res: Response): Promise<void>;
-}
-
-// Controller class implementing ProjectController interface
-class ProjectControllerImpl implements ProjectController {
+// Controller class 
+class ProjectController {
     // GET all projects
     public async getAllProjects(req: Request, res: Response): Promise<void> {
         try {
-            const projects: IProject[] = await Project.find();
+            const projects: IProject[] = await Project.find({});
             res.json(projects);
         } catch (err:any) {
             res.status(500).json({ message: err.message });
@@ -39,16 +31,16 @@ class ProjectControllerImpl implements ProjectController {
 
     // POST create a new project
     public async createProject(req: Request, res: Response): Promise<void> {
-        const { title, description, content, creator } = req.body;
-        
-        const newProject: IProject = new Project({
-            title,
-            description,
-            content,
-            creator: mongoose.Types.ObjectId(creator) as IUser['_id'] // Assuming creator is the _id of a user
-        });
-
         try {
+            // Destructure the properties from the request body
+            const { title, description, content, creator } = req.body;
+            //create the document
+            const newProject: IProject = new Project({
+                title,
+                description,
+                content,
+                creator: new mongoose.Types.ObjectId(creator) as IUser['_id'] // Assuming creator is the _id of a user
+            });
             const savedProject: IProject = await newProject.save();
             res.status(201).json(savedProject);
         } catch (err:any) {
@@ -85,4 +77,4 @@ class ProjectControllerImpl implements ProjectController {
     }
 }
 
-export default new ProjectControllerImpl();
+export default new ProjectController();

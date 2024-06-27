@@ -151,7 +151,10 @@
 
  ### Inputs (Request)
  - `req.body.attribute` = will access the data stored by the request. If sent from an HTML form, the attribute name of the `<input />` tag matches what was defined with `name="variable"` property and the value accessed is dictated by the `value="..."` property. The data cannot be accessed directly unless the server app is using the middleware `app.use(express.urlencoded({extended:true}));`.
- - `req.query.attribute` will access the data stored in the URL such that `http://.../page?attribute=value...' will return the value associated to the attribute.
+ - `req.query.attribute` will access the data stored in the URL such that `http://.../page?attribute=value...'` will return the value associated to the attribute.
+ - `req.method` will return "GET", "PUT", "DELETE", "POST"...
+ - `req.originalUrl` will return the original URL untouched by internal alterations.
+ - `req.url` will return the URL, that can be modified for better rerouting.
 
  ### Outputs (Response)
  - `res.setHeader("Content-type", "text/html")` will dictate / update the format of the send() method.
