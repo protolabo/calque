@@ -24,10 +24,10 @@ function LbSecTitle(props: {children: ReactNode}) {
 
 function LbSubSection(props: {icon: React.FC<{className: string}>, children: ReactNode}) {
     return (
-      <div className="flex justify-start p-2 gap-2 items-center">
+      <div className="flex justify-start p-2 ml-6 gap-2 items-center">
         <props.icon className="w-6 h-6"/>
         <div>{props.children}</div>
-    </div>
+      </div>
     )
 
 }
@@ -70,25 +70,17 @@ function Leftbar() {
   return (
     <div className="fixed bg-secondary text-primary left-0  z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
       <LbGroupElements>
-        <LbSecTitle>
-          Etages
-        </LbSecTitle>
-        <FloorSection>
-          Rez-de-chaussée
-        </FloorSection>
+        <LbSecTitle>Etages</LbSecTitle>
+        <FloorSection>Rez-de-chaussée</FloorSection>
+        <FloorSection>Sous-sol</FloorSection>
+        <FloorSection>Métro</FloorSection>
       </LbGroupElements>
       <LbGroupElements>
-        <LbSecTitle>
-            Lignes
-        </LbSecTitle>
-        <LineSection>
-            Ligne Orange
-        </LineSection>
+        <LbSecTitle>Lignes</LbSecTitle>
+        <LineSection>Ligne Orange</LineSection>
       </LbGroupElements>
       <LbGroupElements>
-        <LbSecTitle>
-            Tags
-        </LbSecTitle>
+        <LbSecTitle>Tags</LbSecTitle>
         <TagSection>Station de train</TagSection>
         <TagSection>Université</TagSection>
       </LbGroupElements>
