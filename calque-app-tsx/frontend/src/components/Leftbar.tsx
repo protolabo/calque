@@ -68,7 +68,7 @@ function TagSection(props: {children: ReactNode}) {
 
 function Leftbar() {
   return (
-    <div className="fixed bg-secondary text-primary left-0  z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
+    <div className="sticky bg-secondary text-primary left-0 top-0 h-screen w-64 transition-transform -translate-x-full sm:translate-x-0">
       <LbGroupElements>
         <LbSecTitle>Etages</LbSecTitle>
         <FloorSection>Rez-de-chaussée</FloorSection>

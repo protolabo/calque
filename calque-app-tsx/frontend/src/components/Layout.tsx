@@ -3,13 +3,14 @@ import Navbar from "./Navbar"
 import Leftbar from "./Leftbar"
 import Rightbar from "./Rightbar"
 import Canvas from "./Canvas"
+import Map from "./Map"
 function Layout() {
   return (
     <div>
         <Navbar/>
-        <div className="grid-flow-row">
+        <div className="flex">
           <Leftbar/>
-          <Canvas/>
+          <Map/>
           <Rightbar/>
         </div>
         <Outlet/>
