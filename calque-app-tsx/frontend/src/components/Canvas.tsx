@@ -4,7 +4,7 @@ import React from "react"
 
 function Canvas() {
     return (
-        <svg className="mx-auto" width="100%" height="100%">
+        <svg id="canvas" className="mx-auto" width="100" height="100">
             <g transform="translate(50%,50%)"></g>
         </svg>
     );
