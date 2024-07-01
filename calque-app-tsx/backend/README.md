@@ -339,19 +339,36 @@ newUser.save()
 
  ### Explaining the current project architecture
 
- 1. The entity.model. <br>
- Let's use the user.model.ts as an example. In this file, we define many important notions: <br>
- - IUser is the interface defining the structure of a user document.
- - userSchema defines the Mongoose schema with its fields and types.
- - User is the Mongoose model created from the schema, specifying that it handles documents conforming to the IUser interface.
+  #### The entity.model. 
+    Let's use the user.model.ts as an example. In this file, we define many important notions: <br>
+    - IUser is the interface defining the structure of a user document.
+    - userSchema defines the Mongoose schema with its fields and types.
+    - User is the Mongoose model created from the schema, specifying that it handles documents conforming to the IUser interface.
 
 
- <br> 
+    <br> 
 
- ` const User = mongoose.model<IUser>('User', userSchema); ` <br>
+    ` const User = mongoose.model<IUser>('User', userSchema); ` <br>
 
- When you use methods like User.find(), User.findById(), User.findByIdAndUpdate()... Mongoose returns instances of IUser, which are enriched with methods like .save(), .update(), .delete() via the IUser interface.
+    When you use methods like User.find(), User.findById(), User.findByIdAndUpdate()... Mongoose returns instances of IUser, which are enriched with methods like .save(), .update(), .delete() via the IUser interface.
  
 
- 2. Explaining the entity.controller. <br>
 
+
+# Extra Notes (Not part of the project):
+
+## Connect-Mongo
+ Store sessions in our MongoDB
+
+
+## Express-session
+ For sessions and cookies
+
+## Template engine
+
+## Method-override
+ Add PUT and DELETE methods to the Template engine
+
+## Passport
+
+## Passport-google-oauth20 
