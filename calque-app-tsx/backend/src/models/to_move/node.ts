@@ -1,10 +1,13 @@
 import { Style } from "./style";
+import { Edge } from "./edge";
 
 export class Node {
     private _name! : string;
     private _posX! : number;
     private _posY! : number;
     private _style: Style = new Style("black", "none", 0);
+    private _entrant: Edge[] = [];
+    private _sortant: Edge[] = [];
 
     constructor(_name: string, _posX: number, _posY: number) {}
 
@@ -20,6 +23,12 @@ export class Node {
     public get style() : Style {
         return this._style;
     }
+    public get entrant() : Edge[] {
+        return this._entrant;
+    } 
+    public get sortant() : Edge[] {
+        return this._sortant;
+    }
     
     public set name(v : string) {
         this._name = v;
@@ -32,5 +41,18 @@ export class Node {
     }
     public set style(v : Style) {
         this._style = v;
+    }
+
+    public addEntrant(v : Edge) {
+        this._entrant.push(v);
+    }
+    public addSortant(v: Edge) {
+        this._sortant.push(v);
+    }
+    public removeEntrant(v : Edge) {
+        this._entrant.splice(this._entrant.indexOf(v), 1);
+    }
+    public removeSortant(v : Edge) {
+        this._sortant.splice(this._sortant.indexOf(v), 1);
     }
 }

@@ -2,13 +2,13 @@ import React from "react"
 
 // XIA XIA XIA XIA
 
-function Canvas(){
-    return(
-        <div className="mx-auto">
-            <div className="fixed bg-pink-400  w-full h-full flex items-center justify-center">test</div>
-        </div>
-        
-    )
+function Canvas() {
+    return (
+        <svg id="canvas" className="mx-auto" width="100" height="100">
+            <g transform="translate(50%,50%)"></g>
+        </svg>
+    );
 }
+
 
 export default Canvas
