@@ -77,13 +77,28 @@
 
 ### Objectifs
 
+Conception du premier livrable:  <br>
+
+- Front-end interactif : On veut pouvoir manipuler le canvas et ses éléments
+- Back-end et API complets
+
 ### Réalisations
+
+Front-End: <br>
+
+- Conception du Front-End en cours
+
+Back-End : <br>
+
+- Back-end et API (CRUD) terminé pour les collections & modèles existants
+- Ajout de middleware (logger)
+- Ajout de données fictives
 
 ### Observations
 
 ### Ressources
 
-
+- Toutes les ressources utilisées pour le Back-End ont été documentées dans calque/calque-app-tsx/backend/README.md
 
 
 
@@ -135,12 +150,34 @@ Mongoose :
 
 ### Objectifs
 
+ Prototypes: <br>
+ 
+ - Raffiner le style final de l'application
+ - Définir une feuille de style pour le projet
+
+ Diagrammes de classes: <br> 
+
+  - Structure du front-end
+  - Structure du backend
+
 ### Réalisations
+
+ Prototypes: <br>
+ 
+ - Prototype figma réalisé, sert de guide de conception
+
+ Diagrammes de classes: <br> 
+
+  - Structure du front-end développée
+
 
 ### Observations
 
+S/O
+
 ### Ressources
 
+S/O
 
 
 ## Semaine 5 (2024-06-03)
