@@ -39,6 +39,10 @@ export class Edge {
     public get style() : Style {
         return this._style;
     }
+    public get isBlocked() : boolean {
+        return this._isBlocked;
+    }
+    
     
     public set name(v : string) {
         this._name = v;
