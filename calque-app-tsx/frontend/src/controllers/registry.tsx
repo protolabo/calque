@@ -35,7 +35,7 @@ export class Registry {
     // create node
     public createNode(): number {
         const id: number = this.getNextId();
-        const node: Node = new Node("node " + id.toString(), 100, 100);
+        const node: Node = new Node("node " + id.toString(), 100, 100, id);
         this._registry.set(id, node);
         return id;
     }
@@ -46,7 +46,7 @@ export class Registry {
         const node1: Node | Edge | undefined = this.get(key1);
         const node2: Node | Edge | undefined = this.get(key2);
         if (typeof node1 !== "undefined" && typeof node2 !== "undefined" && Object.keys(node1).concat(Object.keys(node2)).includes("_entrant")) {
-            const edge: Edge = new Edge("edge " + id.toString, (node1 as Node), (node2 as Node), ligne);
+            const edge: Edge = new Edge(id, "edge " + id.toString, (node1 as Node), (node2 as Node), ligne);
             this._registry.set(id, edge);
             this.updateNode({key:key1, addSortant:[edge]});
             this.updateNode({key:key2, addEntrant:[edge]});
@@ -117,18 +117,39 @@ export class Registry {
             isBlocked: boolean
         }): void {
 
-            let edge: Node | Edge | undefined = this.get(key);
-            if (typeof edge !== "undefined" && Object.keys(edge).includes("_ligne")) {
-                edge = (edge as Edge);
-                if (typeof name !== "undefined") {
-                    edge.name = name;
-                }
-                edge.duree = duree;
-                edge.isBlocked = isBlocked;
+        let edge: Node | Edge | undefined = this.get(key);
+        if (typeof edge !== "undefined" && Object.keys(edge).includes("_ligne")) {
+            edge = (edge as Edge);
+            if (typeof name !== "undefined") {
+                edge.name = name;
+            }
+            edge.duree = duree;
+            edge.isBlocked = isBlocked;
 
-                if (typeof style !== "undefined") {
-                    edge.style = style;
-                }
+            if (typeof style !== "undefined") {
+                edge.style = style;
             }
         }
+    }
+
+    // delete node or edge
+    public delete(key: number): void {
+        const element = this.get(key);
+        if (typeof element !== "undefined") {
+            if (Object.keys(element).includes("_entrant")) {
+                const node = (element as Node);
+                for (const edge of node.entrant.concat(node.sortant)) {
+                    this.delete(edge.id)
+                }
+            }
+            else {
+                const edge = (element as Edge);
+                const n1 = edge.node1;
+                const n2 = edge.node2;
+                this.updateNode({key:n1.id, removeSortant:[edge]});
+                this.updateNode({key:n2.id, removeEntrant:[edge]});
+            }
+            this._registry.delete(key);
+        }
+    }
 }
