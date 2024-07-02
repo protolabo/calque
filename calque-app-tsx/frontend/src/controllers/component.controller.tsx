@@ -1,13 +1,13 @@
 import * as d3 from "d3"
-import { Dictionnaire } from "./dictionnaire";
+import { Registry } from "./registry";
 import { Node } from "../models/node";
 import { Edge } from "../models/edge";
 
-const registre: Dictionnaire = Dictionnaire.getInstance();
+const registry: Registry = Registry.getInstance();
 
 // Create node
 export function createNode(x: number = 100, y: number = 100, fill: string = "orange"): void {
-    const id: number = registre.createNode();
+    const id: number = registry.createNode();
     d3.select("#canvas")
       .select("g")
       .append("circle")
@@ -18,7 +18,7 @@ export function createNode(x: number = 100, y: number = 100, fill: string = "ora
       .attr("fill", fill)
       .call(d3.drag<SVGCircleElement, any>()
               .on('drag', handleDrag)
-              .on('end', (e: any) => registre.updateNode({key:id, posX:e.x, posY:e.y})));
+              .on('end', (e: any) => registry.updateNode({key:id, posX:e.x, posY:e.y})));
 }
 
 function handleDrag(e: any, d: any) {
@@ -38,5 +38,5 @@ export function deleteEdge() {}
 
 // get node or edge by id
 export function getElement(key: number): Node | Edge | undefined {
-    return registre.get(key);
+    return registry.get(key);
 }
