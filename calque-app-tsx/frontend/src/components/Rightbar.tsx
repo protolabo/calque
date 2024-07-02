@@ -6,7 +6,7 @@ import NodeEditor from "./NodeEditor"
 
 function Rightbar() {
   return (
-    <div className=" bg-secondary fixed right-0 grid z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
+    <div className="sticky flex-1 right-0 top-0 w-64 bg-secondary fixed  grid z-40  h-screen transition-transform -translate-x-full sm:translate-x-0">
       <NodeEditor/>
     </div>
   )
