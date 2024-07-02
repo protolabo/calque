@@ -4,22 +4,22 @@ import { Node } from "../models/node";
 import { Style } from "../models/style";
 
 
-export class Dictionnaire {
-    private static instance: Dictionnaire;
-    private _registre: Map<number, Node | Edge> = new Map;
+export class Registry {
+    private static instance: Registry;
+    private _registry: Map<number, Node | Edge> = new Map;
 
     private constructor() {}
 
-    static getInstance(): Dictionnaire {
+    static getInstance(): Registry {
         if (typeof this.instance === "undefined") {
-            this.instance = new Dictionnaire;
+            this.instance = new Registry;
         }
         return this.instance;
     }
 
     private getNextId(): number {
         let nextId: number | undefined;
-        for (const key of this._registre.keys()) {
+        for (const key of this._registry.keys()) {
             if (typeof nextId === undefined || key > nextId!) {
                 nextId = key;
             }
@@ -29,14 +29,14 @@ export class Dictionnaire {
 
     // get
     public get(key: number): Edge | Node | undefined {
-        return this._registre.get(key);
+        return this._registry.get(key);
     }
 
     // create node
     public createNode(): number {
         const id: number = this.getNextId();
         const node: Node = new Node("node " + id.toString(), 100, 100);
-        this._registre.set(id, node);
+        this._registry.set(id, node);
         return id;
     }
 
@@ -47,7 +47,7 @@ export class Dictionnaire {
         const node2: Node | Edge | undefined = this.get(key2);
         if (typeof node1 !== "undefined" && typeof node2 !== "undefined" && Object.keys(node1).concat(Object.keys(node2)).includes("_entrant")) {
             const edge: Edge = new Edge("edge " + id.toString, (node1 as Node), (node2 as Node), ligne);
-            this._registre.set(id, edge);
+            this._registry.set(id, edge);
             this.updateNode({key:key1, addSortant:[edge]});
             this.updateNode({key:key2, addEntrant:[edge]});
             return id;
