@@ -13,5 +13,13 @@ export function createNode(x: number = 100, y: number = 100, fill: string = "ora
       .attr("cx", x)
       .attr("cy", y)
       .attr("r", 20)
-      .attr("fill", fill);
+      .attr("fill", fill)
+      .call(d3.drag<SVGCircleElement, any>()
+              .on('drag', handleDrag));
+}
+
+function handleDrag(e: any, d: any) {
+    d3.select(d)
+      .attr("cx", e.x)
+      .attr("cy", e.y)
 }
