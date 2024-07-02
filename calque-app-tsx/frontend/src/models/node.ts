@@ -30,6 +30,13 @@ export class Node {
     public get style() : Style {
         return this._style;
     }
+    public get entrant() : Edge[] {
+        return this._entrant;
+    }
+    public get sortant() : Edge[] {
+        return this._sortant;
+    }
+    
     
     public get id() : number {
         return this._id;
