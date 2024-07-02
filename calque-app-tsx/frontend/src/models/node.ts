@@ -8,13 +8,13 @@ export class Node {
     private _style: Style = new Style("black", "none", 0);
     private _entrant: Edge[] = [];
     private _sortant: Edge[] = [];
-    private _id! : number;
+    private readonly _id! : number;
 
-    constructor(name: string, posX: number, posY: number) {
+    constructor(name: string, posX: number, posY: number, id: number) {
         this._name = name;
         this._posX = posX;
         this._posY = posY;
-        this._id = Math.floor(Math.random() * 10000); // to delete
+        this._id = id;
         this._style = new Style("black", "none", 0); // Default style
     }
 
@@ -36,14 +36,8 @@ export class Node {
     public get sortant() : Edge[] {
         return this._sortant;
     }
-    
-    
     public get id() : number {
         return this._id;
-    }
-    
-    public set id(v : number) {
-        this._id = v;
     }
 
     public set name(v : string) {
