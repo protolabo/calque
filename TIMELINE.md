@@ -77,13 +77,28 @@
 
 ### Objectifs
 
+Conception du premier livrable:  <br>
+
+- Front-end interactif : On veut pouvoir manipuler le canvas et ses éléments
+- Back-end et API complets
+
 ### Réalisations
+
+Front-End: <br>
+
+- Conception du Front-End en cours
+
+Back-End : <br>
+
+- Back-end et API (CRUD) terminé pour les collections & modèles existants
+- Ajout de middleware (logger)
+- Ajout de données fictives
 
 ### Observations
 
 ### Ressources
 
-
+- Toutes les ressources utilisées pour le Back-End ont été documentées dans calque/calque-app-tsx/backend/README.md
 
 
 
