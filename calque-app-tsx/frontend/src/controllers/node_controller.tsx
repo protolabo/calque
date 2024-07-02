@@ -15,7 +15,8 @@ export function createNode(x: number = 100, y: number = 100, fill: string = "ora
       .attr("r", 20)
       .attr("fill", fill)
       .call(d3.drag<SVGCircleElement, any>()
-              .on('drag', handleDrag));
+              .on('drag', handleDrag)
+              .on('end', (e: any) => registre.updateNode({key:id, posX:e.x, posY:e.y})));
 }
 
 function handleDrag(e: any, d: any) {
@@ -23,3 +24,13 @@ function handleDrag(e: any, d: any) {
       .attr("cx", e.x)
       .attr("cy", e.y)
 }
+
+// create edge
+export function createEdge() {}
+
+// delete node
+export function deleteNode() {}
+
+// delete edge
+export function deleteEdge() {}
+
