@@ -10,7 +10,7 @@ function NodeEditor() {
   return (
     <div>
 
-        <div className="">
+        <div className="flex flex-col p-2 h-screen">
             <div id="NodeEditor_Header">
                 <h2>
                     Node Editor
