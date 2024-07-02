@@ -13,6 +13,7 @@ export class Edge {
 
     constructor(_name: string, _node1: Node, _node2: Node, _ligne: Ligne, _duree: Duree | undefined = undefined) {}
 
+    // might delete later
     public swapBlockedStatus(): void {
         if (this._isBlocked) {
             this._isBlocked = false
@@ -54,6 +55,10 @@ export class Edge {
         this._style.stroke = v.stroke;
         this._style.strokeWidth = v.strokeWidth;
     }
+    public set isBlocked(v : boolean) {
+        this._isBlocked = v;
+    }
+    
 }
 
 export type Duree = {heure: string | undefined, minute: string | undefined}; 
