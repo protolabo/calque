@@ -1,4 +1,4 @@
-import { Edge } from "../models/edge";
+import { Edge, Duree } from "../models/edge";
 import { Ligne } from "../models/ligne";
 import { Node } from "../models/node";
 import { Style } from "../models/style";
@@ -67,7 +67,8 @@ export class Registry {
             addEntrant?: Edge[], 
             removeEntrant?: Edge[], 
             addSortant?: Edge[], 
-            removeSortant?: Edge[]}) {
+            removeSortant?: Edge[]
+        }): void {
 
         let node: Node | Edge | undefined = this.get(key);
         if (typeof node !== "undefined" && Object.keys(node).includes("_entrant")) {
@@ -106,4 +107,28 @@ export class Registry {
             }
         }
     }
+
+    // update edge
+    public updateEdge({key, name, duree, style, isBlocked}:
+        {key: number, 
+            name?: string, 
+            duree?: Duree, 
+            style?: Style,
+            isBlocked: boolean
+        }): void {
+
+            let edge: Node | Edge | undefined = this.get(key);
+            if (typeof edge !== "undefined" && Object.keys(edge).includes("_ligne")) {
+                edge = (edge as Edge);
+                if (typeof name !== "undefined") {
+                    edge.name = name;
+                }
+                edge.duree = duree;
+                edge.isBlocked = isBlocked;
+
+                if (typeof style !== "undefined") {
+                    edge.style = style;
+                }
+            }
+        }
 }
