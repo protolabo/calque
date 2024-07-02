@@ -150,12 +150,34 @@ Mongoose :
 
 ### Objectifs
 
+ Prototypes: <br>
+ 
+ - Raffiner le style final de l'application
+ - Définir une feuille de style pour le projet
+
+ Diagrammes de classes: <br> 
+
+  - Structure du front-end
+  - Structure du backend
+
 ### Réalisations
+
+ Prototypes: <br>
+ 
+ - Prototype figma réalisé, sert de guide de conception
+
+ Diagrammes de classes: <br> 
+
+  - Structure du front-end développée
+
 
 ### Observations
 
+S/O
+
 ### Ressources
 
+S/O
 
 
 ## Semaine 5 (2024-06-03)
