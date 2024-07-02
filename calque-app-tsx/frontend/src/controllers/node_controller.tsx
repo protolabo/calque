@@ -1,5 +1,7 @@
 import * as d3 from "d3"
 import { Dictionnaire } from "./dictionnaire";
+import { Node } from "../models/node";
+import { Edge } from "../models/edge";
 
 const registre: Dictionnaire = Dictionnaire.getInstance();
 
@@ -34,3 +36,7 @@ export function deleteNode() {}
 // delete edge
 export function deleteEdge() {}
 
+// get node or edge by id
+export function getElement(key: number): Node | Edge | undefined {
+    return registre.get(key);
+}
