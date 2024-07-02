@@ -50,9 +50,9 @@ export class Edge {
     public set duree(v : Duree | undefined) {
         this._duree = v;
     }
-    public setStyle(stroke: string, width: number): void {
-        this._style.stroke = stroke;
-        this._style.strokeWidth = width;
+    public set style(v : Style) {
+        this._style.stroke = v.stroke;
+        this._style.strokeWidth = v.strokeWidth;
     }
 }
 
