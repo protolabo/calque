@@ -52,4 +52,4 @@ export class Edge {
     }
 }
 
-export type Duree = {heure: string | undefined, minute: string | undefined};
+export type Duree = {heure: string | undefined, minute: string | undefined}; 
