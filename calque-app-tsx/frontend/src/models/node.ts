@@ -1,11 +1,14 @@
 import { Style } from "./style";
+import { Edge } from "./edge";
 
 export class Node {
     private _name! : string;
     private _posX! : number;
     private _posY! : number;
-    private _id! : number;
     private _style: Style = new Style("black", "none", 0);
+    private _entrant: Edge[] = [];
+    private _sortant: Edge[] = [];
+    private _id! : number;
 
     constructor(name: string, posX: number, posY: number) {
         this._name = name;
@@ -47,6 +50,19 @@ export class Node {
     }
     public set style(v : Style) {
         this._style = v;
+    }
+    
+    public addEntrant(v : Edge) {
+        this._entrant.push(v);
+    }
+    public addSortant(v: Edge) {
+        this._sortant.push(v);
+    }
+    public removeEntrant(v : Edge) {
+        this._entrant.splice(this._entrant.indexOf(v), 1);
+    }
+    public removeSortant(v : Edge) {
+        this._sortant.splice(this._sortant.indexOf(v), 1);
     }
 }
 
