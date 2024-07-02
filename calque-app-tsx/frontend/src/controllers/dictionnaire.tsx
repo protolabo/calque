@@ -40,6 +40,23 @@ export class Dictionnaire {
         return id;
     }
 
+    // create edge
+    public createEdge(key1: number, key2: number, ligne: Ligne): number | undefined {
+        const id: number = this.getNextId();
+        const node1: Node | Edge | undefined = this.get(key1);
+        const node2: Node | Edge | undefined = this.get(key2);
+        if (typeof node1 !== "undefined" && typeof node2 !== "undefined" && Object.keys(node1).concat(Object.keys(node2)).includes("_entrant")) {
+            const edge: Edge = new Edge("edge " + id.toString, (node1 as Node), (node2 as Node), ligne);
+            this._registre.set(id, edge);
+            this.updateNode({key:key1, addSortant:[edge]});
+            this.updateNode({key:key2, addEntrant:[edge]});
+            return id;
+        }
+        else {
+            return undefined;
+        }
+    }
+
     // update node
     public updateNode({key, name, posX, posY, style, addEntrant, removeEntrant, addSortant, removeSortant}:
         {key: number,
