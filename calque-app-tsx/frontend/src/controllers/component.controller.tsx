@@ -60,11 +60,15 @@ export function createEdge(idNode1: number, idNode2: number) { // TODO gérer la
     }
 }
 
-// delete node
-export function deleteNode() {}
 
-// delete edge
-export function deleteEdge() {}
+// delete node or edge
+export function deleteElement(key: number) {
+    const IDs: string[] = (registry.delete(key)).map((num) => "#" + num.toString);
+    for (const id of IDs) {
+        canvas().select(id)
+                .remove;
+    }
+}
 
 // get node or edge by id
 export function getElement(key: number): Node | Edge | undefined {

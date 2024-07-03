@@ -133,13 +133,14 @@ export class Registry {
     }
 
     // delete node or edge
-    public delete(key: number): void {
+    public delete(key: number): number[] {
         const element = this.get(key);
+        let removed: number[] = [];
         if (typeof element !== "undefined") {
             if (Object.keys(element).includes("_entrant")) {
                 const node = (element as Node);
                 for (const edge of node.entrant.concat(node.sortant)) {
-                    this.delete(edge.id)
+                    removed = removed.concat(this.delete(edge.id))
                 }
             }
             else {
@@ -150,6 +151,8 @@ export class Registry {
                 this.updateNode({key:n2.id, removeEntrant:[edge]});
             }
             this._registry.delete(key);
+            removed.push(key);
         }
+        return removed;
     }
 }
