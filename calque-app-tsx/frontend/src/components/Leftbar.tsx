@@ -6,7 +6,7 @@ import { MdLayers } from "react-icons/md";
 import { RxDividerHorizontal } from "react-icons/rx";
 import { BiSolidPurchaseTag } from "react-icons/bi";
 import { VscCircleLargeFilled } from "react-icons/vsc";
-import Line from "./Line";
+import Line from "./../assets/Line.asset";
 import { GoTriangleDown } from "react-icons/go";
 import { GoTriangleRight } from "react-icons/go";
 

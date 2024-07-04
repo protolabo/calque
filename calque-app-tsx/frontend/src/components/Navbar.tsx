@@ -1,10 +1,11 @@
 import { VscCircleLargeFilled } from "react-icons/vsc";
 import { FaPlay } from "react-icons/fa";
-import Logo from "./Logo";
-import Arrow from "./Arrow";
-import Edge from "./Edge";
+import Logo from "../assets/Logo.asset";
+import Arrow from "../assets/Arrow.asset";
+
 import { FaArrowPointer } from "react-icons/fa6";
 import { ReactNode } from "react";
+import ToolBar from "./ToolBar";
 
 function NbLeft(props: {children: ReactNode}){
     return(
@@ -37,18 +38,7 @@ function Navbar() {
     <div className=" bg-primary text-white flex items-center justify-between mx-auto p-4">
 
         <NbLeft>
-            <NbCompDrop icon={Logo}>
-                <div></div>
-            </NbCompDrop>
-            <NbCompDrop icon={FaArrowPointer}>
-                <div></div>
-            </NbCompDrop>
-            <NbCompDrop icon={VscCircleLargeFilled}>
-                <div></div>
-            </NbCompDrop>
-            <NbCompDrop icon={Edge}>
-                <div></div>
-            </NbCompDrop>  
+            <ToolBar/>
         </NbLeft>
         
         <NbTitle>
@@ -72,4 +62,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+export {Navbar, NbLeft, NbCompDrop, NbTitle }

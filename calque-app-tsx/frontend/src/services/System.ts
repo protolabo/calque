@@ -9,10 +9,13 @@ import Node from "../models/node.ts";
 export class System {
 
     //What is last interacted item on the canvas
-    private static _focus : Node | Edge = new Node("test",0,0);
+    private static _focus : Node | Edge = new Node("test",0,0,32);
     private static _selection : (Node | Edge)[];
-
+    private static _canvas : SVGSVGElement | null = null;
+    private static _activeTool : any = null;
+    
     constructor() {
+
     }
 
 
@@ -42,6 +45,24 @@ export class System {
     
     public static set focus(v : Node | Edge) {
         System._focus = v;
+    }
+
+    public static get canvas() : SVGSVGElement| null{
+        return System._canvas;
+    }
+    
+    public static set canvas(v : SVGSVGElement| null) {
+        System._canvas = v;
+        console.log(this._canvas)
+        console.log(":)")
+    }
+
+    public static set activeTool(v : any) {
+        System._activeTool = v;
+    }
+
+    public static get activeTool() : any{
+        return System._activeTool;
     }
 
 }
