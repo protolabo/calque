@@ -1,10 +1,26 @@
 import React from 'react';
+//icons
+import { 
+  VscCircleLargeFilled,
+
+
+ } 
+from "react-icons/vsc";
+import { 
+  FaHandPaper,
+
+ } 
+from "react-icons/fa";
+import Edge from "./../assets/Edge.asset";
+//General components
+import System from './../services/System';
+import {NbCompDrop} from './Navbar';
+//Commands
+import PanCommand  from "./../commands/pan.command";
+import CreateEdgeCommand  from "./../commands/createEdge.command";
+import CreateNodeCommand  from "./../commands/createNode.command";
 //All tool components:
-import Pan from './components.tools/Pan.tool';
-import CreateEdge from "./components.tools/CreateEdge.tool";
-import CreateLine from "./components.tools/CreateLine.tool";
 import Logo from "./components.tools/Logo.tool";
-import CreateNode from "./components.tools/CreateNode.tool";
 
 
 
@@ -13,13 +29,81 @@ function ToolBar() {
   return (
     <div id="ToolBar" className="">
         <Logo/>
-        <Pan/>
-        <CreateEdge/>{/*
-        <CreateLine/>*/}
-        <CreateNode/>
+      {/*Template:
+
+        <ToolIcon 
+        toolName="ToolNameForPrint" 
+        Command={ToolCommandClass} 
+        ReactIcon={ReactIcon} 
+        />
+      
+      */}
+
+
+        {/*Panning the canvas button*/}
+        <ToolIcon 
+        toolName="Pan" 
+        Command={PanCommand} 
+        ReactIcon={FaHandPaper} 
+        />
+
+        {/*Create an Edge on the Canvas button*/}
+        <ToolIcon 
+        toolName="CreateEdge" 
+        Command={CreateEdgeCommand} 
+        ReactIcon={Edge} 
+        />
+        {/*Create a Node on the Canvas button*/}
+        <ToolIcon 
+        toolName="CreateNode" 
+        Command={CreateNodeCommand} 
+        ReactIcon={VscCircleLargeFilled} 
+        />
+
     </div>
   )
 
 }
+
+
+/* Scrollbar react component should go here :  */
+
+
+
+
+
+/* Icon react component should go here : */
+/* Specifications :
+1. The icon it uses
+2. The command it calls
+3. Its name
+*/
+
+interface ToolIconProps {
+  toolName: string;
+  Command: any;
+  ReactIcon:  React.FC<{className: string}>;
+}
+
+const ToolIcon: React.FC<ToolIconProps> = ({ toolName, Command, ReactIcon }) => {
+  const loadTool = () => {
+    console.log(`${toolName} Tool (wired)`);
+    const commandInstance = new Command();
+    System.activeTool = commandInstance;
+  };
+
+  return (
+    <button 
+      id={toolName.replace(/\s+/g, '')} 
+      className=""
+      onClick={loadTool}
+    >
+      <NbCompDrop icon={ReactIcon}>
+        <div></div>
+      </NbCompDrop>  
+    </button>
+  );
+};
+
 
 export default ToolBar;

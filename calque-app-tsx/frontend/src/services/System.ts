@@ -13,7 +13,7 @@ export class System {
     private static _selection : (Node | Edge)[];
     private static _canvas : SVGSVGElement | null = null;
     private static _activeTool : any = null;
-    
+    static _mouse: { [key: string]: number } = {};
     constructor() {
 
     }
@@ -63,6 +63,14 @@ export class System {
 
     public static get activeTool() : any{
         return System._activeTool;
+    }
+
+    public static set mouse(v: { [key: string]: number }) {
+        System._mouse = v;
+    }
+
+    public static get mouse() : { [key: string]: number }{
+        return System._mouse;
     }
 
 }

@@ -1,8 +1,5 @@
-import { VscCircleLargeFilled } from "react-icons/vsc";
 import { FaPlay } from "react-icons/fa";
-import Logo from "../assets/Logo.asset";
 import Arrow from "../assets/Arrow.asset";
-
 import { FaArrowPointer } from "react-icons/fa6";
 import { ReactNode } from "react";
 import ToolBar from "./ToolBar";

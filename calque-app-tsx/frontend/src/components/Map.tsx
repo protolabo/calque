@@ -1,3 +1,9 @@
+/*
+
+Should be removed because of redundancy
+
+*/
+
 const Map = () => {
     return (
       <div className="flex grow justify-center">

@@ -1,3 +1,25 @@
+/* Import Tailwind's base styles */
+@import 'tailwindcss/base';
+
+/* Import Tailwind's component styles */
+@import 'tailwindcss/components';
+
+/* Import Tailwind's utility styles */
+@import 'tailwindcss/utilities';
+
+
+.toolbar__icon {
+    @apply bg-black bg-opacity-100 hover:bg-opacity-40;
+
+/*  */
+}
+
+.toolbar__icon-active{
+/*  */
+}
+
+
+
 
 .content-wrapper {
     padding-left: 5%;

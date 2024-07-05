@@ -17,6 +17,14 @@ export class CanvasService {
     constructor(svgElement: SVGSVGElement) {
       this.svg = d3.select(svgElement) || d3.select(System.canvas);
     }
+
+
+
+
+
+
+
+
   
     // Method to add an element to the canvas
     addElement(data: any) {
@@ -38,7 +46,26 @@ export class CanvasService {
         .attr('fill', newData.color);
     }
   
-    // Other methods to manipulate the canvas can be added here
+  // Method to select an element only if it's nested in the <svg id="canvas"> tag
+  selectCanvasElementById(selector: string) {
+    // Select the svg element with id "canvas"
+    const canvasSvg = d3.select('#canvas');
+
+    // Check if the element is nested inside the canvasSvg
+    const nestedElement = canvasSvg.select(selector);
+    if (!nestedElement.empty()) {
+      return nestedElement;
+    } 
+    else {
+      return null;
+    }
+  }
+
+
+
+
+
+
   }
   
   export default CanvasService;

@@ -1,17 +1,120 @@
 
 import React, { useEffect, useRef, forwardRef } from 'react';
 import System from '../services/System';
-
 const Canvas = forwardRef<SVGSVGElement, {}>((props, ref) => {
   const localRef = useRef<SVGSVGElement | null>(null);
 
 
 
 
+
+
+const d3Tags = ["a",
+"animate",
+"animateMotion",
+"animateTransform",
+"circle",
+"clipPath",
+"defs",
+"desc",
+"ellipse",
+"feBlend",
+"feColorMatrix",
+"feComponentTransfer",
+"feComposite",
+"feConvolveMatrix",
+"feDiffuseLighting",
+"feDisplacementMap",
+"feDistantLight",
+"feDropShadow",
+"feFlood",
+"feFuncA",
+"feFuncB",
+"feFuncG",
+"feFuncR",
+"feGaussianBlur",
+"feImage",
+"feMerge",
+"feMergeNode",
+"feMorphology",
+"feOffset",
+"fePointLight",
+"feSpecularLighting",
+"feSpotLight",
+"feTile",
+"feTurbulence",
+"filter",
+"foreignObject",
+"g",
+"hatch",
+"hatchpath",
+"image",
+"line",
+"linearGradient",
+"marker",
+"mask",
+"metadata",
+"mpath",
+"path",
+"pattern",
+"polygon",
+"polyline",
+"radialGradient",
+"rect",
+"script",
+"set",
+"stop",
+"style",
+"svg",
+"switch",
+"symbol",
+"text",
+"textPath",
+"title",
+"tspan",
+"use",
+"view"]
+
+const d3Elements = [
+"a",
+"circle",
+"ellipse",
+"image",
+"line",
+"path",
+"polygon",
+"polyline",
+"rect",
+"text",
+"foreignObject",
+"g",
+"svg",
+"switch",
+"symbol",
+"use"]
+
+
+
+
 //EVENT LISTENER 
 //WILL PASS MOUSE PROPERTIES TO THE SYSTEM
-  const handleClick = () => {
+  const handleClick = (event : React.MouseEvent<SVGSVGElement>) => {
     console.log('Canvas clicked!');
+
+    const mouseProperties = {
+      clientX: event.clientX,
+      clientY: event.clientY,
+      offsetX: event.nativeEvent.offsetX,
+      offsetY: event.nativeEvent.offsetY,
+      pageX: event.pageX,
+      pageY: event.pageY,
+      screenX: event.screenX,
+      screenY: event.screenY,
+      //...
+      };
+
+    System.mouse = mouseProperties;
+    System.activeTool?.execute()
   };
 
 
@@ -25,6 +128,7 @@ const Canvas = forwardRef<SVGSVGElement, {}>((props, ref) => {
       ref.current = localRef.current;
     }
     System.canvas=(localRef.current);
+
   }, [ref]);
 
 

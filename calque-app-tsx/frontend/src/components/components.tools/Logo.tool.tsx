@@ -13,7 +13,7 @@ const Logo: React.FC = () => {
     //We we trigger the button, we notify the system
     //We load the tool.command.ts so that we can trigger tool.command.execute() if needed
     const onClickLogo = () => {
-        console.log("Logo Icon Event") 
+        console.log("Logo Icon Event (unwired)") 
         //const panCommand = new PanCommand();
         //System.activeTool=panCommand;
     };

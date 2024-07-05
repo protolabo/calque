@@ -8,7 +8,7 @@ const registry: Registry = Registry.getInstance();
 
 // select canvas g element
 function canvas() {
-    return d3.select("#canvas").select("g");
+    return d3.select("#canvas");
 }
 
 // Create node
