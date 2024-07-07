@@ -1,6 +1,6 @@
 const LogoIcon = () => {
     return (
-      <svg className="w-10 h-10" xmlns="http://www.w3.org/2000/svg" width="889" height="889" fill="none" viewBox="0 0 889 889">
+      <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="889" height="889" fill="none" viewBox="0 0 889 889">
     <g clip-path="url(#a)">
       <path fill="#3E4256" d="M0 0h889v889H0z"/>
       <path fill="#fff" stroke="#3E4256" stroke-width="30" d="M0-16.084h525.511v525.511H0z" transform="matrix(.84414 .53611 -.84414 .53611 422.706 337.056)"/>
