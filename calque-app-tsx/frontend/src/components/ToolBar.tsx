@@ -1,19 +1,13 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
+import Command  from "./../commands/commandInterface";
+import SelectCommand  from "./../commands/select.command";
 
 //icons
-import { 
-  VscCircleLargeFilled,
-
-
- } 
-from "react-icons/vsc";
-import { 
-  FaHandPaper,
-
- } 
-from "react-icons/fa";
+import {   VscCircleLargeFilled} from "react-icons/vsc";
+import { FaHandPaper } from "react-icons/fa";
 import Edge from "./../assets/Edge.asset";
+import { RiCursorFill } from "react-icons/ri";
 //General components
 import System from './../services/System';
 import {NbCompDrop} from './Navbar';
@@ -61,7 +55,12 @@ function ToolBar() {
         Command={CreateNodeCommand} 
         ReactIcon={VscCircleLargeFilled} 
         />
-
+        {/*Select Canvas Element button*/}
+        <ToolIcon 
+        toolName="Select" 
+        Command={SelectCommand} 
+        ReactIcon={RiCursorFill} 
+        />
     </div>
   )
 
@@ -90,7 +89,7 @@ interface ToolIconProps {
 const ToolIcon: React.FC<ToolIconProps> = ({ toolName, Command, ReactIcon }) => {
   const loadTool = () => {
     console.log(`${toolName} Tool (wired)`);
-    const commandInstance = new Command();
+    const commandInstance : Command = new Command();
     System.activeTool = commandInstance;
   };
 
