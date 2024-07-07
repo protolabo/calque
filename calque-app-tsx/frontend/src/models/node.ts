@@ -1,11 +1,11 @@
-import { Style } from "./style";
+import { Style, CircleStyle } from "./style";
 import { Edge } from "./edge";
 
 export class Node {
     private _name! : string;
     private _posX! : number;
     private _posY! : number;
-    private _style: Style = new Style("black", "none", 0);
+    private _style: Style = new CircleStyle();
     private _entrant: Edge[] = [];
     private _sortant: Edge[] = [];
     private readonly _id! : number;
@@ -15,7 +15,6 @@ export class Node {
         this._posX = posX;
         this._posY = posY;
         this._id = id;
-        this._style = new Style("black", "none", 0); // Default style
     }
 
     public get name() : string {

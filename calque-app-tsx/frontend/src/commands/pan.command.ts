@@ -1,10 +1,27 @@
+import Command from "./commandInterface.ts"
 // PanCommand.ts
-class PanCommand {
-    // Add any properties or methods needed for the PanCommand
+class PanCommand implements Command  {
+
+
+  onLoad(){
+    console.log("onLoad")
+  }
+
+
+
     execute() {
       console.log("Pan tool activated");
-      // Add pan functionality here
     }
+
+
+
+
+
+    onLeave(){
+      console.log("onLeave")
+    }
+
+
   }
   
   export default PanCommand;

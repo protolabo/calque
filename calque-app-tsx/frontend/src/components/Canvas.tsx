@@ -96,8 +96,7 @@ const d3Elements = [
 
 
 
-//EVENT LISTENER 
-//WILL PASS MOUSE PROPERTIES TO THE SYSTEM
+//Currently toggled off :
   const handleClick = (event : React.MouseEvent<SVGSVGElement>) => {
     console.log('Canvas clicked!');
 
@@ -144,7 +143,7 @@ const d3Elements = [
     <svg 
     ref={localRef} 
     id="canvas" 
-    onClick={handleClick}
+    //onClick={handleClick}
     className='relative z-0 '
     width="920"
     height="938" 

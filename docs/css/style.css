@@ -8,16 +8,23 @@
 @import 'tailwindcss/utilities';
 
 
-.toolbar__icon {
-    @apply bg-black bg-opacity-100 hover:bg-opacity-40;
-
-/*  */
-}
-
-.toolbar__icon-active{
-/*  */
-}
-
+@layer base {
+    .toolbar__icon {
+      @apply text-2xl;
+    }
+  }
+  
+  @layer components {
+    .toolbar__icon {
+      @apply ;
+    }
+  }
+  
+  @layer utilities {
+    .toolbar__icon {
+        
+    }
+  }
 
 
 

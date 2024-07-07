@@ -1,6 +1,6 @@
 import { Node } from './node.js';
 import { Ligne } from './ligne.js';
-import { Style } from './style.js';
+import { Style, RectangleStyle  } from './style.js';
 
 export class Edge {
     private _name!: string;
@@ -8,7 +8,7 @@ export class Edge {
     private readonly _node2!: Node;
     private readonly _ligne!: Ligne;
     private _duree: Duree | undefined;
-    private _style: Style = new Style("none", "black", 5);
+    private _style: Style = new RectangleStyle();
     private _isBlocked: boolean = false;
     private readonly _id!: number;
 
@@ -57,8 +57,7 @@ export class Edge {
         this._duree = v;
     }
     public set style(v : Style) {
-        this._style.stroke = v.stroke;
-        this._style.strokeWidth = v.strokeWidth;
+        this.style = v;
     }
     public set isBlocked(v : boolean) {
         this._isBlocked = v;

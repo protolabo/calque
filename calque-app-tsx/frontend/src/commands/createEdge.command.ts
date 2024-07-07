@@ -1,8 +1,16 @@
-// PanCommand.ts
+import Command from "./commandInterface.ts"
 import {createNode} from "../controllers/component.controller";
 import System from "../services/System";
 
-class CreateEdgeCommand {
+class CreateEdgeCommand implements Command  {
+
+
+
+  onLoad(){
+    console.log("onLoad")
+  }
+
+
 
     execute() {
       console.log("Creating a Node");
@@ -12,6 +20,16 @@ class CreateEdgeCommand {
       //Works until here
       createNode(mouseProperties.offsetX,mouseProperties.offsetY)
     }
+
+
+
+    onLeave(){
+      console.log("onLeave")
+    }
+
+
+
+
   }
   
   export default CreateEdgeCommand;

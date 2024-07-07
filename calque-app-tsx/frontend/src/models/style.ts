@@ -1,35 +1,77 @@
-export class Style {
-    private _fill: string = "none";
-    private _stroke: string = "none";
-    private _strokeWidth: number = 0;
-    private _opacity: number = 1;
+// Define the Style interface
+   interface Style {
+    d3Attributes: { [key: string]: any };
+    shapeName: string;
+    styleName: string;
 
-    constructor(_fill: string, _stroke: string, _strokeWidth: number) {}
+    setPosition : (x:number,y:number) => void;
+    setPositionOnClick:(x:number,y:number) => void;
+  }
+  
 
-    
-    public get fill() : string {
-        return this._fill;
+
+  // Implement different styles for different default cases
+  class CircleStyle implements Style {
+    d3Attributes = { fill: 'red', r:25 };
+    shapeName = 'circle';
+    styleName = 'Red Circle';
+
+    setPosition(x:number,y:number){
+      //updates the x y position
+      this.d3Attributes = {...this.d3Attributes, ...{cx:x, cy:y}}
     }
-    public get stroke() : string {
-        return this._stroke;
+    setPositionOnClick(x:number,y:number){
+      this.setPosition(x,y)
     }
-    public get strokeWidth() : number {
-        return this._strokeWidth;
+  }
+  
+
+
+
+  class RectangleStyle implements Style {
+    d3Attributes = { fill: 'blue', width:50,height:50 };
+    shapeName = 'rect';
+    styleName = 'Blue Rectangle';
+
+    setPosition(x:number,y:number){
+      //updates the x y position
+      this.d3Attributes = {...this.d3Attributes, ...{cx:x, cy:y}}
     }
-    public get opacity() : number {
-        return this._opacity;
+    setPositionOnClick(x:number,y:number){
+      this.setPosition(x - this.d3Attributes.width/2,y-this.d3Attributes.height/2)
     }
-    
-    public set fill(v : string) {
-        this._fill = v;
+  }
+
+
+
+
+
+
+  class SelectionStyle implements Style {
+    d3Attributes = { 
+      fill: 'none',
+      stroke : "cyan",
+      "stroke-dasharray": '("3,3")',
+      width:1,
+      height:1
+    };
+    shapeName = 'rect';
+    styleName = 'Blue Rectangle';
+
+    setPosition(x:number,y:number){
+      //updates the x y position
+      this.d3Attributes = {...this.d3Attributes, ...{cx:x, cy:y}}
     }
-    public set stroke(v : string) {
-        this._stroke = v;
+    setPositionOnClick(x:number,y:number){
+      this.setPosition(x - this.d3Attributes.width/2,y-this.d3Attributes.height/2)
     }
-    public set strokeWidth(v : number) {
-        this._strokeWidth = v;
-    }
-    public set opacity(v : number) {
-        this._opacity = v;
-    }
-}
+  }
+
+
+
+  
+
+
+  export type {Style}
+  export {CircleStyle, RectangleStyle,SelectionStyle }
+

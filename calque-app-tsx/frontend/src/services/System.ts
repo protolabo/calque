@@ -3,20 +3,36 @@
 This is is typescript logic only, no REACT in here
 
 */
+import {Style,CircleStyle,RectangleStyle} from "../models/style.ts";
 import {Edge} from "../models/edge.ts";
 import Node from "../models/node.ts";
+import Command  from "./../commands/commandInterface";
+
 
 export class System {
 
     //What is last interacted item on the canvas
     private static _focus : Node | Edge = new Node("test",0,0,32);
     private static _selection : (Node | Edge)[];
+    //
+    private static _activeTool : Command;
+    //
     private static _canvas : SVGSVGElement | null = null;
-    private static _activeTool : any = null;
-    static _mouse: { [key: string]: number } = {};
+    //
+    private static _mouse: { [key: string]: number } = {};
+    //
+    private static _defaultStyle : Style = new CircleStyle()
+    private static _selectedStyle : Style | null = null;
+
+
+
+
+
     constructor() {
 
     }
+
+
 
 
     public static set removeFromSelection(v:(Node | Edge)[]) {
@@ -57,11 +73,14 @@ export class System {
         console.log(":)")
     }
 
-    public static set activeTool(v : any) {
+    public static set activeTool(v : Command) {
+        console.log(v)
+        System._activeTool?.onLeave();
         System._activeTool = v;
+        System._activeTool?.onLoad();
     }
 
-    public static get activeTool() : any{
+    public static get activeTool() : Command{
         return System._activeTool;
     }
 
@@ -73,6 +92,22 @@ export class System {
         return System._mouse;
     }
 
+
+    public static set defaultStyle(v: Style) {
+        System.defaultStyle = v;
+    }
+
+    public static get defaultStyle() : Style {
+        return System._defaultStyle;
+    }
+
+    public static set selectedStyle(v: Style) {
+        System._selectedStyle = v;
+    }
+
+    public static get selectedStyle() : Style | null {
+        return System._selectedStyle;
+    }
 }
 
 export default System;
