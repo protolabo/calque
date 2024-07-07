@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Camille's test files
+calque-app-tsx/frontend/src/pages/Testpage.tsx

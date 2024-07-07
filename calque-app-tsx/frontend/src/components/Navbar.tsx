@@ -14,7 +14,7 @@ function NbLeft(props: {children: ReactNode}){
 
 function NbCompDrop(props: {icon: React.FC<{className: string}>, children: ReactNode}){
     return(
-        <div className="flex flex-wrap items-center hover:bg-violet-500 px-2">
+        <div className="flex flex-wrap items-center hover:bg-violet-500 active:bg-secondary px-2">
                 <props.icon className="w-6 h-6"/>
                 <div>{props.children}</div>
                 <Arrow/>

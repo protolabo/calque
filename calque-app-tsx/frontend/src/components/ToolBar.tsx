@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState,useEffect } from 'react';
+
 //icons
 import { 
   VscCircleLargeFilled,
@@ -27,7 +29,7 @@ import Logo from "./components.tools/Logo.tool";
 function ToolBar() {
 
   return (
-    <div id="ToolBar" className="">
+    <div id="ToolBar" className="flex items-center">
         <Logo/>
       {/*Template:
 
