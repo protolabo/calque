@@ -5,7 +5,7 @@ import labelStyle from "../components/Rightbar"
 
 function PositionEditor() {
     //fetch the last interacted element 
-    const node :  Node = System.focus;
+    const node :  Node | null = System.focus instanceof Node? System.focus: null;
     
   return (
     <div id="PositionEditor" className="">   
@@ -17,7 +17,7 @@ function PositionEditor() {
                 Position x :  
             </h5>
             <div id = "PositionEditor_Variable_PosX" className="inline">
-              <input type="text" placeholder={node? node.posX.toString() : "No selection"} className=""></input>
+              <input type="text" placeholder={node? (node.style.d3Attributes["x"]? node.style.d3Attributes["x"].toString() : "No value" ) : "No selection"} className=""></input>
             </div>
         </label>
         <label className="">  
@@ -26,7 +26,7 @@ function PositionEditor() {
                 Position Y :  
             </h5>
             <div id = "PositionEditor_Variable_PosY" className="inline">
-              <input type="text" placeholder={node? node.posY.toString()  : "No selection"} className=""></input>
+              <input type="text" placeholder={node? (node.style.d3Attributes["y"]? node.style.d3Attributes["y"].toString() : "No value" )  : "No selection"} className=""></input>
             </div>
         </label>
 
