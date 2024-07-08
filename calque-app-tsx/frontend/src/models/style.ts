@@ -5,7 +5,6 @@
     styleName: string;
 
     setPosition : (x:number,y:number) => void;
-    setPositionOnClick:(x:number,y:number) => void;
   }
   
 
@@ -20,9 +19,6 @@
       //updates the x y position
       this.d3Attributes = {...this.d3Attributes, ...{cx:x, cy:y}}
     }
-    setPositionOnClick(x:number,y:number){
-      this.setPosition(x,y)
-    }
   }
   
 
@@ -36,9 +32,6 @@
     setPosition(x:number,y:number){
       //updates the x y position
       this.d3Attributes = {...this.d3Attributes, ...{x:x, y:y}}
-    }
-    setPositionOnClick(x:number,y:number){
-      this.setPosition(x - this.d3Attributes.width/2,y-this.d3Attributes.height/2)
     }
   }
 
@@ -62,9 +55,22 @@
       //updates the x y position
       this.d3Attributes = {...this.d3Attributes, ...{x:x, y:y}}
     }
-    setPositionOnClick(x:number,y:number){
-      this.setPosition(x - this.d3Attributes.width/2,y-this.d3Attributes.height/2)
-    }
+  }
+
+  class EdgeStyle implements Style {
+      d3Attributes: { [key: string]: any; } = {
+        fill: "none",
+        stroke: "black",
+        "stroke-width": 5
+      };
+      shapeName: string = "line";
+      styleName: string = "Black Edge";
+
+      setPosition(x: number, y: number): void {};
+
+      setLine(x1: number, y1: number, x2: number, y2: number): void {
+          this.d3Attributes = {...this.d3Attributes, ...{x1:x1, y1:y1, x2:x2, y2:y2}};
+      }
   }
 
 
@@ -73,5 +79,5 @@
 
 
   export type {Style}
-  export {CircleStyle, RectangleStyle,SelectionStyle }
+  export {CircleStyle, RectangleStyle, SelectionStyle, EdgeStyle}
 
