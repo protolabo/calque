@@ -12,7 +12,7 @@ import Command  from "./../commands/commandInterface";
 export class System {
 
     //What is last interacted item on the canvas
-    private static _focus : Node | Edge = new Node("test",0,0,32);
+    private static _focus : Node | Edge = new Node("test",32);
     private static _selection : (Node | Edge)[];
     //
     private static _activeTool : Command;

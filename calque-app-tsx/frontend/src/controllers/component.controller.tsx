@@ -3,6 +3,7 @@ import { Registry } from "./registry";
 import { Node } from "../models/node";
 import { Edge } from "../models/edge";
 import { Ligne } from "../models/ligne";
+import { CircleStyle, Style } from "../models/style";
 
 const registry: Registry = Registry.getInstance();
 
@@ -22,7 +23,12 @@ export function createNode(x: number = 100, y: number = 100, fill: string = "ora
             .attr("fill", fill)
             .call(d3.drag<SVGCircleElement, any>()
                     .on('drag', handleDrag)
-                    .on('end', (e: any) => registry.updateNode({key:id, posX:e.x, posY:e.y})));
+                    .on('end', (e: any) => {
+                        let style: Style = new CircleStyle();
+                        style.d3Attributes[x] = e.x;
+                        style.d3Attributes[y] = e.y;
+                        registry.updateNode({key:id, style:style})
+                    }));
 }
 
 function handleDrag(e: any, d: SVGCircleElement) {
@@ -60,6 +66,31 @@ export function createEdge(idNode1: number, idNode2: number) { // TODO gérer la
     }
 }
 
+// update node
+export function updateNode({id, name, newFill, newStroke, newStrokeWidth}: {
+  id: number, 
+  name?: string, 
+  newFill?: string,
+  newStroke?: string,
+  newStrokeWidth?: number
+}) {
+    const node: Node = (registry.get(id) as Node);
+    let style: Style = node.style;
+    let attributes: {[key: string]: string | number} = {}; // TODO gérer l'élément sur le canvas
+
+    if (typeof newFill !== "undefined") {
+        attributes.fill = newFill;
+    }
+    if (typeof newStroke !== "undefined") {
+        attributes.stroke = newStroke;
+    }
+    if (typeof newStrokeWidth !== "undefined") {
+        attributes.strokeWidth = newStrokeWidth;
+    }
+
+    style.d3Attributes = {...style.d3Attributes, ...attributes}
+    registry.updateNode({key:id, name:name, style:style}) // TODO finir ici
+}
 
 // delete node or edge
 export function deleteElement(key: number) {

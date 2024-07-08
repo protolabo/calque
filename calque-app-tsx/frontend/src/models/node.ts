@@ -3,28 +3,19 @@ import { Edge } from "./edge";
 
 export class Node {
     private _name! : string;
-    private _posX! : number;
-    private _posY! : number;
-    private _style: Style = new CircleStyle();
+    private _style!: Style;
     private _entrant: Edge[] = [];
     private _sortant: Edge[] = [];
     private readonly _id! : number;
 
-    constructor(name: string, posX: number, posY: number, id: number) {
+    constructor(name: string, id: number, style: Style = new CircleStyle()) {
         this._name = name;
-        this._posX = posX;
-        this._posY = posY;
         this._id = id;
+        this._style = style;
     }
 
     public get name() : string {
         return this._name;
-    }
-    public get posX() : number {
-        return this._posX;
-    }
-    public get posY() : number {
-        return this._posY;
     }
     public get style() : Style {
         return this._style;
@@ -41,12 +32,6 @@ export class Node {
 
     public set name(v : string) {
         this._name = v;
-    }
-    public set posX(v : number) {
-        this._posX = v;
-    }
-    public set posY(v : number) {
-        this._posY = v;
     }
     public set style(v : Style) {
         this._style = v;

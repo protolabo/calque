@@ -35,7 +35,7 @@
 
     setPosition(x:number,y:number){
       //updates the x y position
-      this.d3Attributes = {...this.d3Attributes, ...{cx:x, cy:y}}
+      this.d3Attributes = {...this.d3Attributes, ...{x:x, y:y}}
     }
     setPositionOnClick(x:number,y:number){
       this.setPosition(x - this.d3Attributes.width/2,y-this.d3Attributes.height/2)
@@ -60,7 +60,7 @@
 
     setPosition(x:number,y:number){
       //updates the x y position
-      this.d3Attributes = {...this.d3Attributes, ...{cx:x, cy:y}}
+      this.d3Attributes = {...this.d3Attributes, ...{x:x, y:y}}
     }
     setPositionOnClick(x:number,y:number){
       this.setPosition(x - this.d3Attributes.width/2,y-this.d3Attributes.height/2)
