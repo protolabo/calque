@@ -82,7 +82,7 @@ class CanvasController {
         //If string is a real keyword, add the appropriate attribute
         const shape = this.canvasService.addShape(shapeType, attributes);
         this.canvasService.draggable(shape)
-        this.canvasService.followable(shape)
+        //this.canvasService.followable(shape)
     }
   }
 

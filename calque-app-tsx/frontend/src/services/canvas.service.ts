@@ -395,10 +395,20 @@ export class CanvasService {
     shapeSelection.call(drag);
   }
 
-  public followable(shapeSelection: d3.Selection<SVGElement, unknown, null, undefined>) {
+  /*public followable(shapeSelection: d3.Selection<SVGElement, unknown, null, undefined>) {
+      let followers: {[key: number]: number}[] = [{}];
       shapeSelection.attr("followable", true)
-                    .attr("followers", []);
-  }
+                    .attr("followers", followers);
+  }*/
+
+  /*public follow(follower: d3.Selection<Element, unknown, null, undefined>, followed: d3.Selection<Element, unknown, null, undefined>) {
+      if (followed.attr("followable")) {
+          follower.each( function() {
+              let followers: number[][] = followed.attr("followers") as unknown as number[][];
+              followers.push(d3.select(this).attr("id") as unknown as number)
+          });
+      }
+  }*/
 
 
   //
@@ -473,6 +483,10 @@ export class CanvasService {
       const style = node.style
       style.setPosition(event.x,event.y)
       this.registry.updateNode( {key:target.attr("id") as unknown as number, style:style } )
+
+      /*if (target.attr("followable")) {
+        for (const follower of (target.attr("followers")))
+      }*/
     }
   }
 
