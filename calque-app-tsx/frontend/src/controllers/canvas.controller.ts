@@ -37,11 +37,12 @@ const d3Elements = [
 class CanvasController {
   //attributes
   private svg : SVGSVGElement;
-  private canvasService: CanvasService;
   //selection box
   private selectionRectangle: d3.Selection<SVGElement, unknown, null, undefined> | null = null;
   //selection style
   private selectionStyle : Style;
+  //Controllers
+  private canvasService: CanvasService;
 
   constructor(svgElement: SVGSVGElement) {
     this.svg = svgElement;

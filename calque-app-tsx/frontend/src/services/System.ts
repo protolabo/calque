@@ -7,6 +7,7 @@ import {Style,CircleStyle,RectangleStyle} from "../models/style.ts";
 import {Edge} from "../models/edge.ts";
 import Node from "../models/node.ts";
 import Command  from "./../commands/commandInterface";
+import CanvasController from "../controllers/canvas.controller.ts";
 
 
 export class System {
@@ -23,6 +24,8 @@ export class System {
     //
     private static _defaultStyle : Style = new CircleStyle()
     private static _selectedStyle : Style | null = null;
+    //
+    private static _canvasController : CanvasController | null;
 
 
 
@@ -69,8 +72,10 @@ export class System {
     
     public static set canvas(v : SVGSVGElement| null) {
         System._canvas = v;
+        if (System._canvas){
+            System._canvasController = new CanvasController(System._canvas)
+        }
         console.log(this._canvas)
-        console.log(":)")
     }
 
     public static set activeTool(v : Command) {
@@ -108,6 +113,17 @@ export class System {
     public static get selectedStyle() : Style | null {
         return System._selectedStyle;
     }
+
+    public static set canvasController(v: CanvasController) {
+        System._canvasController = v;
+    }
+
+    public static get canvasController() : CanvasController | null {
+        return System._canvasController;
+    }
+
+
+
 }
 
 export default System;

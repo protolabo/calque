@@ -5,7 +5,7 @@
     styleName: string;
 
     setPosition : (x:number,y:number) => void;
-    setPositionOnClick:(x:number,y:number) => void;
+    setAttribute:(key:string,value:string) => void
   }
   
 
@@ -20,8 +20,9 @@
       //updates the x y position
       this.d3Attributes = {...this.d3Attributes, ...{cx:x, cy:y}}
     }
-    setPositionOnClick(x:number,y:number){
-      this.setPosition(x,y)
+
+    setAttribute (key: string, value: any){
+      (this.d3Attributes as any)[key]=value;
     }
   }
   
@@ -37,8 +38,9 @@
       //updates the x y position
       this.d3Attributes = {...this.d3Attributes, ...{x:x, y:y}}
     }
-    setPositionOnClick(x:number,y:number){
-      this.setPosition(x - this.d3Attributes.width/2,y-this.d3Attributes.height/2)
+
+    setAttribute (key: string, value: any){
+      (this.d3Attributes as any)[key]=value;
     }
   }
 
@@ -62,8 +64,9 @@
       //updates the x y position
       this.d3Attributes = {...this.d3Attributes, ...{x:x, y:y}}
     }
-    setPositionOnClick(x:number,y:number){
-      this.setPosition(x - this.d3Attributes.width/2,y-this.d3Attributes.height/2)
+    
+    setAttribute (key: string, value: any){
+      (this.d3Attributes as any)[key]=value;
     }
   }
 

@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import System from "../services/System";
+import { Registry } from '../controllers/registry';
 /*
 
 Explicit functionnalities defined in canvas.controller.ts shall be implemented with 
@@ -124,12 +125,14 @@ Element includes both HTMLElement and SVGElement
 export class CanvasService {
     private svgElement : SVGSVGElement;
     private svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
+    private registry : Registry;
   
     constructor(svgElement: SVGSVGElement) {
       this.svgElement = svgElement;
       this.svg = d3.select(svgElement) || d3.select(System.canvas);
       this.startDrag = this.startDrag.bind(this);
       this.getOffsets = this.getOffsets.bind(this);
+      this.registry = Registry.getInstance();
     }
 
 
@@ -459,6 +462,13 @@ export class CanvasService {
     //end of selection
     target.attr('stroke', null);
     target.attr("drag",null)
+    //
+    const node = this.registry.get(  target.select("id") as unknown as number  )
+    if(node){
+      const style = node.style
+      style.setPosition(event.x,event.y)
+      this.registry.updateNode( {key:target.attr("id") as unknown as number, style:style } )
+    }
   }
 
 
