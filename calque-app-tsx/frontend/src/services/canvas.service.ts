@@ -304,15 +304,15 @@ export class CanvasService {
 
 
 
-  public selectElementsInArea(x_start: number, y_start: number, x_end: number, y_end: number): d3.Selection<SVGElement, unknown, null, undefined> {
+  public selectElementsInArea(x_start: number, y_start: number, x_end: number, y_end: number): d3.Selection<Element, unknown, Element, undefined> {
     //
-    const elements = this.svg.selectAll<SVGElement, unknown>('*').filter(function () {
+    const elements = this.svg.selectAll<Element, unknown>('*').filter(function () {
       const bbox = this.getBoundingClientRect(); //
       const withinX = bbox.left >= x_start && bbox.right <= x_end;
       const withinY = bbox.top >= y_start && bbox.bottom <= y_end;
       return withinX && withinY;
     });
-    return elements as unknown as d3.Selection<SVGElement, unknown, null, undefined>;
+    return elements;
   }
 
 
@@ -367,6 +367,15 @@ export class CanvasService {
     // Attach drag behavior to the shape
     return shapeSelection
   }
+
+
+
+
+
+
+  //     --Dragging Methods and Event Handlers --
+
+
 
 
   //
@@ -454,6 +463,8 @@ export class CanvasService {
 
 
 
+  //
+  //
   // Method to calculate offsets
   private getOffsets(target: d3.Selection<SVGElement, unknown, null, undefined>, event: d3.D3DragEvent<SVGElement, unknown, unknown>) {
     //parameter 1 = d3 target
@@ -471,6 +482,9 @@ export class CanvasService {
     }
   }
 
+
+  //
+  //
   // Method to move paths
   private movePath(target: d3.Selection<SVGElement, unknown, null, undefined>, x: number, y: number) {
     const d = target.attr('d');
@@ -484,6 +498,9 @@ export class CanvasService {
     target.attr('d', newD);
   }
 
+
+  //
+  //
   // Method to move polylines and polygons
   private movePolylineOrPolygon(target: d3.Selection<SVGElement, unknown, null, undefined>, x: number, y: number) {
     const points = target.attr('points');
@@ -496,7 +513,10 @@ export class CanvasService {
     target.attr('points', newPoints);
   }
   
-    // Method to modify an element on the canvas
+
+  //
+  //
+  // Method to modify an element on the canvas
   public modifyElement(shapeSelection: d3.Selection<SVGElement, unknown, null, undefined>, attributes: { [key: string]: any }) {
       // Adding all the custom attributes
       for (const [attr, value] of Object.entries(attributes)) {
@@ -506,6 +526,16 @@ export class CanvasService {
     }
 
 
+
+
+
+  //     --Adding / Removing Event Listeners --
+
+
+
+  //
+  //
+  //Generalized way to add event listeners to a selected Element
   public addEventListeners(shapeSelection: d3.Selection<SVGElement, unknown, null, undefined>, eventListeners: { [key: string]: (event: any) => void }):  d3.Selection<SVGElement, unknown, null, undefined> {
     for (const [event, eventHandler] of Object.entries(eventListeners)) {
       if (typeof eventHandler ==='function'){
@@ -518,12 +548,33 @@ export class CanvasService {
     return shapeSelection
   }
 
+
+  
+  //
+  //
+  //Generalized way to remove event listeners to a selected Element
   public removeEventListeners(shapeSelection: d3.Selection<SVGElement, unknown, null, undefined>, eventListeners: { [key: string]: null }):  d3.Selection<SVGElement, unknown, null, undefined> {
     for (const [event, eventHandler] of Object.entries(eventListeners)) {
         shapeSelection.on(event,null)
     }
     return shapeSelection
   }
+
+
+
+
+
+  //     --  Manipulating a selction  --
+
+
+  public getIdFromSelected(selection: d3.Selection<Element, unknown, Element, unknown>) : string[]{
+    const cssIds : string[] = []
+    //we select the id attribute from the this Element object
+    selection.each( function(){  cssIds.push(d3.select(this).attr("id"))  }  );
+    //
+    return cssIds
+  }
+
 
 
 }

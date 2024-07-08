@@ -57,7 +57,7 @@ class CanvasController {
 
 
 
-//           --Generic Methods--
+//           --Add Element Methods--
 
 
 
@@ -85,12 +85,14 @@ class CanvasController {
   }
 
   // General method to create a shape
-  createShapeFromStyleEvent(style:Style, event:any) {
+  createShapeFromStyleEvent(style:Style, event:any): d3.Selection<SVGElement, unknown, null, undefined> | null  {
     if(d3Elements.includes(style.shapeName)){
       const [x,y] = d3.pointer(event)
       const shape = this.canvasService.addShapeAt(style.shapeName,style.d3Attributes,x,y)
       this.canvasService.draggable(shape)
+      return shape
     }
+    return null
   }
 
 
@@ -113,48 +115,53 @@ class CanvasController {
     if (svgElement){
     //add event listeners
     const eventListeners = {
-      'mousedown': (event:any) => this.onMouseDown(event),
-      'mousemove': (event:any) => this.onMouseMove(event),
-      'mouseup': (event:any) => this.onMouseUp(event)
+      'mousedown': (event:any) => this.onMouseDownSelect(event),
+      'mousemove': (event:any) => this.onMouseMoveSelect(event),
+      'mouseup': (event:any) => this.onMouseUpSelect(event)
     }
     this.canvasService.addEventListeners(svgElement,eventListeners)
     }
   }
 
-  private onMouseDown(event: MouseEvent): void {
-    const [x, y] = d3.pointer(event); //get x and y by deconstruction
-    this.selectionRectangle = this.canvasService.addShape("rect", {...this.selectionStyle.d3Attributes , ...{"x":x, "y":y}});
-
+  private onMouseDownSelect(event: MouseEvent): void {
+    this.selectionRectangle = this.createShapeFromStyleEvent(this.selectionStyle,event)
+    const [x,y] = d3.pointer(event)
+    this.selectionRectangle?.attr("originalX",x)
+    this.selectionRectangle?.attr("originalY",y)
   }
 
-  private onMouseMove(event: MouseEvent): void {
+  private onMouseMoveSelect(event: MouseEvent): void {
+    //
     if (this.selectionRectangle) {
-      //end coordinates
+      //(x,y) is where the mouse is right now
       const [x, y] = d3.pointer(event);
-      //start coordinates
-      const [x0,y0] = [ parseFloat(this.selectionRectangle.attr('x')), parseFloat(this.selectionRectangle.attr('y'))]
+      const width = (parseFloat(this.selectionRectangle.attr("originalX")) - x)
+      const height = (parseFloat(this.selectionRectangle.attr("originalY")) - y)
       //
       this.canvasService.modifyElement(this.selectionRectangle,
         {
-        width: Math.abs(x - x0),
-        height: Math.abs(y - y0),
-        x: Math.min(x, x0),
-        y: Math.min(y, y0)
+          'x': width < 0 ? x + width : x,
+          'y': height < 0 ? y + height: y,
+          'width': Math.abs(width),
+          'height': Math.abs(height)
         })
       } 
   }
 
-  private onMouseUp(event: MouseEvent): void {
+  private onMouseUpSelect(event: MouseEvent): void {
     if (this.selectionRectangle) {
-      const [x, y] = d3.pointer(event);
-
-      // Get the rectangle's bounding box
-      //const [x0,y0] = [ parseFloat(this.selectionRectangle.attr('x')), parseFloat(this.selectionRectangle.attr('y'))]
-      //const selectedElements = this.canvasService.selectElementsInArea(bbox.x, bbox.y, bbox.x + bbox.width, bbox.y + bbox.height);
-
-      // Do something with the selected elements
-      //console.log(selectedElements);
-
+      //Bouding box points
+      const x = parseFloat(this.selectionRectangle.attr("x"))
+      const y = parseFloat(this.selectionRectangle.attr("y"))
+      const width = parseFloat(this.selectionRectangle.attr("width"))
+      const height = parseFloat(this.selectionRectangle.attr("height"))
+      const selection = this.canvasService.selectElementsInArea(x,y,x+width,y+height)
+      //
+      if(selection){
+        const ids = this.canvasService.getIdFromSelected(selection)
+        //wire to the system.
+        //System.selection=ids
+      }
       // Remove the rectangle after selection is complete
       this.selectionRectangle.remove();
       this.selectionRectangle = null;
