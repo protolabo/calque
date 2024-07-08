@@ -50,8 +50,8 @@
   class SelectionStyle implements Style {
     d3Attributes = { 
       fill: 'none',
-      stroke : "cyan",
-      "stroke-dasharray": '("3,3")',
+      stroke : "gray",
+      "stroke-dasharray": '10,20',
       width:1,
       height:1
     };

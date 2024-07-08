@@ -333,7 +333,6 @@ export class CanvasService {
   addShapeAt(shapeName: string, d3Attributes: { [key: string]: any }, x: number, y: number): d3.Selection<SVGElement, unknown, null, undefined> {
     // Create a copy of d3Attributes to avoid mutating the original object
     const attributes = { ...d3Attributes };
-
     // Determine which attributes to set based on the shape type
     switch (shapeName.toLowerCase()) {
         case 'circle':
@@ -351,7 +350,6 @@ export class CanvasService {
             console.warn(`Shape ${shapeName} is not explicitly handled for positioning.`);
             break;
     }
-
     // Add the shape to the canvas with updated attributes
     return this.addShape(shapeName, attributes);
 }
@@ -401,6 +399,7 @@ export class CanvasService {
     console.log([offsetX,offsetY])
     target.attr('data-offset-x', offsetX);
     target.attr('data-offset-y', offsetY);
+    target.attr("drag",true)
   }
 
 
@@ -411,32 +410,34 @@ export class CanvasService {
   private drag(event: d3.D3DragEvent<SVGElement, unknown, unknown>) {
     // Select the target element being dragged
     const target = d3.select(event.sourceEvent.target as SVGElement);
+    //Avoids grabbing the wrong target
+    if(target.attr("drag")){
+      // Retrieve the offset values from the element's attributes
+      const offsetX = parseFloat(target.attr('data-offset-x') || '0');
+      const offsetY = parseFloat(target.attr('data-offset-y') || '0');
   
-    // Retrieve the offset values from the element's attributes
-    const offsetX = parseFloat(target.attr('data-offset-x') || '0');
-    const offsetY = parseFloat(target.attr('data-offset-y') || '0');
-  
-    // Check if the element has a 'cx' attribute (likely a circle or ellipse)
-    if (target.attr('cx')) {
-      // Update the 'cx' and 'cy' attributes based on the drag event's position minus the offset
-      target.attr('cx', event.x - offsetX).attr('cy', event.y - offsetY);
-    } 
-    else if (target.attr('x')) {
-      // If the element has an 'x' attribute (likely a rect or text)
-      // Update the 'x' and 'y' attributes based on the drag event's position minus the offset
-      target.attr('x', event.x - offsetX).attr('y', event.y - offsetY);
-    } 
-    else if (target.node()?.nodeName === 'path') {
-      // If the element is a path, call the movePath method
-      this.movePath(target, event.x - offsetX, event.y - offsetY);
-    } 
-    else if (target.node()?.nodeName === 'polyline' || target.node()?.nodeName === 'polygon') {
-      // If the element is a polyline or polygon, call the movePolylineOrPolygon method
-      this.movePolylineOrPolygon(target, event.x - offsetX, event.y - offsetY);
-    } 
-    else if (target.node()?.nodeName === 'text') {
-      // If the element is a text element, update the 'x' and 'y' attributes based on the drag event's position minus the offset
-      target.attr('x', event.x - offsetX).attr('y', event.y - offsetY);
+      // Check if the element has a 'cx' attribute (likely a circle or ellipse)
+      if (target.attr('cx')) {
+        // Update the 'cx' and 'cy' attributes based on the drag event's position minus the offset
+        target.attr('cx', event.x - offsetX).attr('cy', event.y - offsetY);
+      } 
+      else if (target.attr('x')) {
+        // If the element has an 'x' attribute (likely a rect or text)
+        // Update the 'x' and 'y' attributes based on the drag event's position minus the offset
+        target.attr('x', event.x - offsetX).attr('y', event.y - offsetY);
+      } 
+      else if (target.node()?.nodeName === 'path') {
+        // If the element is a path, call the movePath method
+        this.movePath(target, event.x - offsetX, event.y - offsetY);
+      } 
+      else if (target.node()?.nodeName === 'polyline' || target.node()?.nodeName === 'polygon') {
+        // If the element is a polyline or polygon, call the movePolylineOrPolygon method
+        this.movePolylineOrPolygon(target, event.x - offsetX, event.y - offsetY);
+      } 
+      else if (target.node()?.nodeName === 'text') {
+        // If the element is a text element, update the 'x' and 'y' attributes based on the drag event's position minus the offset
+        target.attr('x', event.x - offsetX).attr('y', event.y - offsetY);
+      }
     }
   }
   
@@ -448,6 +449,7 @@ export class CanvasService {
     const target = d3.select(event.sourceEvent.target as SVGElement)
     //end of selection
     target.attr('stroke', null);
+    target.attr("drag",null)
   }
 
 
