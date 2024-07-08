@@ -395,6 +395,11 @@ export class CanvasService {
     shapeSelection.call(drag);
   }
 
+  public followable(shapeSelection: d3.Selection<SVGElement, unknown, null, undefined>) {
+      shapeSelection.attr("followable", true)
+                    .attr("followers", []);
+  }
+
 
   //
   //

@@ -69,11 +69,31 @@ class CanvasController {
     if(d3Elements.includes(shapeType)){
         console.log(attributes)
 
-        /* TODO : Connect to the registry  */
+
+        //If string is a real keyword, add the appropriate attribute
+        const shape = this.canvasService.addShape(shapeType, attributes);
+    }
+  }
+
+  createNode(shapeType: string, attributes: { [key: string]: any }) {
+    if(d3Elements.includes(shapeType)){
+        console.log(attributes)
 
         //If string is a real keyword, add the appropriate attribute
         const shape = this.canvasService.addShape(shapeType, attributes);
         this.canvasService.draggable(shape)
+        this.canvasService.followable(shape)
+    }
+  }
+
+  createEdge(shapeType: string, attributes: { [key: string]: any }) {
+    if(d3Elements.includes(shapeType)){
+        console.log(attributes)
+
+        /* TODO : Connect to the registry  */
+
+        //If string is a real keyword, add the appropriate attribute
+        const shape = this.canvasService.addShape(shapeType, attributes);
     }
   }
 
