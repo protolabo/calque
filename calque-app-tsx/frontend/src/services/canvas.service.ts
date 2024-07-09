@@ -353,7 +353,6 @@ export class CanvasService {
     for (const [attr, value] of Object.entries(attributes)) {
       shapeSelection.attr(attr, value);
     }
-    // Attach drag behavior to the shape
     return shapeSelection
   }
 

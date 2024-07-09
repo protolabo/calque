@@ -97,7 +97,6 @@ class CanvasController {
       if(d3Elements.includes(style.shapeName)){
         const [x,y] = d3.pointer(event)
         const shape = this.canvasService.addShapeAt(style.shapeName,style.d3Attributes,x,y)
-        this.canvasService.draggable(shape)
         return shape
       }
     }
@@ -246,7 +245,7 @@ class CanvasController {
 */
 
 
-  addEdgeBehaviors(shape: d3.Selection<SVGElement, unknown, null, undefined>) {
+  addEdgeBehaviors(shape: d3.Selection<SVGElement, unknown, null, undefined>, key1: string, key2: string) { // TODO add behavior to follow nodes 1 and 2
 
 
   }
@@ -265,7 +264,7 @@ class CanvasController {
       
       
       
-      let listEdges : string[] = (System.getNodeFromSelection())
+      let listEdges : string[] = (System.getEdgeFromSelection())
 
       if(listEdges){
         //ok
@@ -282,27 +281,35 @@ class CanvasController {
 
 
 
-public createEdgeFromSelection( style: Style) {
-  
+public createEdgeFromSelection(style: Style): d3.Selection<SVGElement, unknown, null, undefined>[] | null {
     let listNode : string[] = (System.getNodeFromSelection());
+    let listEdge : d3.Selection<SVGElement, unknown, null, undefined>[] = [];
 
-    if (listNode.length === 0) {
-      
+    if (listNode.length >= 2) {
+      for (let i = 1; i < listNode.length; i++) {
+        //
+        const cssId = this.addRegistryEntryEdge(listNode[i - 1] as unknown as number, listNode[i] as unknown as number);
+        style.d3Attributes = {...style.d3Attributes, ...cssId }
+        const selection  = this.createShapeFromStyle(style)
+        //
+        if (selection) {
+          this.addEdgeBehaviors(selection, listNode[i - 1], listNode[i]);
+          listEdge.push(selection);
+        }
+        else {
+          registry.delete(cssId.id)
+        }
+        
+      }
+    }      
+    else if (listNode.length < 0) {
+      console.warn("What")
+      return null;
     }
-    else if(listNode.length === 1) {
-      
-    }
-    else if(listNode.length >= 2){
-
-    }
-    else {
-      console.warn(
-        "What"
-      )
-    }
-
-
+    // TODO add event listeners for future edge creation
+    return listEdge;
 }
+
 
 
 
