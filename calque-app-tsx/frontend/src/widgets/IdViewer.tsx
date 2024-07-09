@@ -5,7 +5,7 @@ import Node from "../models/node.ts"
 
 function IdViewer() {
     //fetch the last interacted element 
-    const node :  Node = System.focus;
+  const id = (System.focus?(System.registry.get(System.focus as unknown as number) instanceof Node? System.focus : null ): null)
     
   return (
     <div id="IdViewer" className="">   
@@ -13,7 +13,7 @@ function IdViewer() {
             Id :  
         </h6>
         <div id = "IdViewer_Variable" className="inline"> 
-            {node? node.id : "No selection"}
+            {id? id : "No selection"}
         </div>
     </div>
   );

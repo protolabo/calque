@@ -8,13 +8,13 @@ import {Edge} from "../models/edge.ts";
 import Node from "../models/node.ts";
 import Command  from "./../commands/commandInterface";
 import CanvasController from "../controllers/canvas.controller.ts";
-
+import { Registry } from "../controllers/registry.tsx";
 
 export class System {
 
     //What is last interacted item on the canvas
-    private static _focus : Node | Edge = new Node("test",32);
-    private static _selection : (Node | Edge)[];
+    private static _focus : string | null;
+    private static _selection : (string)[];
     //
     private static _activeTool : Command;
     //
@@ -26,6 +26,8 @@ export class System {
     private static _selectedStyle : Style | null = null;
     //
     private static _canvasController : CanvasController | null;
+    //
+    private static _registry : Registry = Registry.getInstance()
 
 
 
@@ -38,31 +40,31 @@ export class System {
 
 
 
-    public static set removeFromSelection(v:(Node | Edge)[]) {
+    public static set removeFromSelection(v:(string)[]) {
         //filters the selection array by removing instances of Nodes and Edges from the list
         System._selection = System._selection.filter(e => !v.includes(e));
         }
 
 
-    public static set addToSelection(v:(Node | Edge)[]) {
+    public static set addToSelection(v:(string)[]) {
         //Via spread operator = destructuring
         System._selection = [ ...System._selection, ...v];
     }
 
-    public static get selection() : (Node | Edge)[] {
+    public static get selection() : string[] {
         return System._selection;
     }
     
-    public static set selection(v:(Node | Edge)[]) {
+    public static set selection(v:string[]) {
         System._selection = v;
     }
 
 
-    public static get focus() : Node | Edge {
+    public static get focus() : string|null {
         return System._focus;
     }
     
-    public static set focus(v : Node | Edge) {
+    public static set focus(v : string | null) {
         System._focus = v;
     }
 
@@ -122,6 +124,9 @@ export class System {
         return System._canvasController;
     }
 
+    public static get registry() : Registry {
+        return System._registry;
+    }
 
 
 }

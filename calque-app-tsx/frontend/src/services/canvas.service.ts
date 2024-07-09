@@ -132,6 +132,8 @@ export class CanvasService {
       this.svg = d3.select(svgElement) || d3.select(System.canvas);
       this.startDrag = this.startDrag.bind(this);
       this.getOffsets = this.getOffsets.bind(this);
+      this.moveShapeAt = this.moveShapeAt.bind(this);
+      this.drag = this.drag.bind(this);
       this.registry = Registry.getInstance();
     }
 
@@ -336,25 +338,9 @@ export class CanvasService {
   addShapeAt(shapeName: string, d3Attributes: { [key: string]: any }, x: number, y: number): d3.Selection<SVGElement, unknown, null, undefined> {
     // Create a copy of d3Attributes to avoid mutating the original object
     const attributes = { ...d3Attributes };
-    // Determine which attributes to set based on the shape type
-    switch (shapeName.toLowerCase()) {
-        case 'circle':
-            attributes.cx = x;
-            attributes.cy = y;
-            break;
-        case 'rect':
-        case 'polygon':
-        case 'path':
-            attributes.x = x;
-            attributes.y = y;
-            break;
-        // Add more cases for other shapes as needed
-        default:
-            console.warn(`Shape ${shapeName} is not explicitly handled for positioning.`);
-            break;
-    }
-    // Add the shape to the canvas with updated attributes
-    return this.addShape(shapeName, attributes);
+    const selection = this.addShape(shapeName, attributes);
+    this.moveShapeAt(selection,x,y)
+    return selection
 }
 
 
@@ -380,6 +366,47 @@ export class CanvasService {
 
 
 
+  moveShapeAt(shape: d3.Selection<SVGElement, unknown, null, undefined>, x: number, y: number): void {
+    const nodeName = shape.node()?.nodeName;
+
+    if (!nodeName) {
+      console.error('Invalid SVG shape');
+      return;
+    }
+
+    switch (nodeName) {
+      case 'rect':
+      case 'text':
+        shape.attr('x', x).attr('y', y);
+        break;
+      case 'circle':
+      case 'ellipse':
+        shape.attr('cx', x).attr('cy', y);
+        break;
+      case 'line':
+        const dx = x - +shape.attr('x1');
+        const dy = y - +shape.attr('y1');
+        shape.attr('x1', x)
+             .attr('y1', y)
+             .attr('x2', +shape.attr('x2') + dx)
+             .attr('y2', +shape.attr('y2') + dy);
+        break;
+      case 'polygon':
+      case 'polyline':
+        const points = shape.attr('points').split(' ').map((point: string) => {
+          const [px, py] = point.split(',').map(Number);
+          return `${px + x},${py + y}`;
+        }).join(' ');
+        shape.attr('points', points);
+        break;
+      case 'path':
+        this.movePath(shape,x,y)
+        break;
+      default:
+        console.warn(`Unsupported SVG shape: ${nodeName}`);
+    }
+  }
+
 
   //
   //
@@ -394,22 +421,6 @@ export class CanvasService {
 
     shapeSelection.call(drag);
   }
-
-  /*public followable(shapeSelection: d3.Selection<SVGElement, unknown, null, undefined>) {
-      let followers: {[key: number]: number}[] = [{}];
-      shapeSelection.attr("followable", true)
-                    .attr("followers", followers);
-  }*/
-
-  /*public follow(follower: d3.Selection<Element, unknown, null, undefined>, followed: d3.Selection<Element, unknown, null, undefined>) {
-      if (followed.attr("followable")) {
-          follower.each( function() {
-              let followers: number[][] = followed.attr("followers") as unknown as number[][];
-              followers.push(d3.select(this).attr("id") as unknown as number)
-          });
-      }
-  }*/
-
 
   //
   //
@@ -442,31 +453,12 @@ export class CanvasService {
       // Retrieve the offset values from the element's attributes
       const offsetX = parseFloat(target.attr('data-offset-x') || '0');
       const offsetY = parseFloat(target.attr('data-offset-y') || '0');
-  
-      // Check if the element has a 'cx' attribute (likely a circle or ellipse)
-      if (target.attr('cx')) {
-        // Update the 'cx' and 'cy' attributes based on the drag event's position minus the offset
-        target.attr('cx', event.x - offsetX).attr('cy', event.y - offsetY);
-      } 
-      else if (target.attr('x')) {
-        // If the element has an 'x' attribute (likely a rect or text)
-        // Update the 'x' and 'y' attributes based on the drag event's position minus the offset
-        target.attr('x', event.x - offsetX).attr('y', event.y - offsetY);
-      } 
-      else if (target.node()?.nodeName === 'path') {
-        // If the element is a path, call the movePath method
-        this.movePath(target, event.x - offsetX, event.y - offsetY);
-      } 
-      else if (target.node()?.nodeName === 'polyline' || target.node()?.nodeName === 'polygon') {
-        // If the element is a polyline or polygon, call the movePolylineOrPolygon method
-        this.movePolylineOrPolygon(target, event.x - offsetX, event.y - offsetY);
-      } 
-      else if (target.node()?.nodeName === 'text') {
-        // If the element is a text element, update the 'x' and 'y' attributes based on the drag event's position minus the offset
-        target.attr('x', event.x - offsetX).attr('y', event.y - offsetY);
+      const x : number= (event.x - offsetX)
+      const y : number= (event.y - offsetY)
+      //
+      this.moveShapeAt(target , x , y)
       }
     }
-  }
   
 
   //
@@ -474,19 +466,24 @@ export class CanvasService {
   // Method to handle the end of dragging
   private endDrag(event: d3.D3DragEvent<SVGElement, unknown, unknown>) {
     const target = d3.select(event.sourceEvent.target as SVGElement)
-    //end of selection
-    target.attr('stroke', null);
-    target.attr("drag",null)
     //
-    const node = this.registry.get(  target.select("id") as unknown as number  )
-    if(node){
-      const style = node.style
-      style.setPosition(event.x,event.y)
-      this.registry.updateNode( {key:target.attr("id") as unknown as number, style:style } )
-
-      /*if (target.attr("followable")) {
-        for (const follower of (target.attr("followers")))
-      }*/
+    if(target.attr("drag")){
+      //end of selection
+      target.attr('stroke', null);
+      target.attr("drag",null)
+      //
+      if(target.attr("id")){
+        const node = this.registry.get(  target.attr("id") as unknown as number || -1 )
+        //
+        if(node){
+          const style = node.style
+          style.setPosition(event.x,event.y)
+          this.registry.updateNode( { key: node.id, style:style } )
+        }
+        /*if (target.attr("followable")) {
+          for (const follower of (target.attr("followers")))
+        }*/
+      }
     }
   }
 
@@ -553,6 +550,36 @@ export class CanvasService {
       }
       return shapeSelection
     }
+
+
+
+
+
+
+
+
+
+
+  //     -- Following Behavior --
+
+
+
+
+    
+  /*public followable(shapeSelection: d3.Selection<SVGElement, unknown, null, undefined>) {
+      let followers: {[key: number]: number}[] = [{}];
+      shapeSelection.attr("followable", true)
+                    .attr("followers", followers);
+  }*/
+
+  /*public follow(follower: d3.Selection<Element, unknown, null, undefined>, followed: d3.Selection<Element, unknown, null, undefined>) {
+      if (followed.attr("followable")) {
+          follower.each( function() {
+              let followers: number[][] = followed.attr("followers") as unknown as number[][];
+              followers.push(d3.select(this).attr("id") as unknown as number)
+          });
+      }
+  }*/
 
 
 

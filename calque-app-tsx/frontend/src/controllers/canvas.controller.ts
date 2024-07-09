@@ -2,6 +2,7 @@ import CanvasService from '../services/canvas.service';
 import System from '../services/System';
 import {Style, SelectionStyle} from "../models/style.ts";
 import * as d3 from 'd3';
+import {Edge} from '../models/edge';
 /*
 
 Controller made for general manipulation of the canvas
@@ -177,12 +178,18 @@ class CanvasController {
       const width = parseFloat(this.selectionRectangle.attr("width"))
       const height = parseFloat(this.selectionRectangle.attr("height"))
       const selection = this.canvasService.selectElementsInArea(x,y,x+width,y+height)
+      console.log(selection)
+      //
+      var ids : string[] = []
       //
       if(selection){
-        const ids = this.canvasService.getIdFromSelected(selection)
-        //wire to the system.
-        //System.selection=ids
+        ids = this.canvasService.getIdFromSelected(selection)
       }
+      console.log(ids)
+      const focus = ids.slice(-1)[0] || null;
+      //
+      System.selection = ids;
+      System.focus = focus;
       // Remove the rectangle after selection is complete
       this.selectionRectangle.remove();
       this.selectionRectangle = null;
