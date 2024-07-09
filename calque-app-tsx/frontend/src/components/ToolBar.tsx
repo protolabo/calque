@@ -21,7 +21,7 @@ import Logo from "./components.tools/Logo.tool";
 
 
 const ToolBar : React.FC = () => {
-  const [activeTool, setActiveTool] = useState<string | null>(null);
+  const [activeTool, setActiveTool] = useState<string | null>("Select");
 
   const tools = [
     {name: "Select", Command:SelectCommand, Icon: RiCursorFill},
