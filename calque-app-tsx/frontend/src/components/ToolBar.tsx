@@ -24,16 +24,16 @@ const ToolBar : React.FC = () => {
   const [activeTool, setActiveTool] = useState<string | null>(null);
 
   const tools = [
-    {name: "Pan", Command:PanCommand, Icon: FaHandPaper},
-    {name: "CreateEdge" , Command:CreateEdgeCommand, Icon: Edge},
-    {name: "CreateNode", Command:CreateNodeCommand, Icon: VscCircleLargeFilled},
     {name: "Select", Command:SelectCommand, Icon: RiCursorFill},
+    {name: "CreateNode", Command:CreateNodeCommand, Icon: VscCircleLargeFilled},
+    {name: "CreateEdge" , Command:CreateEdgeCommand, Icon: Edge},
+    {name: "Pan", Command:PanCommand, Icon: FaHandPaper},
+
   ];
 
 
   return (
-    <div>
-      <Logo/>
+    <div className='flex items-center justify-between'>
       {tools.map(tool => (
         <ToolIcon
         key={tool.name}
@@ -44,6 +44,7 @@ const ToolBar : React.FC = () => {
         onClick={()=>setActiveTool(tool.name)}
         />
       ))}
+    
     </div>
   )
 
