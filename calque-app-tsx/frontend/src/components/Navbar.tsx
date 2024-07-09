@@ -13,13 +13,21 @@ function NbLeft(props: {children: ReactNode}){
     )
 }
 
-function NbCompDrop(props: {icon: React.FC<{className: string}>, children: ReactNode}){
+
+function NbCompDrop(props: {
+    icon: React.FC<{className: string}>, 
+    children: ReactNode,
+    active: boolean,
+    onClick: () => void;
+}){
+    const activeClass = props.active ? "bg-violet-500" : "bg-primary";
+
     return(
-        <div className="flex flex-wrap items-center hover:bg-violet-500 active:bg-secondary px-2">
+        <button className={`flex flex-wrap items-center ${activeClass} hover:bg-violet-500 active:bg-secondary px-3 py-1`} onClick={props.onClick}>
                 <props.icon className="w-6 h-6"/>
                 <div>{props.children}</div>
-                <Arrow/>
-        </div>
+                {/*<Arrow/>*/}
+        </button>
     )
 }
 
@@ -47,10 +55,10 @@ function Navbar() {
 
         <div className="flex gap-4">
             <div className="flex flex-wrap items-center mx-auto gap-8">
-                <div className="text-lg">Prototype 1.0</div>
+                
                 <div className="flex flex-wrap items-center">
                 <Link to="/Preview"><FaPlay className="w-6 h-6"/></Link>
-                    <Arrow/>
+                    
                 </div>
                 
             </div>

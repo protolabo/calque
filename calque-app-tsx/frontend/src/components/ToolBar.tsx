@@ -20,48 +20,30 @@ import Logo from "./components.tools/Logo.tool";
 
 
 
-function ToolBar() {
+const ToolBar : React.FC = () => {
+  const [activeTool, setActiveTool] = useState<string | null>(null);
+
+  const tools = [
+    {name: "Pan", Command:PanCommand, Icon: FaHandPaper},
+    {name: "CreateEdge" , Command:CreateEdgeCommand, Icon: Edge},
+    {name: "CreateNode", Command:CreateNodeCommand, Icon: VscCircleLargeFilled},
+    {name: "Select", Command:SelectCommand, Icon: RiCursorFill},
+  ];
+
 
   return (
-    <div id="ToolBar" className="flex items-center">
-        <Logo/>
-      {/*Template:
-
-        <ToolIcon 
-        toolName="ToolNameForPrint" 
-        Command={ToolCommandClass} 
-        ReactIcon={ReactIcon} 
+    <div>
+      <Logo/>
+      {tools.map(tool => (
+        <ToolIcon
+        key={tool.name}
+        toolName={tool.name}
+        Command={tool.Command}
+        ReactIcon={tool.Icon}
+        active={activeTool === tool.name}
+        onClick={()=>setActiveTool(tool.name)}
         />
-      
-      */}
-
-
-        {/*Panning the canvas button*/}
-        <ToolIcon 
-        toolName="Pan" 
-        Command={PanCommand} 
-        ReactIcon={FaHandPaper} 
-        />
-
-        {/*Create an Edge on the Canvas button*/}
-        <ToolIcon 
-        toolName="CreateEdge" 
-        Command={CreateEdgeCommand} 
-        ReactIcon={Edge} 
-        />
-        {/*Create a Node on the Canvas button*/}
-        <ToolIcon 
-        toolName="CreateNode" 
-        Command={CreateNodeCommand} 
-        ReactIcon={VscCircleLargeFilled} 
-        />
-        {/*Select Canvas Element button*/}
-        <ToolIcon 
-        toolName="Select" 
-        Command={SelectCommand} 
-        ReactIcon={RiCursorFill} 
-        />
-        
+      ))}
     </div>
   )
 
@@ -85,22 +67,25 @@ interface ToolIconProps {
   toolName: string;
   Command: any;
   ReactIcon:  React.FC<{className: string}>;
+  active: boolean;
+  onClick: () => void;
 }
 
-const ToolIcon: React.FC<ToolIconProps> = ({ toolName, Command, ReactIcon }) => {
+const ToolIcon: React.FC<ToolIconProps> = ({ toolName, Command, ReactIcon, active, onClick }) => {
   const loadTool = () => {
     console.log(`${toolName} Tool (wired)`);
     const commandInstance : Command = new Command();
     System.activeTool = commandInstance;
+    onClick();
   };
 
   return (
     <button 
       id={toolName.replace(/\s+/g, '')} 
-      className=""
+      className={active ? "active-class" : ""}
       onClick={loadTool}
     >
-      <NbCompDrop icon={ReactIcon}>
+      <NbCompDrop icon={ReactIcon} active={active}>
         <div></div>
       </NbCompDrop>  
     </button>
