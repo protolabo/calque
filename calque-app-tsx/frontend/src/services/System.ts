@@ -139,14 +139,14 @@ export class System {
 
 
     public static getNodeFromSelection(): string[] {
-        const listNodes : string[] = []
+        const listNodes : string[] = [];
         //
-        this._selection.forEach((id)=>{
-            //
-            const object = System.registry.get(id as unknown as number)
-            if(object instanceof Node){
-                listNodes.push(id)}
-        })
+        for (const id of this._selection) {
+            const object = System.registry.get(id as unknown as number);
+            if (object instanceof Node) {
+                listNodes.push(id);
+            }
+        }
         return listNodes
     }
 

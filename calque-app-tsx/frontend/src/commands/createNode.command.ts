@@ -11,7 +11,7 @@ class CreateNodeCommand implements Command {
 
   constructor(){
     if(System.canvas){
-      this.controller = new CanvasController(System.canvas)
+      this.controller = new CanvasController(System.canvas);
       this.style = System.selectedStyle || System.defaultNodeStyle;
     }
     else{
@@ -24,7 +24,7 @@ class CreateNodeCommand implements Command {
   onLoad(){
     console.log("Add Node tool onLoad()")
     if(this.controller){
-      this.controller.addShapeMode(this.style);
+      this.controller.addNodeMode(this.style);
     }
     else{
       console.warn("Add Node command instantiated on no existing canvas.")
@@ -37,15 +37,15 @@ class CreateNodeCommand implements Command {
       if (this.controller){
         console.log("Creating a Node");
       }
-      else{
-        console.warn("Select command will fail without a canvas.")
+      else {
+        console.warn("Create Node command will fail without a canvas.")
       }
     }
 
 
 
-    onLeave(){
-      if(this.controller){
+    onLeave() {
+      if (this.controller) {
         this.controller.endAddShapeMode()
       }
     }

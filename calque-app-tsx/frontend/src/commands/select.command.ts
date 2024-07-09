@@ -21,10 +21,10 @@ class SelectCommand implements Command {
 
   onLoad(){
     console.log("Selection tool onLoad()")
-    if(this.controller){
+    if (this.controller) {
       this.controller.selectMode();
     }
-    else{
+    else {
       console.warn("Select command instantiated on no existing canvas.")
     }
   }
@@ -33,16 +33,16 @@ class SelectCommand implements Command {
     // Add any properties or methods needed for the PanCommand
   execute() {
       if (this.controller){
-
+        console.log("Selecting elements");
       }
-      else{
+      else {
         console.warn("Select command will fail without a canvas.")
       }
     }
 
-  onLeave(){
-    if(this.controller){
-      this.controller.endSelectMode()
+  onLeave() {
+    if (this.controller) {
+      this.controller.endSelectMode();
     }
   }
 

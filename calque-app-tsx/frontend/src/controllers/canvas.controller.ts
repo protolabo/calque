@@ -264,24 +264,24 @@ class CanvasController {
       
       
       
-      let listEdges : string[] = (System.getEdgeFromSelection())
+      let listNodes : string[] = (System.getNodeFromSelection())
 
-      if(listEdges){
+      if (listNodes) {
         //ok
         this.createEdgeFromSelection(style)
       }
 
 
       const eventListeners = {
-        'mousedown': (event:any) => this.createEdgeFromSelection(style),
+        'mousedown': (event: any) => this.createEdgeFromSelection(style),
       }
-    this.canvasService.addEventListeners(svgElement,eventListeners)
+      this.canvasService.addEventListeners(svgElement,eventListeners)
     }
   }
 
 
 
-public createEdgeFromSelection(style: Style): d3.Selection<SVGElement, unknown, null, undefined>[] | null {
+  public createEdgeFromSelection(style: Style): d3.Selection<SVGElement, unknown, null, undefined>[] | null {
     let listNode : string[] = (System.getNodeFromSelection());
     let listEdge : d3.Selection<SVGElement, unknown, null, undefined>[] = [];
 
@@ -306,9 +306,8 @@ public createEdgeFromSelection(style: Style): d3.Selection<SVGElement, unknown, 
       console.warn("What")
       return null;
     }
-    // TODO add event listeners for future edge creation
     return listEdge;
-}
+  }
 
 
 
@@ -320,8 +319,8 @@ public createEdgeFromSelection(style: Style): d3.Selection<SVGElement, unknown, 
 
   //adding all the event listeners on svg canvas (might induce conflict between event listeners)
   public selectMode(style : Style | null = null): void {
-    if (style){
-      this.selectionStyle=style; //Add a custom style if necessary
+    if (style) {
+      this.selectionStyle = style; //Add a custom style if necessary
     }
     //select the d3 element
     const svgElement =  this.canvasService.selectCanvasElement(this.svg);
@@ -329,9 +328,9 @@ public createEdgeFromSelection(style: Style): d3.Selection<SVGElement, unknown, 
     if (svgElement){
     //add event listeners
     const eventListeners = {
-      'mousedown': (event:any) => this.onMouseDownSelect(event),
-      'mousemove': (event:any) => this.onMouseMoveSelect(event),
-      'mouseup': (event:any) => this.onMouseUpSelect(event)
+      'mousedown': (event: any) => this.onMouseDownSelect(event),
+      'mousemove': (event: any) => this.onMouseMoveSelect(event),
+      'mouseup': (event: any) => this.onMouseUpSelect(event)
     }
     this.canvasService.addEventListeners(svgElement,eventListeners)
     }
