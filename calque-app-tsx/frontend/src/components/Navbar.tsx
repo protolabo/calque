@@ -3,6 +3,7 @@ import Arrow from "../assets/Arrow.asset";
 import { FaArrowPointer } from "react-icons/fa6";
 import { ReactNode } from "react";
 import ToolBar from "./ToolBar";
+import { Link } from "react-router-dom";
 
 function NbLeft(props: {children: ReactNode}){
     return(
@@ -48,7 +49,7 @@ function Navbar() {
             <div className="flex flex-wrap items-center mx-auto gap-8">
                 <div className="text-lg">Prototype 1.0</div>
                 <div className="flex flex-wrap items-center">
-                    <FaPlay className="w-6 h-6"/>
+                <Link to="/Preview"><FaPlay className="w-6 h-6"/></Link>
                     <Arrow/>
                 </div>
                 
