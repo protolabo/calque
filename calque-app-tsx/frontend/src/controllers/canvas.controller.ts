@@ -3,6 +3,7 @@ import System from '../services/System';
 import {Style, SelectionStyle} from "../models/style.ts";
 import * as d3 from 'd3';
 import {Edge} from '../models/edge';
+import { Registry } from "./registry"
 /*
 
 Controller made for general manipulation of the canvas
@@ -33,6 +34,8 @@ const d3Elements = [
     "switch",
     "symbol",
     "use"]
+    
+const registry: Registry = Registry.getInstance();
 
 
 class CanvasController {
@@ -76,28 +79,6 @@ class CanvasController {
     }
   }
 
-  createNode(shapeType: string, attributes: { [key: string]: any }) {
-    if(d3Elements.includes(shapeType)){
-        console.log(attributes)
-
-        //If string is a real keyword, add the appropriate attribute
-        const shape = this.canvasService.addShape(shapeType, attributes);
-        this.canvasService.draggable(shape)
-        //this.canvasService.followable(shape)
-    }
-  }
-
-  createEdge(shapeType: string, attributes: { [key: string]: any }) {
-    if(d3Elements.includes(shapeType)){
-        console.log(attributes)
-
-        /* TODO : Connect to the registry  */
-
-        //If string is a real keyword, add the appropriate attribute
-        const shape = this.canvasService.addShape(shapeType, attributes);
-    }
-  }
-
 
   // General method to create a shape
   createShapeFromStyle(style:Style) {
@@ -116,6 +97,93 @@ class CanvasController {
     }
     return null
   }
+
+
+
+
+
+
+
+
+  //        --Node Methods--
+
+
+  addRegistryEntryNode() {
+    const cssId: number = registry.createNode();
+    console.log((cssId))
+    return {"id":cssId}
+  }  
+
+  createNode(shapeType: string, attributes: { [key: string]: any }) {
+    if(d3Elements.includes(shapeType)){
+        //console.log(attributes)
+
+        //If string is a real keyword, add the appropriate attribute
+        const shape = this.canvasService.addShape(shapeType, attributes);
+        this.addNodeBehaviors(shape)
+    }
+  }
+
+
+
+  // General method to create a shape
+  createNodeFromStyleEvent(style:Style, event:any): d3.Selection<SVGElement, unknown, null, undefined> | null  {
+    //
+      const id = this.addRegistryEntryNode()
+      style.d3Attributes = {...style.d3Attributes, ...id }
+      const selection  = this.createShapeFromStyleEvent(style,event)
+      //
+      if (selection) {
+        this.addNodeBehaviors(selection)
+        //console.log(selection.attr("id"))
+        return selection
+      }
+      else {
+        registry.delete(id.id)
+        return null
+      }
+  }
+
+
+  addNodeBehaviors(shape: d3.Selection<SVGElement, unknown, null, undefined>) {
+    this.canvasService.draggable(shape);
+    // this.canvasService.followable(shape);
+
+  }
+
+
+  
+  public addNodeMode(style: Style): void {
+    if (style) {
+      this.selectionStyle = style; //Add a custom style if necessary
+    }
+    //select the d3 element
+    const svgElement =  this.canvasService.selectCanvasElement(this.svg);
+    //if canvas not null
+    if (svgElement) {
+      //add event listeners
+      const eventListeners = {
+        'mousedown': (event:any) => this.createNodeFromStyleEvent(style,event),
+      }
+    this.canvasService.addEventListeners(svgElement,eventListeners)
+    }
+  }
+
+
+
+    //        --Edge Methods--
+
+  createEdge(shapeType: string, attributes: { [key: string]: any }) {
+    if(d3Elements.includes(shapeType)){
+        console.log(attributes)
+
+        /* TODO : Connect to the registry  */
+
+        //If string is a real keyword, add the appropriate attribute
+        const shape = this.canvasService.addShape(shapeType, attributes);
+    }
+  }
+
 
 
 

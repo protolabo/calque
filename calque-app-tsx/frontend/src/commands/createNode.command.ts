@@ -24,7 +24,7 @@ class CreateNodeCommand implements Command {
   onLoad(){
     console.log("Add Node tool onLoad()")
     if(this.controller){
-      this.controller.addShapeMode(this.style);
+      this.controller.addNodeMode(this.style);
     }
     else{
       console.warn("Add Node command instantiated on no existing canvas.")

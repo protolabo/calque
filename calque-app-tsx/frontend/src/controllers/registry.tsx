@@ -20,11 +20,11 @@ export class Registry {
     private getNextId(): number {
         let nextId: number | undefined;
         for (const key of this._registry.keys()) {
-            if (typeof nextId === undefined || key > nextId!) {
+            if (typeof nextId === "undefined" || key > nextId!) {
                 nextId = key;
             }
         }
-        return typeof nextId === undefined ? 0 : nextId! + 1;
+        return (typeof nextId === "undefined") ? 0 : (nextId! + 1);
     }
 
     // get
@@ -35,6 +35,7 @@ export class Registry {
     // create node
     public createNode(): number {
         const id: number = this.getNextId();
+        console.log(id)
         const node: Node = new Node("node " + id.toString(), id);
         this._registry.set(id, node);
         return id;
