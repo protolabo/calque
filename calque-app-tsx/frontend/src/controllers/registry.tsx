@@ -35,7 +35,6 @@ export class Registry {
     // create node
     public createNode(): number {
         const id: number = this.getNextId();
-        console.log(id)
         const node: Node = new Node("node " + id.toString(), id);
         this._registry.set(id, node);
         return id;
@@ -46,7 +45,7 @@ export class Registry {
         const id: number = this.getNextId();
         const node1: Node | Edge | undefined = this.get(key1);
         const node2: Node | Edge | undefined = this.get(key2);
-        if (typeof node1 !== "undefined" && typeof node2 !== "undefined" && Object.keys(node1).includes("_entrant") && Object.keys(node2).includes("_entrant")) {
+        if (typeof node1 !== "undefined" && typeof node2 !== "undefined" && node1 instanceof Node && node2 instanceof Node) {
             const edge: Edge = new Edge(id, "edge " + id.toString, (node1 as Node), (node2 as Node), ligne);
             this._registry.set(id, edge);
             this.updateNode({key:key1, addSortant:[edge]});
@@ -70,7 +69,7 @@ export class Registry {
         }): void {
 
         let node: Node | Edge | undefined = this.get(key);
-        if (typeof node !== "undefined" && Object.keys(node).includes("_entrant")) {
+        if (typeof node !== "undefined" && node instanceof Node) {
             node = (node as Node);
             if (typeof name !== "undefined") {
                 node.name = name;
@@ -111,7 +110,7 @@ export class Registry {
         }): void {
 
         let edge: Node | Edge | undefined = this.get(key);
-        if (typeof edge !== "undefined" && Object.keys(edge).includes("_ligne")) {
+        if (typeof edge !== "undefined" && edge instanceof Edge) {
             edge = (edge as Edge);
             if (typeof name !== "undefined") {
                 edge.name = name;
@@ -130,7 +129,7 @@ export class Registry {
         const element = this.get(key);
         let removed: number[] = [];
         if (typeof element !== "undefined") {
-            if (Object.keys(element).includes("_entrant")) {
+            if (element instanceof Node) {
                 const node = (element as Node);
                 for (const edge of node.entrant.concat(node.sortant)) {
                     removed = removed.concat(this.delete(edge.id))

@@ -12,11 +12,11 @@ class CreateNodeCommand implements Command {
   constructor(){
     if(System.canvas){
       this.controller = new CanvasController(System.canvas)
-      this.style = System.selectedStyle || System.defaultStyle;
+      this.style = System.selectedStyle || System.defaultNodeStyle;
     }
     else{
       this.controller=null;
-      this.style = System.selectedStyle || System.defaultStyle;
+      this.style = System.selectedStyle || System.defaultNodeStyle;
     }
   }
 
@@ -24,7 +24,7 @@ class CreateNodeCommand implements Command {
   onLoad(){
     console.log("Add Node tool onLoad()")
     if(this.controller){
-      this.controller.addNodeMode(this.style);
+      this.controller.addShapeMode(this.style);
     }
     else{
       console.warn("Add Node command instantiated on no existing canvas.")

@@ -4,6 +4,7 @@ import {Style, SelectionStyle} from "../models/style.ts";
 import * as d3 from 'd3';
 import {Edge} from '../models/edge';
 import { Registry } from "./registry"
+import { Ligne } from "../models/ligne"
 /*
 
 Controller made for general manipulation of the canvas
@@ -69,31 +70,36 @@ class CanvasController {
 
 
   // General method to create a shape
-  createShape(shapeType: string, attributes: { [key: string]: any }) {
+  createShape(shapeType: string, attributes: { [key: string]: any }) : d3.Selection<SVGElement, unknown, null, undefined> | null {
     if(d3Elements.includes(shapeType)){
         console.log(attributes)
 
 
         //If string is a real keyword, add the appropriate attribute
         const shape = this.canvasService.addShape(shapeType, attributes);
+        return shape
     }
+    return null
   }
 
 
   // General method to create a shape
-  createShapeFromStyle(style:Style) {
+  createShapeFromStyle(style:Style) : d3.Selection<SVGElement, unknown, null, undefined> | null {
     const shapeType = style.shapeName;
     const attributes = style.d3Attributes
-    this.createShape(shapeType,attributes)
+    return this.createShape(shapeType,attributes)
+
   }
 
   // General method to create a shape
   createShapeFromStyleEvent(style:Style, event:any): d3.Selection<SVGElement, unknown, null, undefined> | null  {
-    if(d3Elements.includes(style.shapeName)){
-      const [x,y] = d3.pointer(event)
-      const shape = this.canvasService.addShapeAt(style.shapeName,style.d3Attributes,x,y)
-      this.canvasService.draggable(shape)
-      return shape
+    if(style && style.shapeName){
+      if(d3Elements.includes(style.shapeName)){
+        const [x,y] = d3.pointer(event)
+        const shape = this.canvasService.addShapeAt(style.shapeName,style.d3Attributes,x,y)
+        this.canvasService.draggable(shape)
+        return shape
+      }
     }
     return null
   }
@@ -171,7 +177,22 @@ class CanvasController {
 
 
 
+
+
+
+
+
+
+
+
     //        --Edge Methods--
+
+
+
+
+
+
+
 
   createEdge(shapeType: string, attributes: { [key: string]: any }) {
     if(d3Elements.includes(shapeType)){
@@ -186,6 +207,102 @@ class CanvasController {
 
 
 
+
+
+  addRegistryEntryEdge(key1: number, key2: number) {
+    const cssId: number = registry.createEdge(key1, key2, new Ligne("nouvelle ligne"))!;
+    console.log((cssId))
+    return {"id":cssId}
+  }  
+
+
+  // // General method to create a shape
+  // createEdgeFromStyleEvent(style:Style, key1:number, key2:number, event:any): d3.Selection<SVGElement, unknown, null, undefined> | null  {
+  //   //
+  //     const id = this.addRegistryEntryEdge(key1,key2)
+  //     style.d3Attributes = {...style.d3Attributes, ...id }
+  //     const selection  = this.createShapeFromStyle(style)
+  //     //
+  //     if (selection) {
+  //       this.addEdgeBehaviors(selection)
+  //       //console.log(selection.attr("id"))
+  //       return selection
+  //     }
+  //     else {
+  //       registry.delete(id.id)
+  //       return null
+  //     }
+  // }
+
+
+
+
+  /*
+  addRegistryEntryEdge(key1: number, key2: number) {
+    const cssId: number = registry.createEdge(key1, key2, new Ligne("nouvelle ligne"))!;
+    console.log((cssId))
+    return {"id":cssId}
+  }  
+*/
+
+
+  addEdgeBehaviors(shape: d3.Selection<SVGElement, unknown, null, undefined>) {
+
+
+  }
+
+
+  
+  public addEdgeMode(style: Style,): void {
+    if (style) {
+      this.selectionStyle = style; //Add a custom style if necessary
+    }
+    //select the d3 element
+    const svgElement = this.canvasService.selectCanvasElement(this.svg);
+    //if canvas not null
+    if (svgElement) {
+      //add event listeners
+      
+      
+      
+      let listEdges : string[] = (System.getNodeFromSelection())
+
+      if(listEdges){
+        //ok
+        this.createEdgeFromSelection(style)
+      }
+
+
+      const eventListeners = {
+        'mousedown': (event:any) => this.createEdgeFromSelection(style),
+      }
+    this.canvasService.addEventListeners(svgElement,eventListeners)
+    }
+  }
+
+
+
+public createEdgeFromSelection( style: Style) {
+  
+    let listNode : string[] = (System.getNodeFromSelection());
+
+    if (listNode.length === 0) {
+      
+    }
+    else if(listNode.length === 1) {
+      
+    }
+    else if(listNode.length >= 2){
+
+    }
+    else {
+      console.warn(
+        "What"
+      )
+    }
+
+
+}
 
 
 

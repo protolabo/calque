@@ -3,9 +3,9 @@
 This is is typescript logic only, no REACT in here
 
 */
-import {Style,CircleStyle,RectangleStyle} from "../models/style.ts";
-import {Edge} from "../models/edge.ts";
-import Node from "../models/node.ts";
+import {Style,CircleStyle,EdgeStyle} from "../models/style.ts";
+import { Edge } from "../models/edge.ts";
+import { Node } from "../models/node.ts";
 import Command  from "./../commands/commandInterface";
 import CanvasController from "../controllers/canvas.controller.ts";
 import { Registry } from "../controllers/registry.tsx";
@@ -22,7 +22,8 @@ export class System {
     //
     private static _mouse: { [key: string]: number } = {};
     //
-    private static _defaultStyle : Style = new CircleStyle()
+    private static _defaultNodeStyle : Style = new CircleStyle()
+    private static _defaultEdgeStyle : Style = new EdgeStyle()
     private static _selectedStyle : Style | null = null;
     //
     private static _canvasController : CanvasController | null;
@@ -100,12 +101,20 @@ export class System {
     }
 
 
-    public static set defaultStyle(v: Style) {
-        System.defaultStyle = v;
+    public static set defaultNodeStyle(v: Style) {
+        System._defaultNodeStyle = v;
     }
 
-    public static get defaultStyle() : Style {
-        return System._defaultStyle;
+    public static get defaultNodeStyle() : Style {
+        return System._defaultNodeStyle;
+    }
+
+    public static set defaultEdgeStyle(v: Style) {
+        System._defaultEdgeStyle = v;
+    }
+
+    public static get defaultEdgeStyle() : Style {
+        return System._defaultEdgeStyle;
     }
 
     public static set selectedStyle(v: Style) {
@@ -129,6 +138,29 @@ export class System {
     }
 
 
+    public static getNodeFromSelection(): string[] {
+        const listNodes : string[] = []
+        //
+        this._selection.forEach((id)=>{
+            //
+            const object = System.registry.get(id as unknown as number)
+            if(object instanceof Node){
+                listNodes.push(id)}
+        })
+        return listNodes
+    }
+
+    public static getEdgeFromSelection(): string[] {
+        const listEdges: string[] = [];
+        
+        this._selection.forEach((id) => {
+        //
+            const object = System.registry.get(id as unknown as number)
+            if (object instanceof Edge) {
+                listEdges.push(id) }
+        })
+        return listEdges
+    }
 }
 
 export default System;
