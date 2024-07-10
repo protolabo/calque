@@ -13,7 +13,7 @@ function IdViewer() {
             Id :  
         </h6>
         <div id = "IdViewer_Variable" className="inline"> 
-            {id? id : "No selection"}
+            {System.focus}
         </div>
     </div>
   );

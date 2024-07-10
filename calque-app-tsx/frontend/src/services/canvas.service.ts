@@ -125,7 +125,6 @@ Element includes both HTMLElement and SVGElement
 export class CanvasService {
     private svgElement : SVGSVGElement;
     private svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
-    private registry : Registry;
   
     constructor(svgElement: SVGSVGElement) {
       this.svgElement = svgElement;
@@ -134,7 +133,6 @@ export class CanvasService {
       this.getOffsets = this.getOffsets.bind(this);
       this.moveShapeAt = this.moveShapeAt.bind(this);
       this.drag = this.drag.bind(this);
-      this.registry = Registry.getInstance();
     }
 
 
@@ -309,21 +307,34 @@ export class CanvasService {
 
 
 
-  public selectElementsInArea(x_start: number, y_start: number, x_end: number, y_end: number): d3.Selection<Element, unknown, Element, undefined> {
+  public selectElementsInArea(x_start: number, y_start: number, x_end: number, y_end: number): d3.Selection<SVGElement, unknown, Element, undefined> {
     //
-    const elements = this.svg.selectAll<Element, unknown>('*').filter(function () {
-      const bbox = this.getBoundingClientRect(); //
-      const withinX = bbox.left >= x_start && bbox.right <= x_end;
-      const withinY = bbox.top >= y_start && bbox.bottom <= y_end;
+    const self = this
+    const elements = this.svg.selectAll<SVGElement, unknown>('*').filter(function () {
+      const middle = self.getMiddleOfShape(d3.select(this))
+      if(!middle){
+        return false
+      }
+      const withinX = middle.x >= x_start && middle.x <= x_end;
+      const withinY = middle.y >= y_start && middle.y <= y_end;
       return withinX && withinY;
     });
+    //
     return elements;
   }
 
 
 
 
-
+  public getMiddleOfShape(shape: d3.Selection<SVGElement, unknown, null , undefined>): { [key: string]: any } | null{
+    const node = shape.node();
+    if (!node || !(node instanceof SVGGraphicsElement)) {
+      console.error('Invalid SVG shape or shape does not support getBBox');
+      return null;
+    }
+    const boundingBox = node.getBBox()
+    return { x: boundingBox.x + boundingBox.width/2 ,y: boundingBox.y + boundingBox.height/2 }
+  }
 
 
 
@@ -472,12 +483,12 @@ export class CanvasService {
       target.attr("drag",null)
       //
       if(target.attr("id")){
-        const node = this.registry.get(  target.attr("id") as unknown as number || -1 )
+        const node = System.registry.get(target.attr("id") as unknown as number)
         //
         if(node){
           const style = node.style
           style.setPosition(event.x,event.y)
-          this.registry.updateNode( { key: node.id, style:style } )
+          System.registry.updateNode( { key: node.id, style:style } )
         }
         /*if (target.attr("followable")) {
           for (const follower of (target.attr("followers")))
@@ -625,7 +636,11 @@ export class CanvasService {
   public getIdFromSelected(selection: d3.Selection<Element, unknown, Element, unknown>) : string[]{
     const cssIds : string[] = []
     //we select the id attribute from the this Element object
-    selection.each( function(){  cssIds.push(d3.select(this).attr("id"))  }  );
+    selection.each( function(){
+      if(d3.select(this).attr("id")){
+        cssIds.push(d3.select(this).attr("id"))  
+      }
+      }  );
     //
     return cssIds
   }

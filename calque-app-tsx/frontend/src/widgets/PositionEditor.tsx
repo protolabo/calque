@@ -5,7 +5,13 @@ import labelStyle from "../components/Rightbar"
 
 function PositionEditor() {
     //fetch the last interacted element 
-    const node :  Node | null = System.focus instanceof Node? System.focus: null;
+    let  node :  Node | null = null;
+    if (System.focus){
+      const entry = System.registry.get(System.focus as unknown as number)
+      if(entry instanceof Node){
+        node = entry
+      }
+    }
     
   return (
     <div id="PositionEditor" className="">   

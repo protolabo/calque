@@ -5,8 +5,14 @@ import labelStyle from "../components/Rightbar"
 
 function NameEditor() {
     //fetch the last interacted element 
-    const node :  Node = System.focus;
-    
+    let  node :  Node | null = null;
+    if (System.focus){
+      const entry = System.registry.get(System.focus as unknown as number)
+      if(entry instanceof Node){
+        node = entry
+      }
+    }
+
   return (
     <div id="IdViewer" className="">   
       {/* Form will allow update upon posting */}

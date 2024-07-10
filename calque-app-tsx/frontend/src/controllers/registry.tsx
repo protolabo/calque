@@ -6,13 +6,15 @@ import { Style } from "../models/style";
 
 export class Registry {
     private static instance: Registry;
-    private _registry: Map<number, Node | Edge> = new Map;
+    private _registry: Map<number, Node | Edge>;
 
-    private constructor() {}
+    private constructor() {
+        this._registry = new Map<number, Node | Edge>();
+    }
 
     static getInstance(): Registry {
         if (typeof this.instance === "undefined") {
-            this.instance = new Registry;
+            this.instance = new Registry();
         }
         return this.instance;
     }

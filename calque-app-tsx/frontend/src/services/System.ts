@@ -14,7 +14,7 @@ export class System {
 
     //What is last interacted item on the canvas
     private static _focus : string | null;
-    private static _selection : (string)[];
+    private static _selection : (string)[] = [];
     //
     private static _activeTool : Command;
     //

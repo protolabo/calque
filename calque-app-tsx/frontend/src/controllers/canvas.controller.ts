@@ -337,6 +337,10 @@ class CanvasController {
   }
 
   private onMouseDownSelect(event: MouseEvent): void {
+    //cleanup if necessary
+    this.selectionRectangle?.remove();
+    this.selectionRectangle = null;
+    //
     this.selectionRectangle = this.createShapeFromStyleEvent(this.selectionStyle,event)
     const [x,y] = d3.pointer(event)
     this.selectionRectangle?.attr("originalX",x)
@@ -374,7 +378,7 @@ class CanvasController {
       var ids : string[] = []
       //
       if(selection){
-        ids = this.canvasService.getIdFromSelected(selection)
+        ids = this.canvasService.getIdFromSelected(selection as unknown as  d3.Selection<Element, unknown, Element, undefined> )
       }
       console.log(ids)
       const focus = ids.slice(-1)[0] || null;
