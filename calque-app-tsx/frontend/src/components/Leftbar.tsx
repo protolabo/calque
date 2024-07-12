@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, useState, useContext } from "react";
 
 // Icons
 import { FiPlus } from "react-icons/fi";
@@ -9,6 +9,8 @@ import { VscCircleLargeFilled } from "react-icons/vsc";
 import Line from "./../assets/Line.asset";
 import { GoTriangleDown } from "react-icons/go";
 import { GoTriangleRight } from "react-icons/go";
+
+import { ModeContext } from "./Layout";
 
 function LbSecTitle(props: {children: ReactNode}) {
   return (
@@ -67,8 +69,12 @@ function TagSection(props: {children: ReactNode}) {
 }
 
 function Leftbar() {
+  const [mode, _] = useContext(ModeContext)
+
   return (
     <div className="sticky top-0 bg-secondary text-primary left-0  z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
+      {mode === "editor" && (
+      <>
       <LbGroupElements>
         <LbSecTitle>Etages</LbSecTitle>
         <FloorSection>Rez-de-chaussée</FloorSection>
@@ -84,6 +90,9 @@ function Leftbar() {
         <TagSection>Station de train</TagSection>
         <TagSection>Université</TagSection>
       </LbGroupElements>
+      </>)}
+      {mode === "preview" && <div></div>
+      }
     </div>
   )
 }
