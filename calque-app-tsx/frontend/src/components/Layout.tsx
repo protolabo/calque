@@ -5,16 +5,23 @@ import Rightbar from "./Rightbar"
 import Canvas from "./Canvas"
 import Map from "./Map"
 import System from "../services/System"
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useContext, useRef, createContext, useState } from 'react';
+
+
+type Mode = "editor" | "preview"
+
+const ModeContext = createContext<[Mode, React.Dispatch<Mode>]>(undefined as any);
 
 function Layout() {
 
-    //hook that contains the reference of the canvas stored in <svg> in <Map/> component
-    const canvasRef = useRef<SVGSVGElement | null>(null);
+  const [mode, setMode] = useState<Mode>("editor")
 
+
+  //hook that contains the reference of the canvas stored in <svg> in <Map/> component
+  const canvasRef = useRef<SVGSVGElement | null>(null);
 
   return (
-    <div>
+    <ModeContext.Provider value={[mode, setMode]}>
         <Navbar/>
         <div className="flex flex-row">
           <Leftbar/>
@@ -22,8 +29,9 @@ function Layout() {
           <Rightbar/>
         </div>
         <Outlet/>
-    </div> 
+    </ModeContext.Provider> 
   )
 }
 
-export default Layout
+export default Layout;
+export {ModeContext}
