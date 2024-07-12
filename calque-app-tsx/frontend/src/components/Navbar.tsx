@@ -5,6 +5,10 @@ import { ReactNode } from "react";
 import ToolBar from "./ToolBar";
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.asset";
+import { FaRegEdit } from "react-icons/fa";
+import { LiaToggleOffSolid } from "react-icons/lia";
+import { LiaToggleOnSolid } from "react-icons/lia";
+import { MdPreview } from "react-icons/md"; 
 
 function NbLeft(props: {children: ReactNode}){
     return(
@@ -40,6 +44,8 @@ function NbTitle(props: {children: ReactNode}){
     )
 }
 
+
+
 function Navbar() {
   return (
     <div className=" bg-primary text-white flex items-center justify-between mx-auto p-2">
@@ -58,9 +64,11 @@ function Navbar() {
         <div className="flex gap-4">
             <div className="flex flex-wrap items-center mx-auto gap-8">
                 
-                <div className="flex flex-wrap items-center">
-                <Link to="/Preview"><FaPlay className="w-6 h-6"/></Link>
-                    
+                <div className="flex flex-wrap items-center gap-4">
+                    <FaRegEdit className="w-8 h-8"/>
+                    <LiaToggleOffSolid className="w-8 h-8"/>
+                    {/*<Link to="/Preview"><FaPlay className="w-8 h-8"/></Link>*/}
+                    <MdPreview className="w-8 h-8"/>
                 </div>
                 
             </div>
