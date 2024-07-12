@@ -1,11 +1,13 @@
 import { FaPlay } from "react-icons/fa";
 import Arrow from "../assets/Arrow.asset";
 import { FaArrowPointer } from "react-icons/fa6";
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import ToolBar from "./ToolBar";
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.asset";
 import ModeSwitcher from "./ModeSwitcher";
+import { ModeContext } from './Layout';
+
 
 function NbLeft(props: {children: ReactNode}){
     return(
@@ -44,23 +46,25 @@ function NbTitle(props: {children: ReactNode}){
 
 
 function Navbar() {
-  return (
-    <div className="bg-primary text-white flex flex-row grow justify-between mx-auto p-2">
+    const [mode, _] = useContext(ModeContext)
 
-        <NbLeft>
-            <Logo/>
-            <ToolBar/>
-        </NbLeft>
+    return (
+        <div className="bg-primary text-white flex flex-row grow justify-between mx-auto p-2">
+
+            <NbLeft>
+                <Logo/>
+                {mode === "editor" && <ToolBar/>}
+            </NbLeft>
+
+            <NbTitle>
+                <div>Carte-globale</div>
+                <div>/</div>
+                <div>Sous-carte-1</div>
+            </NbTitle>
+
+            <ModeSwitcher/>
         
-        <NbTitle>
-            <div>Carte-globale</div>
-            <div>/</div>
-            <div>Sous-carte-1</div>
-        </NbTitle>
-
-        <ModeSwitcher/>
-      
-    </div>
+        </div>
   )
 }
 
