@@ -5,10 +5,7 @@ import { ReactNode } from "react";
 import ToolBar from "./ToolBar";
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.asset";
-import { FaRegEdit } from "react-icons/fa";
-import { LiaToggleOffSolid } from "react-icons/lia";
-import { LiaToggleOnSolid } from "react-icons/lia";
-import { MdPreview } from "react-icons/md"; 
+import ModeSwitcher from "./ModeSwitcher";
 
 function NbLeft(props: {children: ReactNode}){
     return(
@@ -38,7 +35,7 @@ function NbCompDrop(props: {
 
 function NbTitle(props: {children: ReactNode}){
     return(
-        <div className="text-white flex justify-items-center gap-2 items-center font-bold text-xl px-1">
+        <div className="text-white flex gap-2 items-center font-bold text-xl px-1">
             {props.children}
         </div>
     )
@@ -48,7 +45,7 @@ function NbTitle(props: {children: ReactNode}){
 
 function Navbar() {
   return (
-    <div className=" bg-primary text-white flex items-center justify-between mx-auto p-2">
+    <div className="bg-primary text-white flex flex-row grow justify-between mx-auto p-2">
 
         <NbLeft>
             <Logo/>
@@ -61,18 +58,7 @@ function Navbar() {
             <div>Sous-carte-1</div>
         </NbTitle>
 
-        <div className="flex gap-4">
-            <div className="flex flex-wrap items-center mx-auto gap-8">
-                
-                <div className="flex flex-wrap items-center gap-4">
-                    <FaRegEdit className="w-8 h-8"/>
-                    <LiaToggleOffSolid className="w-8 h-8"/>
-                    {/*<Link to="/Preview"><FaPlay className="w-8 h-8"/></Link>*/}
-                    <MdPreview className="w-8 h-8"/>
-                </div>
-                
-            </div>
-        </div>
+        <ModeSwitcher/>
       
     </div>
   )
