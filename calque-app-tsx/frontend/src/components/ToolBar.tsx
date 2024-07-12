@@ -84,9 +84,8 @@ const ToolIcon: React.FC<ToolIconProps> = ({ toolName, Command, ReactIcon, activ
     <button 
       id={toolName.replace(/\s+/g, '')} 
       className={active ? "active-class" : ""}
-      onClick={loadTool}
     >
-      <NbCompDrop icon={ReactIcon} active={active}>
+      <NbCompDrop icon={ReactIcon} active={active} onClick={loadTool}>
         <div></div>
       </NbCompDrop>  
     </button>
