@@ -1,7 +1,8 @@
 import React from 'react';
-import { useState,useEffect } from 'react';
+import { useState,useEffect, useContext} from 'react';
 import Command  from "./../commands/commandInterface";
 import SelectCommand  from "./../commands/select.command";
+import { ModeContext } from './Layout';
 
 //icons
 import {   VscCircleLargeFilled} from "react-icons/vsc";
@@ -22,6 +23,7 @@ import Logo from "./components.tools/Logo.tool";
 
 const ToolBar : React.FC = () => {
   const [activeTool, setActiveTool] = useState<string | null>("Select");
+  const [mode, _] = useContext(ModeContext);
 
   const tools = [
     {name: "Select", Command:SelectCommand, Icon: RiCursorFill},
@@ -30,7 +32,6 @@ const ToolBar : React.FC = () => {
     {name: "Pan", Command:PanCommand, Icon: FaHandPaper},
 
   ];
-
 
   return (
     <div className='flex items-center justify-between'>
@@ -42,6 +43,7 @@ const ToolBar : React.FC = () => {
         ReactIcon={tool.Icon}
         active={activeTool === tool.name}
         onClick={()=>setActiveTool(tool.name)}
+        disabled={mode === "preview"}
         />
       ))}
     
@@ -70,10 +72,15 @@ interface ToolIconProps {
   ReactIcon:  React.FC<{className: string}>;
   active: boolean;
   onClick: () => void;
+  disabled: boolean; 
 }
 
-const ToolIcon: React.FC<ToolIconProps> = ({ toolName, Command, ReactIcon, active, onClick }) => {
+const ToolIcon: React.FC<ToolIconProps> = ({ toolName, Command, ReactIcon, active, onClick, disabled }) => {
   const loadTool = () => {
+    if (disabled) {
+      console.log(`Cannot activate ${toolName} in preview mode.`);
+      return;
+    }
     console.log(`${toolName} Tool (wired)`);
     const commandInstance : Command = new Command();
     System.activeTool = commandInstance;
@@ -84,6 +91,8 @@ const ToolIcon: React.FC<ToolIconProps> = ({ toolName, Command, ReactIcon, activ
     <button 
       id={toolName.replace(/\s+/g, '')} 
       className={active ? "active-class" : ""}
+      onClick={loadTool}
+      disabled={disabled}
     >
       <NbCompDrop icon={ReactIcon} active={active} onClick={loadTool}>
         <div></div>
