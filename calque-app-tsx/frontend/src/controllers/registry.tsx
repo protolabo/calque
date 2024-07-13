@@ -31,6 +31,7 @@ export class Registry {
 
     // get
     public get(key: number): Edge | Node | undefined {
+        //console.log(this._registry)
         return this._registry.get(key);
     }
 

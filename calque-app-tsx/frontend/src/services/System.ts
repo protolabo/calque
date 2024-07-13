@@ -3,6 +3,7 @@
 This is is typescript logic only, no REACT in here
 
 */
+import EventEmitter from "./EventEmitter.ts";
 import {Style,CircleStyle,EdgeStyle} from "../models/style.ts";
 import { Edge } from "../models/edge.ts";
 import { Node } from "../models/node.ts";
@@ -10,7 +11,7 @@ import Command  from "./../commands/commandInterface";
 import CanvasController from "../controllers/canvas.controller.ts";
 import { Registry } from "../controllers/registry.tsx";
 
-export class System {
+export class System extends EventEmitter {
 
     //What is last interacted item on the canvas
     private static _focus : string | null;
@@ -35,7 +36,7 @@ export class System {
 
 
     constructor() {
-
+        super()
     }
 
 
@@ -66,6 +67,7 @@ export class System {
     }
     
     public static set focus(v : string | null) {
+        System.emit("focusChange",v);
         System._focus = v;
     }
 

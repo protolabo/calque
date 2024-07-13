@@ -341,7 +341,7 @@ class CanvasController {
     this.selectionRectangle?.remove();
     this.selectionRectangle = null;
     //
-    this.selectionRectangle = this.createShapeFromStyleEvent(this.selectionStyle,event)
+    this.selectionRectangle = this.createShapeFromStyleEvent(this.selectionStyle,event) 
     const [x,y] = d3.pointer(event)
     this.selectionRectangle?.attr("originalX",x)
     this.selectionRectangle?.attr("originalY",y)
