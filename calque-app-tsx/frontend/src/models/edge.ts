@@ -10,9 +10,9 @@ export class Edge {
     private _duree: Duree | undefined;
     private _style: Style = new RectangleStyle();
     private _isBlocked: boolean = false;
-    private readonly _id!: number;
+    private readonly _id!: string;
 
-    constructor(_id: number, _name: string, _node1: Node, _node2: Node, _ligne: Ligne, _duree: Duree | undefined = undefined) {}
+    constructor(_id: string, _name: string, _node1: Node, _node2: Node, _ligne: Ligne, _duree: Duree | undefined = undefined) {}
 
     // might delete later
     public swapBlockedStatus(): void {
@@ -44,7 +44,7 @@ export class Edge {
     public get isBlocked() : boolean {
         return this._isBlocked;
     }
-    public get id() : number {
+    public get id() : string {
         return this._id;
     }
     

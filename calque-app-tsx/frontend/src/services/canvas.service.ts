@@ -272,10 +272,11 @@ export class CanvasService {
   // Method to select an element only if it's nested in the <svg id="canvas"> tag
   selectCanvasElementById(selector: string) : d3.Selection<SVGElement,unknown, null, undefined> | null{
     // Check if the element is nested inside the canvasSvg
-    const nestedElement = this.svg.select<SVGElement>(`#${selector}`);
+    const nestedElement = d3.select<SVGElement,null>(`#${selector}`);
+    console.log("trace4")  
     if (!nestedElement.empty()) {
       //
-      return nestedElement;
+      return nestedElement as unknown as d3.Selection<SVGElement,unknown, null, undefined>;
     } 
     else {
       return null;
@@ -483,7 +484,7 @@ export class CanvasService {
       target.attr("drag",null)
       //
       if(target.attr("id")){
-        const node = System.registry.get(target.attr("id") as unknown as number)
+        const node = System.registry.get(target.attr("id"))
         //
         if(node){
           const style = node.style
@@ -554,7 +555,7 @@ export class CanvasService {
   //
   // Method to modify an element on the canvas
   public modifyElement(shapeSelection: d3.Selection<SVGElement, unknown, null, undefined>, attributes: { [key: string]: any }) {
-      // Adding all the custom attributes
+    // Adding all the custom attributes
       for (const [attr, value] of Object.entries(attributes)) {
         shapeSelection.attr(attr, value);
       }

@@ -16,9 +16,6 @@ import {NbCompDrop} from './Navbar';
 import PanCommand  from "./../commands/pan.command";
 import CreateEdgeCommand  from "./../commands/createEdge.command";
 import CreateNodeCommand  from "./../commands/createNode.command";
-//All tool components:
-import Logo from "./components.tools/Logo.tool";
-
 
 
 const ToolBar : React.FC = () => {

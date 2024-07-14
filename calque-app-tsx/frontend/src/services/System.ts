@@ -4,12 +4,12 @@ This is is typescript logic only, no REACT in here
 
 */
 import EventEmitter from "./EventEmitter.ts";
-import {Style,CircleStyle,EdgeStyle} from "../models/style.ts";
-import { Edge } from "../models/edge.ts";
-import { Node } from "../models/node.ts";
+import {Style,CircleStyle,EdgeStyle} from "../models/style";
+import { Edge } from "../models/edge";
+import { Node } from "../models/node";
 import Command  from "./../commands/commandInterface";
-import CanvasController from "../controllers/canvas.controller.ts";
-import { Registry } from "../controllers/registry.tsx";
+import CanvasController from "../controllers/canvas.controller";
+import { Registry } from "../controllers/registry";
 
 export class System extends EventEmitter {
 
@@ -144,7 +144,7 @@ export class System extends EventEmitter {
         const listNodes : string[] = [];
         //
         for (const id of this._selection) {
-            const object = System.registry.get(id as unknown as number);
+            const object = System.registry.get(id);
             if (object instanceof Node) {
                 listNodes.push(id);
             }
@@ -157,7 +157,7 @@ export class System extends EventEmitter {
         
         this._selection.forEach((id) => {
         //
-            const object = System.registry.get(id as unknown as number)
+            const object = System.registry.get(id)
             if (object instanceof Edge) {
                 listEdges.push(id) }
         })

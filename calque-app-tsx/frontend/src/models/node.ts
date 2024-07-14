@@ -6,9 +6,9 @@ export class Node {
     private _style!: Style;
     private _entrant: Edge[] = [];
     private _sortant: Edge[] = [];
-    private readonly _id! : number;
+    private readonly _id! : string;
 
-    constructor(name: string, id: number, style: Style = new CircleStyle()) {
+    constructor(name: string, id: string, style: Style = new CircleStyle()) {
         this._name = name;
         this._id = id;
         this._style = style;
@@ -26,7 +26,7 @@ export class Node {
     public get sortant() : Edge[] {
         return this._sortant;
     }
-    public get id() : number {
+    public get id() : string {
         return this._id;
     }
 

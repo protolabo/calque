@@ -32,9 +32,9 @@ const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
 
 
       const updateElement = (newFocus: string) => {
-        const id: number = Number(newFocus);
+        const id: string = newFocus;
         const element = System.registry.get(id);
-        console.log(element);
+        //console.log(element);
         if (element) {
           updateValue(element);
         }
@@ -95,9 +95,10 @@ const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
       
       //we listen to focus changes on the system
       const updateElement = (newFocus: string) => {
-        const id: number = Number(newFocus);
+        const id: string = newFocus;
+        console.log(id)
         const element = System.registry.get(id);
-        console.log(element);
+        //console.log(element);
         if (element) {
           //if the element is Node or Id, we can fetch the values for each d3 arg
           updateValue(element);
@@ -110,7 +111,7 @@ const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
           setValue((elementArg[attributeName as keyof Edge].d3Attributes[d3Attribute].toString() || ""));
         } else {
           //print style
-          console.log(elementArg[attributeName as keyof Node])
+          //console.log(elementArg[attributeName as keyof Node])
           setValue((elementArg[attributeName as keyof Node].d3Attributes[d3Attribute].toString() || ""));
         }
       };
@@ -123,7 +124,19 @@ const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
     }, [d3Attribute]); // Adding attributeName to the dependency array if it might change
   
 
-
+    function updateRegistry(event:any){
+      console.log("updating")
+      console.log(event.target.value)
+      console.log(d3Attribute)
+      console.log(id)
+      if(id && attributeName){
+        console.log("trace1")
+        const element = System.registry.updateStyle(id,d3Attribute,event.target.value)
+        if(element && System.canvasController){
+          System.canvasController.updateElementById(element.id,element.style)
+        }
+      }
+    }
 
     return (
         <div>
@@ -135,6 +148,7 @@ const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
             id={`NodeEditor_${d3Attribute}_Input`}
             className=""
             placeholder={value||""}
+            onChange={updateRegistry}
             >
                 {/* Nest your Code at this level or at an even more nested level */}
 

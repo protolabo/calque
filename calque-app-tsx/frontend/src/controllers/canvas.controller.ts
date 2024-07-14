@@ -114,7 +114,7 @@ class CanvasController {
 
 
   addRegistryEntryNode() {
-    const cssId: number = registry.createNode();
+    const cssId: string = registry.createNode();
     console.log((cssId))
     return {"id":cssId}
   }  
@@ -128,6 +128,31 @@ class CanvasController {
         this.addNodeBehaviors(shape)
     }
   }
+
+
+  
+
+
+  //        --Update Methods--
+
+
+
+
+
+updateElementById(id:string,style:Style){
+  console.log("trace2")
+  console.log(id)
+  const selection = this.canvasService.selectCanvasElementById(id.toString())
+  if (selection){
+    console.log("trace3")
+    this.canvasService.modifyElement(selection,style.d3Attributes)
+  }
+
+}
+
+
+
+
 
 
 
@@ -208,8 +233,8 @@ class CanvasController {
 
 
 
-  addRegistryEntryEdge(key1: number, key2: number) {
-    const cssId: number = registry.createEdge(key1, key2, new Ligne("nouvelle ligne"))!;
+  addRegistryEntryEdge(key1: string, key2: string) {
+    const cssId: string = registry.createEdge(key1, key2, new Ligne("nouvelle ligne"))!;
     console.log((cssId))
     return {"id":cssId}
   }  
@@ -288,7 +313,7 @@ class CanvasController {
     if (listNode.length >= 2) {
       for (let i = 1; i < listNode.length; i++) {
         //
-        const cssId = this.addRegistryEntryEdge(listNode[i - 1] as unknown as number, listNode[i] as unknown as number);
+        const cssId = this.addRegistryEntryEdge(listNode[i - 1], listNode[i]);
         style.d3Attributes = {...style.d3Attributes, ...cssId }
         const selection  = this.createShapeFromStyle(style)
         //
@@ -303,7 +328,6 @@ class CanvasController {
       }
     }      
     else if (listNode.length < 0) {
-      console.warn("What")
       return null;
     }
     return listEdge;

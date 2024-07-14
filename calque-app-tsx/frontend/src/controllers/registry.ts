@@ -1,15 +1,15 @@
+
 import { Edge, Duree } from "../models/edge";
 import { Ligne } from "../models/ligne";
 import { Node } from "../models/node";
 import { Style } from "../models/style";
 
-
 export class Registry {
     private static instance: Registry;
-    private _registry: Map<number, Node | Edge>;
+    private _registry: Map<string, Node | Edge>;
 
     private constructor() {
-        this._registry = new Map<number, Node | Edge>();
+        this._registry = new Map<string, Node | Edge>();
     }
 
     static getInstance(): Registry {
@@ -19,33 +19,31 @@ export class Registry {
         return this.instance;
     }
 
-    private getNextId(): number {
-        let nextId: number | undefined;
-        for (const key of this._registry.keys()) {
-            if (typeof nextId === "undefined" || key > nextId!) {
-                nextId = key;
-            }
-        }
-        return (typeof nextId === "undefined") ? 0 : (nextId! + 1);
+    private getNextId(): string {
+        return "Element_ID_"+(self.crypto.randomUUID()).toString()
     }
 
     // get
-    public get(key: number): Edge | Node | undefined {
+    public get(key: string): Edge | Node | undefined {
         //console.log(this._registry)
         return this._registry.get(key);
     }
 
+
+
+    
     // create node
-    public createNode(): number {
-        const id: number = this.getNextId();
-        const node: Node = new Node("node " + id.toString(), id);
+    public createNode(): string {
+        const id: string = this.getNextId();
+        console.log(id)
+        const node: Node = new Node("node " + id, id);
         this._registry.set(id, node);
         return id;
     }
 
     // create edge
-    public createEdge(key1: number, key2: number, ligne: Ligne): number | undefined {
-        const id: number = this.getNextId();
+    public createEdge(key1: string, key2: string, ligne: Ligne): string | undefined {
+        const id: string = this.getNextId();
         const node1: Node | Edge | undefined = this.get(key1);
         const node2: Node | Edge | undefined = this.get(key2);
         if (typeof node1 !== "undefined" && typeof node2 !== "undefined" && node1 instanceof Node && node2 instanceof Node) {
@@ -62,7 +60,7 @@ export class Registry {
 
     // update node
     public updateNode({key, name, style, addEntrant, removeEntrant, addSortant, removeSortant}:
-        {key: number,
+        {key: string,
             name?: string,
             style?: Style, 
             addEntrant?: Edge[], 
@@ -105,7 +103,7 @@ export class Registry {
 
     // update edge
     public updateEdge({key, name, duree, style, isBlocked}:
-        {key: number, 
+        {key: string, 
             name?: string, 
             duree?: Duree, 
             style?: Style,
@@ -127,10 +125,21 @@ export class Registry {
         }
     }
 
+    updateStyle(id:string, attribute:string,value:any){1
+        const element = this.get(id)
+        if(!element){
+            return null
+        }
+        else{
+         element.style.d3Attributes[attribute]=value
+         return element
+        }
+    }
+
     // delete node or edge
-    public delete(key: number): number[] {
+    public delete(key: string): string[] {
         const element = this.get(key);
-        let removed: number[] = [];
+        let removed: string[] = [];
         if (typeof element !== "undefined") {
             if (element instanceof Node) {
                 const node = (element as Node);
