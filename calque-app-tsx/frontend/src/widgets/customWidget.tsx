@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import System from '../services/System';
 import Node from "../models/node"; 
 import {Edge} from "../models/edge"; 
+import { Style } from "../models/style";
 //
 //
 //
@@ -16,11 +17,6 @@ interface WidgetInterface {
 const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
     const [focus, setFocus] = useState<string>(System.focus||"");
     const [value, setValue] = useState<any>("");
-
-
-
-
-    
 
   
     useEffect(() => {
@@ -56,6 +52,18 @@ const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
     }, [attributeName]); // Adding attributeName to the dependency array if it might change
   
 
+    function updateRegistry(event:any){
+      //
+      if(id && attributeName && attributeName){
+        //
+        attributeName = attributeName as keyof Node
+        const element = System.registry.updateNodeCustom(id,attributeName,event.target.value)
+        //
+        if(element && System.canvasController){
+          System.canvasController.updateElementById(element.id,element.style)
+        }
+      }
+    }
 
 
     return (
@@ -68,6 +76,7 @@ const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
             id={`NodeEditor_${attributeName}_Input`}
             className=""
             placeholder={value||""}
+            onChange={updateRegistry}
             >
                 {/* Nest your Code at this level or at an even more nested level */}
 
@@ -125,12 +134,9 @@ const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
   
 
     function updateRegistry(event:any){
-      console.log("updating")
-      console.log(event.target.value)
-      console.log(d3Attribute)
-      console.log(id)
+      //
       if(id && attributeName){
-        console.log("trace1")
+        //
         const element = System.registry.updateStyle(id,d3Attribute,event.target.value)
         if(element && System.canvasController){
           System.canvasController.updateElementById(element.id,element.style)
@@ -141,11 +147,11 @@ const Widget: React.FC<WidgetInterface> = ({id,attributeName,d3Attribute}) => {
     return (
         <div>
 
-            <label id="" htmlFor={`NodeEditor_${d3Attribute}_Input`} >  {`${d3Attribute} :`}  </label>
+            <label id="" htmlFor={`StyleEditor_${d3Attribute}_Input`} >  {`${d3Attribute} :`}  </label>
 
             <input 
             type = "text"
-            id={`NodeEditor_${d3Attribute}_Input`}
+            id={`StyleEditor_${d3Attribute}_Input`}
             className=""
             placeholder={value||""}
             onChange={updateRegistry}

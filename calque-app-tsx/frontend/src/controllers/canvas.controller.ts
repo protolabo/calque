@@ -140,11 +140,9 @@ class CanvasController {
 
 
 updateElementById(id:string,style:Style){
-  console.log("trace2")
-  console.log(id)
+  //
   const selection = this.canvasService.selectCanvasElementById(id.toString())
   if (selection){
-    console.log("trace3")
     this.canvasService.modifyElement(selection,style.d3Attributes)
   }
 

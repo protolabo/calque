@@ -273,7 +273,7 @@ export class CanvasService {
   selectCanvasElementById(selector: string) : d3.Selection<SVGElement,unknown, null, undefined> | null{
     // Check if the element is nested inside the canvasSvg
     const nestedElement = d3.select<SVGElement,null>(`#${selector}`);
-    console.log("trace4")  
+    //
     if (!nestedElement.empty()) {
       //
       return nestedElement as unknown as d3.Selection<SVGElement,unknown, null, undefined>;

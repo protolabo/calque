@@ -67,11 +67,11 @@ export class Registry {
             removeEntrant?: Edge[], 
             addSortant?: Edge[], 
             removeSortant?: Edge[]
-        }): void {
+        }): (Node|null) {
 
         let node: Node | Edge | undefined = this.get(key);
-        if (typeof node !== "undefined" && node instanceof Node) {
-            node = (node as Node);
+        if (node && node instanceof Node) {
+            //
             if (typeof name !== "undefined") {
                 node.name = name;
             }
@@ -98,7 +98,28 @@ export class Registry {
                     node.removeSortant(edge);
                 }
             }
+            return node
+
         }
+        else{
+            return null
+        }
+    }
+
+
+    updateNodeCustom(id:string,attribute: keyof Node ,value:any){
+        //
+        const element = this.get(id)
+        //
+        if(element instanceof Node){
+                if (!(attribute=="name")){
+                    return element
+                }
+                //
+                element[attribute]=value
+                return element
+        }
+        return null
     }
 
     // update edge
