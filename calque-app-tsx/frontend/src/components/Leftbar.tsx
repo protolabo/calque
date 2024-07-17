@@ -1,14 +1,14 @@
-import { Component, ReactNode, useState, useContext } from "react";
+import { ReactNode, useContext } from "react";
 
 // Icons
 import { FiPlus } from "react-icons/fi";
 import { MdLayers } from "react-icons/md";
-import { RxDividerHorizontal } from "react-icons/rx";
+// import { RxDividerHorizontal } from "react-icons/rx";
 import { BiSolidPurchaseTag } from "react-icons/bi";
-import { VscCircleLargeFilled } from "react-icons/vsc";
+// import { VscCircleLargeFilled } from "react-icons/vsc";
 import Line from "./../assets/Line.asset";
 import { GoTriangleDown } from "react-icons/go";
-import { GoTriangleRight } from "react-icons/go";
+// import { GoTriangleRight } from "react-icons/go";
 
 import { ModeContext } from "./Layout";
 

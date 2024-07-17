@@ -1,7 +1,5 @@
-import { GoTriangleDown } from "react-icons/go";
-import { Component, ReactNode, useContext } from "react";
-import { FiPlus } from "react-icons/fi";
-import React from "react"
+import { useContext } from "react";
+
 import NodeEditor from "./NodeEditor"
 import { ModeContext } from "./Layout";
 

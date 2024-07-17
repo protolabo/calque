@@ -1,7 +1,7 @@
 import Map2 from "../components/Map2"
 import Map3 from "../components/Map3"
 
-import { ReactNode, useState } from "react"
+import { useState } from "react"
 
 /**
  * Preview qui trace un chemin de Laurier à Parc

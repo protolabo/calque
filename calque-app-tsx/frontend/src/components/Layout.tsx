@@ -3,9 +3,8 @@ import {Navbar} from "./Navbar"
 import Leftbar from "./Leftbar"
 import Rightbar from "./Rightbar"
 import Canvas from "./Canvas"
-import Map from "./Map"
-import System from "../services/System"
-import React, { useEffect, useContext, useRef, createContext, useState } from 'react';
+
+import React, { useRef, createContext, useState } from 'react';
 
 
 type Mode = "editor" | "preview"

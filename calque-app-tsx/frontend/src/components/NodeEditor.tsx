@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import System from "../services/System"; // Import the System
-import {Widget,StyleWidget} from "../widgets/customWidget";
+import {Widget} from "../widgets/customWidget";
 import Node from "../models/node";
 import Edge from "../models/node";
 import StyleEditor from "./StyleEditor";

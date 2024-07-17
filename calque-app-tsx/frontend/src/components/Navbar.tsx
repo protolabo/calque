@@ -1,9 +1,9 @@
-import { FaPlay } from "react-icons/fa";
-import Arrow from "../assets/Arrow.asset";
-import { FaArrowPointer } from "react-icons/fa6";
+// import { FaPlay } from "react-icons/fa";
+// import Arrow from "../assets/Arrow.asset";
+// import { FaArrowPointer } from "react-icons/fa6";
 import { ReactNode, useContext } from "react";
 import ToolBar from "./ToolBar";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.asset";
 import ModeSwitcher from "./ModeSwitcher";
 import { ModeContext } from './Layout';
