@@ -3,7 +3,6 @@ import { FaRegEdit } from "react-icons/fa";
 import { LiaToggleOffSolid } from "react-icons/lia";
 import { LiaToggleOnSolid } from "react-icons/lia";
 import { MdPreview } from "react-icons/md"; 
-
 import { ModeContext } from './Layout';
 
 function ModeSwitcher() {
