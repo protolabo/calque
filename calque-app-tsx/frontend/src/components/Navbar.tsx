@@ -37,8 +37,10 @@ function NbCompDrop(props: {
 
 function NbTitle(props: {children: ReactNode}){
     return(
-        <div className="text-white flex gap-2 items-center font-bold text-xl px-1">
-            {props.children}
+        <div className="flex justify-center grow">
+            <div className="text-white flex gap-2 items-center font-bold text-xl px-1">
+                {props.children}
+            </div>
         </div>
     )
 }
@@ -49,7 +51,7 @@ function Navbar() {
     const [mode, _] = useContext(ModeContext)
 
     return (
-        <div className="bg-primary text-white flex flex-row grow justify-between mx-auto p-2">
+        <div className="bg-primary text-white p-2 grid grid-cols-3">
 
             <NbLeft>
                 <Logo/>
@@ -57,6 +59,7 @@ function Navbar() {
             </NbLeft>
 
             <NbTitle>
+                {mode === "preview" && <div>Preview of</div>}
                 <div>Carte-globale</div>
                 <div>/</div>
                 <div>Sous-carte-1</div>

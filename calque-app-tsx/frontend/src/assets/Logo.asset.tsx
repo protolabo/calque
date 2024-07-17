@@ -1,5 +1,6 @@
 const LogoIcon = () => {
     return (
+      <div className="w-10 h-10 flex items-center">
       <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="889" height="889" fill="none" viewBox="0 0 889 889">
     <g clip-path="url(#a)">
       <path fill="#3E4256" d="M0 0h889v889H0z"/>
@@ -16,6 +17,7 @@ const LogoIcon = () => {
       </clipPath>
     </defs>
   </svg>
+  </div>
   
     )
   }

@@ -72,9 +72,9 @@ function Leftbar() {
   const [mode, _] = useContext(ModeContext)
 
   return (
+    <>
+    {mode === "editor" && 
     <div className="sticky top-0 bg-secondary text-primary left-0  z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      {mode === "editor" && (
-      <>
       <LbGroupElements>
         <LbSecTitle>Etages</LbSecTitle>
         <FloorSection>Rez-de-chaussée</FloorSection>
@@ -90,10 +90,11 @@ function Leftbar() {
         <TagSection>Station de train</TagSection>
         <TagSection>Université</TagSection>
       </LbGroupElements>
-      </>)}
-      {mode === "preview" && <div></div>
-      }
     </div>
+}
+
+  
+  </>
   )
 }
 
