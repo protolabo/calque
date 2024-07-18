@@ -17,13 +17,15 @@ interface LbSecTitleProps {
 }
 
 const LbSecTitle: FC<LbSecTitleProps> = ({ children, toggle, isOpen }) => {
+  const [mode] = useContext(ModeContext);
+
   return (
     <div className="flex justify-between p-2 items-center font-bold" onClick={toggle}>
       <div className="flex gap-1 items-center">
         {isOpen ? <GoTriangleDown className="w-4 h-4"/> : <GoTriangleRight className="w-4 h-4"/>}
         <div>{children}</div>
       </div>
-      <FiPlus className="w-5 h-5"/>
+      {mode === 'editor' && <FiPlus className="w-5 h-5"/>}
     </div>
   );
 };
@@ -63,6 +65,20 @@ const LbGroupElements: FC<LbGroupElementsProps> = ({ title, icon, children }) =>
   );
 };
 
+/** 
+ *   Je pense que pour preview des etages, des lignes et des tags, il est mieux de garder la leftbar. 
+ *   Ainsi je garderais aussi la rightbar pour l'esthetisme.
+ * 
+ *   Preview etages: Cliquer sur un etage va preview un etage de la sous-carte
+ *   Preview lignes: Cliquer sur une ligne va highlight cette ligne, 
+ *   et toutes les autres lignes vont devenir transparents
+ *   Preview tags: Cliquer sur un tag va highlight tous les nodes possedant tag, 
+ *   et tous les autres nodes ainsi que les edges seront transparents.
+ * 
+ *   - Camille
+ */ 
+
+
 const Leftbar: FC = () => {
   const [mode] = useContext(ModeContext);
 
@@ -74,9 +90,12 @@ const Leftbar: FC = () => {
 
   return (
     <div className="sticky top-0 bg-secondary text-primary left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      {mode === "editor" && sections.map((section, index) => (
+      {/*{mode === "editor" && sections.map((section, index) => (
         <LbGroupElements key={index} title={section.title} icon={section.icon} children={section.items} />
-      ))}
+      ))}*/}
+      {sections.map((section, index) => (
+        <LbGroupElements key={index} title={section.title} icon={section.icon} children={section.items} />
+        ))}
     </div>
   );
 };
