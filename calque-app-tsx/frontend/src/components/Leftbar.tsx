@@ -1,101 +1,84 @@
-import { ReactNode, useContext } from "react";
+import React, { ReactNode, useContext, useState, FC } from "react";
 
 // Icons
 import { FiPlus } from "react-icons/fi";
 import { MdLayers } from "react-icons/md";
-// import { RxDividerHorizontal } from "react-icons/rx";
+import { IconType } from "react-icons";
+import LineIcon from "./../assets/Line.asset";
 import { BiSolidPurchaseTag } from "react-icons/bi";
-// import { VscCircleLargeFilled } from "react-icons/vsc";
-import Line from "./../assets/Line.asset";
-import { GoTriangleDown } from "react-icons/go";
-// import { GoTriangleRight } from "react-icons/go";
+import { GoTriangleDown, GoTriangleRight } from "react-icons/go";
 
 import { ModeContext } from "./Layout";
 
-function LbSecTitle(props: {children: ReactNode}) {
+interface LbSecTitleProps {
+  children: ReactNode;
+  toggle: () => void;
+  isOpen: boolean;
+}
+
+const LbSecTitle: FC<LbSecTitleProps> = ({ children, toggle, isOpen }) => {
   return (
-    <div className="flex justify-between p-2 items-center font-bold">
+    <div className="flex justify-between p-2 items-center font-bold" onClick={toggle}>
       <div className="flex gap-1 items-center">
-        <GoTriangleDown className="w-4 h-4"/>
-        <div>{props.children}</div>
+        {isOpen ? <GoTriangleDown className="w-4 h-4"/> : <GoTriangleRight className="w-4 h-4"/>}
+        <div>{children}</div>
       </div>
       <FiPlus className="w-5 h-5"/>
     </div>
-  )
+  );
+};
+
+interface LbSubSectionProps {
+  icon: IconType;
+  children: ReactNode;
 }
 
-function LbSubSection(props: {icon: React.FC<{className: string}>, children: ReactNode}) {
-    return (
-      <div className="flex justify-start p-2 ml-6 gap-2 items-center">
-        <props.icon className="w-6 h-6"/>
-        <div>{props.children}</div>
-      </div>
-    )
-
-}
-
-/*[&:not(:last-child)]:border-b-2 border-slate-400 pb-4 */
-
-function LbGroupElements(props: {children: ReactNode}) {
+const LbSubSection: FC<LbSubSectionProps> = ({ icon: Icon, children }) => {
   return (
-    <div className="first:border-b-2 border-slate-400 pb-4">
-      {props.children}
+    <div className="flex justify-start p-2 ml-6 gap-2 items-center">
+      <Icon className="w-6 h-6"/>
+      <div>{children}</div>
     </div>
-  )
-}
-function FloorSection(props: {children: ReactNode}) {
-  return (
-    <LbSubSection icon={MdLayers}>
-      {props.children} 
-    </LbSubSection>
-  )
-}
+  );
+};
 
-function LineSection(props: {children: ReactNode}) {
-  return (
-    <LbSubSection icon={Line}>
-      {props.children}
-    </LbSubSection>
-  )
-
+interface LbGroupElementsProps {
+  title: string;
+  icon: IconType;
+  children: string[];
 }
 
-function TagSection(props: {children: ReactNode}) {
-  return (
-    <LbSubSection icon={BiSolidPurchaseTag}>
-      {props.children}
-    </LbSubSection>
-  )
-}
+const LbGroupElements: FC<LbGroupElementsProps> = ({ title, icon, children }) => {
+  const [isOpen, setIsOpen] = useState(true);
 
-function Leftbar() {
-  const [mode, _] = useContext(ModeContext)
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <>
-    {mode === "editor" && 
-    <div className="sticky top-0 bg-secondary text-primary left-0  z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      <LbGroupElements>
-        <LbSecTitle>Etages</LbSecTitle>
-        <FloorSection>Rez-de-chaussée</FloorSection>
-        <FloorSection>Sous-sol</FloorSection>
-        <FloorSection>Métro</FloorSection>
-      </LbGroupElements>
-      <LbGroupElements>
-        <LbSecTitle>Lignes</LbSecTitle>
-        <LineSection>Ligne Orange</LineSection>
-      </LbGroupElements>
-      <LbGroupElements>
-        <LbSecTitle>Tags</LbSecTitle>
-        <TagSection>Station de train</TagSection>
-        <TagSection>Université</TagSection>
-      </LbGroupElements>
+    <div>
+      <LbSecTitle toggle={toggle} isOpen={isOpen}>{title}</LbSecTitle>
+      {isOpen && children.map((child, index) => (
+        <LbSubSection key={index} icon={icon}>{child}</LbSubSection>
+      ))}
     </div>
-}
+  );
+};
 
-  
-  </>
-  )
-}
+const Leftbar: FC = () => {
+  const [mode] = useContext(ModeContext);
 
-export default Leftbar
+  const sections = [
+    { title: "Etages", icon: MdLayers, items: ["Rez-de-chaussée", "Sous-sol", "Métro"] },
+    { title: "Lignes", icon: LineIcon, items: ["Ligne Orange", "Ligne Bleue"] },
+    { title: "Tags", icon: BiSolidPurchaseTag, items: ["Station de train", "Université"] }
+  ];
+
+  return (
+    <div className="sticky top-0 bg-secondary text-primary left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
+      {mode === "editor" && sections.map((section, index) => (
+        <LbGroupElements key={index} title={section.title} icon={section.icon} children={section.items} />
+      ))}
+    </div>
+  );
+};
+
+export default Leftbar;
