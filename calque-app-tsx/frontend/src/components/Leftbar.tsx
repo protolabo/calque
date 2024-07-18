@@ -54,7 +54,7 @@ const LbGroupElements: FC<LbGroupElementsProps> = ({ title, icon, children }) =>
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <div className="first:border-b-2 border-slate-400 py-2">
       <LbSecTitle toggle={toggle} isOpen={isOpen}>{title}</LbSecTitle>
       {isOpen && children.map((child, index) => (
         <LbSubSection key={index} icon={icon}>{child}</LbSubSection>
