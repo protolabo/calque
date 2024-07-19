@@ -20,9 +20,9 @@ const LbSecTitle: FC<LbSecTitleProps> = ({ children, toggle, isOpen }) => {
   const { mode } = useContext(AppContext);
 
   return (
-    <div className="flex justify-between p-2 items-center font-bold" onClick={toggle}>
+    <div className="flex justify-between p-2 items-center font-bold">
       <div className="flex gap-1 items-center">
-        {isOpen ? <GoTriangleDown className="w-4 h-4"/> : <GoTriangleRight className="w-4 h-4"/>}
+        <button  onClick={toggle}>{isOpen ? <GoTriangleDown className="w-4 h-4"/> : <GoTriangleRight className="w-4 h-4"/>}</button>
         <div>{children}</div>
       </div>
       {mode === 'edit' && <FiPlus className="w-5 h-5"/>}
