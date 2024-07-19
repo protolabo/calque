@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useState, FC } from "react";
+import { ReactNode, useContext, useState, FC } from "react";
 
 // Icons
 import { FiPlus } from "react-icons/fi";
@@ -8,7 +8,7 @@ import LineIcon from "./../assets/Line.asset";
 import { BiSolidPurchaseTag } from "react-icons/bi";
 import { GoTriangleDown, GoTriangleRight } from "react-icons/go";
 
-import { ModeContext } from "./Layout";
+import { AppContext } from './Layout';
 
 interface LbSecTitleProps {
   children: ReactNode;
@@ -17,7 +17,7 @@ interface LbSecTitleProps {
 }
 
 const LbSecTitle: FC<LbSecTitleProps> = ({ children, toggle, isOpen }) => {
-  const [mode] = useContext(ModeContext);
+  const { mode } = useContext(AppContext);
 
   return (
     <div className="flex justify-between p-2 items-center font-bold" onClick={toggle}>
@@ -25,7 +25,7 @@ const LbSecTitle: FC<LbSecTitleProps> = ({ children, toggle, isOpen }) => {
         {isOpen ? <GoTriangleDown className="w-4 h-4"/> : <GoTriangleRight className="w-4 h-4"/>}
         <div>{children}</div>
       </div>
-      {mode === 'editor' && <FiPlus className="w-5 h-5"/>}
+      {mode === 'edit' && <FiPlus className="w-5 h-5"/>}
     </div>
   );
 };
@@ -65,23 +65,21 @@ const LbGroupElements: FC<LbGroupElementsProps> = ({ title, icon, children }) =>
   );
 };
 
-/** 
- *   Je pense que pour preview des etages, des lignes et des tags, il est mieux de garder la leftbar. 
+/**
+ *   Je pense que pour preview des etages, des lignes et des tags, il est mieux de garder la leftbar.
  *   Ainsi je garderais aussi la rightbar pour l'esthetisme.
- * 
+ *
  *   Preview etages: Cliquer sur un etage va preview un etage de la sous-carte
- *   Preview lignes: Cliquer sur une ligne va highlight cette ligne, 
+ *   Preview lignes: Cliquer sur une ligne va highlight cette ligne,
  *   et toutes les autres lignes vont devenir transparents
- *   Preview tags: Cliquer sur un tag va highlight tous les nodes possedant tag, 
+ *   Preview tags: Cliquer sur un tag va highlight tous les nodes possedant tag,
  *   et tous les autres nodes ainsi que les edges seront transparents.
- * 
+ *
  *   - Camille
- */ 
+ */
 
 
 const Leftbar: FC = () => {
-  const [mode] = useContext(ModeContext);
-
   const sections = [
     { title: "Etages", icon: MdLayers, items: ["Rez-de-chaussée", "Sous-sol", "Métro"] },
     { title: "Lignes", icon: LineIcon, items: ["Ligne Orange", "Ligne Bleue"] },

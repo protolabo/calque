@@ -1,12 +1,8 @@
-// import { FaPlay } from "react-icons/fa";
-// import Arrow from "../assets/Arrow.asset";
-// import { FaArrowPointer } from "react-icons/fa6";
-import { ReactNode, useContext } from "react";
-import ToolBar from "./ToolBar";
-// import { Link } from "react-router-dom";
+import React, { ReactNode, useContext } from "react";
+import ToolBar from './ToolBar';
 import Logo from "../assets/Logo.asset";
 import ModeSwitcher from "./ModeSwitcher";
-import { ModeContext } from './Layout';
+import { AppContext } from './Layout';
 
 
 function NbLeft(props: {children: ReactNode}){
@@ -17,9 +13,8 @@ function NbLeft(props: {children: ReactNode}){
     )
 }
 
-
 function NbCompDrop(props: {
-    icon: React.FC<{className: string}>, 
+    icon: React.FC<{className: string}>,
     children: ReactNode,
     active: boolean,
     onClick: () => void;
@@ -45,30 +40,28 @@ function NbTitle(props: {children: ReactNode}){
     )
 }
 
-
-
 function Navbar() {
-    const [mode, _] = useContext(ModeContext)
+    const { mode } = useContext(AppContext)
 
     return (
         <div className="bg-primary text-white p-2 grid grid-cols-3">
 
             <NbLeft>
                 <Logo/>
-                {mode === "editor" && <ToolBar/>}
+                {mode === 'edit' && <ToolBar />}
             </NbLeft>
 
             <NbTitle>
-                {mode === "preview" && <div>Preview of</div>}
+                {mode === 'view' && <div>Preview of</div>}
                 <div>Carte-globale</div>
                 <div>/</div>
                 <div>Sous-carte-1</div>
             </NbTitle>
 
-            <ModeSwitcher/>
-        
+            <ModeSwitcher />
+
         </div>
-  )
+    )
 }
 
-export {Navbar, NbLeft, NbCompDrop, NbTitle }
+export { Navbar, NbLeft, NbCompDrop, NbTitle }

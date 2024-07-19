@@ -1,84 +1,59 @@
-import { useState, useEffect } from "react";
-import System from "../services/System"; // Import the System
-import {Widget} from "../widgets/customWidget";
-import Node from "../models/node";
-import Edge from "../models/node";
-import StyleEditor from "./StyleEditor";
+import { useState } from 'react';
+import { NodeHandler } from './Node';
 
-
-
-function NodeEditor() {
-
-/*
-Note1: setFocus is a react hook
-Note2: focus is our focused id
-
-*/
-    const [focus, setFocus] = useState<string | null>( System.focus );
-
-
-    //useEffect hook is called upon rerending and upon dependency array [] modification
-    useEffect(() => {
-  
-    //assumes the triggering event is focusChange (System.focus will emit("focusChange", value))
-      const handleFocusChange = (newFocus: string) => {
-        //new focus is the value
-
-        setFocus(newFocus);
-        
-      };
-  
-      //suscribing to the event "focusChange" and associating the consequence handleFocusChange
-      System.on("focusChange", handleFocusChange);
-  
-      return () => {
-        System.off("focusChange", handleFocusChange);
-      };
-    }, []);
-  
-
-    if (!focus) {
-      return null; // Return null if no node is focused
-    }
-  
-
-
-
-    const nodeWidgets = [
-      {name: "id"},
-      {name: "name"}
-  
-    ];
-
-  return (
-  <div className="flex flex-col p-2 h-screen">
-
-        <div id="NodeEditor">
-
-          <div id="NodeEditor_Header">
-                <h2>
-                    Node Editor
-                </h2>
-          </div>
-            
-          <div id="NodeEditor_Widgets">
-            {
-            nodeWidgets.map(e => (
-              <Widget 
-              id = {focus}
-              attributeName={ (e.name as (keyof Node|keyof Edge))}
-              d3Attribute=""
-            />))
-            }
-          </div>
-
-        </div>
-        
-        <StyleEditor/>
-
-  </div>
-  )
+interface NodeEditorProps {
+  handler: NodeHandler;
 }
 
-export default NodeEditor;
+const NodeEditor = (props: NodeEditorProps) => {
+  const [name,  setName]  = useState(props.handler.node.name);
+  const [size,  setSize]  = useState(props.handler.node.size);
+  const [color, setColor] = useState(props.handler.node.color);
 
+  const onNameChange = (name: string) => {
+    setName(name);
+    props.handler.setNode({
+      ...props.handler.node,
+      name,
+    });
+  };
+
+  const onSizeChange = (size: string) => {
+    const sizeNumber = parseInt(size);
+    if (!isNaN(sizeNumber)) {
+      setSize(sizeNumber);
+      props.handler.setNode({
+        ...props.handler.node,
+        size: sizeNumber,
+      });
+    }
+  };
+
+  const onColorChange = (color: string) => {
+    setColor(color);
+    props.handler.setNode({
+      ...props.handler.node,
+      color,
+    });
+  };
+
+  return (
+    <div>
+      <h2>Node editor</h2>
+      <div>
+        <label>Name</label>
+        <input value={name} onChange={e => onNameChange(e.target.value)} />
+      </div>
+      <div>
+        <label>Size</label>
+        <input value={size} onChange={e => onSizeChange(e.target.value)} />
+      </div>
+      <div>
+        <label>Color</label>
+        <input value={color} onChange={e => onColorChange(e.target.value)} />
+      </div>
+    </div>
+  );
+};
+
+export default NodeEditor;
