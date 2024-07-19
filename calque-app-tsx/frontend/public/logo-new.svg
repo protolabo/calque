@@ -1,0 +1,12 @@
+<svg width="804" height="804" viewBox="0 0 804 804" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="402" y="24.6777" width="534.321" height="534.321" transform="rotate(45 402 24.6777)" stroke="black" stroke-width="25"/>
+<circle cx="402.5" cy="184.5" r="46.5" stroke="black" stroke-width="20"/>
+<circle cx="402.5" cy="618.5" r="46.5" stroke="black" stroke-width="20"/>
+<path d="M217 402C217 428.125 196.239 449 171 449C145.761 449 125 428.125 125 402C125 375.875 145.761 355 171 355C196.239 355 217 375.875 217 402Z" stroke="black" stroke-width="20"/>
+<line x1="191.013" y1="361.387" x2="355.013" y2="197.387" stroke="black" stroke-width="20"/>
+<line x1="451.46" y1="204.425" x2="525.46" y2="278.425" stroke="black" stroke-width="20"/>
+<line x1="444.835" y1="606.967" x2="525.835" y2="525.967" stroke="black" stroke-width="20"/>
+<line y1="-10" x2="236.857" y2="-10" transform="matrix(0.705264 0.708945 -0.705264 0.708944 187.549 449.139)" stroke="black" stroke-width="20"/>
+<line x1="519" y1="275" x2="646" y2="275" stroke="black" stroke-width="20"/>
+<line x1="519" y1="528" x2="646" y2="528" stroke="black" stroke-width="20"/>
+</svg>
