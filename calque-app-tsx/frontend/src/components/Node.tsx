@@ -38,7 +38,12 @@ const Node = (props: NodeProps) => {
 
   const handleMouseDown = () => {
     if (mode === 'edit' && tool === 'select') {
-      setSelectedNodeHandler({ node, setNode });
+      const setSelectedNode = (node: NodeState) => {
+        setNode(node);
+        setSelectedNodeHandler({ node, setNode: setSelectedNode });
+      };
+
+      setSelectedNodeHandler({ node, setNode: setSelectedNode });
       setDragging(true);
     }
   }

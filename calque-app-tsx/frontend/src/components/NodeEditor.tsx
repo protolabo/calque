@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { NodeHandler } from './Node';
 
 interface NodeEditorProps {
@@ -6,57 +5,48 @@ interface NodeEditorProps {
 }
 
 const NodeEditor = (props: NodeEditorProps) => {
-  const [name,  setName]  = useState(props.handler.node.name);
-  const [size,  setSize]  = useState(props.handler.node.size);
-  const [color, setColor] = useState(props.handler.node.color);
-  const [x, setX] = useState(props.handler.node.x);
-  const [y, setY] = useState(props.handler.node.y);
-
-  const onNameChange = (name: string) => {
-    setName(name);
+  const onNameChange = (nameValue: string) => {
+    const name = nameValue;
     props.handler.setNode({
       ...props.handler.node,
       name,
     });
   };
 
-  const onSizeChange = (size: string) => {
-    const sizeNumber = parseInt(size);
-    if (!isNaN(sizeNumber)) {
-      setSize(sizeNumber);
+  const onSizeChange = (sizeValue: string) => {
+    const size = parseInt(sizeValue);
+    if (!isNaN(size)) {
       props.handler.setNode({
         ...props.handler.node,
-        size: sizeNumber,
+        size,
       });
     }
   };
 
-  const onColorChange = (color: string) => {
-    setColor(color);
+  const onColorChange = (colorValue: string) => {
+    const color = colorValue;
     props.handler.setNode({
       ...props.handler.node,
       color,
     });
   };
 
-  const onXChange = (x: string) => {
-    const xNumber = parseInt(x);
-    if (!isNaN(xNumber)) {
-      setX(xNumber);
+  const onXChange = (xValue: string) => {
+    const x = parseInt(xValue);
+    if (!isNaN(x)) {
       props.handler.setNode({
         ...props.handler.node,
-        x: xNumber,
+        x,
       });
     }
   };
 
-  const onYChange = (y: string) => {
-    const yNumber = parseInt(y);
-    if (!isNaN(yNumber)) {
-      setY(yNumber);
+  const onYChange = (yValue: string) => {
+    const y = parseInt(yValue);
+    if (!isNaN(y)) {
       props.handler.setNode({
         ...props.handler.node,
-        y: yNumber,
+        y,
       });
     }
   };
@@ -66,23 +56,23 @@ const NodeEditor = (props: NodeEditorProps) => {
       <h2>Node editor</h2>
       <div>
         <label>Name</label>
-        <input value={name} onChange={e => onNameChange(e.target.value)} />
+        <input value={props.handler.node.name} onChange={e => onNameChange(e.target.value)} />
       </div>
       <div>
         <label>Size</label>
-        <input value={size} onChange={e => onSizeChange(e.target.value)} />
+        <input value={props.handler.node.size} onChange={e => onSizeChange(e.target.value)} />
       </div>
       <div>
         <label>Color</label>
-        <input value={color} onChange={e => onColorChange(e.target.value)} />
+        <input value={props.handler.node.color} onChange={e => onColorChange(e.target.value)} />
       </div>
       <div>
         <label>X</label>
-        <input value={x} onChange={e => onXChange(e.target.value)} />
+        <input value={props.handler.node.x} onChange={e => onXChange(e.target.value)} />
       </div>
       <div>
         <label>Y</label>
-        <input value={y} onChange={e => onYChange(e.target.value)} />
+        <input value={props.handler.node.y} onChange={e => onYChange(e.target.value)} />
       </div>
     </div>
   );
