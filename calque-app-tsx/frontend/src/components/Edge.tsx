@@ -1,31 +1,15 @@
-import { useContext, useState } from 'react';
-import { AppContext, SelectedNodeContext } from './Layout';
-import { CanvasContext } from './Canvas';
-import Node, { NodeState } from './Node';
-
-interface EdgeState {
-  id: number;
-  name: string;
-  node1: NodeState;
-  node2: NodeState;
-  stroke: string;
-  strokeWidth: number;
-}
-
-interface EdgeHandler {
-  edge: EdgeState,
-  setEdge: React.Dispatch<EdgeState>,
-}
+import { useContext } from 'react';
+import { GraphContext } from './Layout';
+import { EdgeState, getNode } from './State';
 
 interface EdgeProps {
-  id: number;
-  node1: NodeState;
-  node2: NodeState;
+  edge: EdgeState;
 }
 
-
-function Edge(props: EdgeProps) {
-  const { node1, node2 } = props;
+const Edge = (props: EdgeProps)  => {
+  const { graph } = useContext(GraphContext);
+  const node1 = getNode(graph, props.edge.node1id);
+  const node2 = getNode(graph, props.edge.node2id);
 
   return (
     <line
@@ -36,8 +20,7 @@ function Edge(props: EdgeProps) {
       stroke="black"
       strokeWidth={3}
     />
-  )
-}
+  );
+};
 
 export default Edge;
-export type { EdgeHandler, EdgeProps, EdgeState };
