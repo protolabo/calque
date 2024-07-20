@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState } from 'react';
 import { AppContext, SelectedNodeContext } from './Layout';
 import Node, { NodeProps } from './Node';
+import { EdgeProps } from './Edge';
 
 function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.MouseEvent<T>) {
   const bounds = canvas.getBoundingClientRect();
@@ -21,11 +22,13 @@ const CanvasContext = React.createContext<CanvasHandler>(undefined as any);
 interface Graph {
   autoIncrement: number;
   nodes: NodeProps[];
+  edges: EdgeProps[];
 }
 
 const emptyGraph = {
   autoIncrement: 0,
   nodes: [],
+  edges: [],
 }
 
 const Canvas = () => {
@@ -33,29 +36,52 @@ const Canvas = () => {
   const { selectedNodeHandler } = useContext(SelectedNodeContext);
   const [graph, setGraph] = useState<Graph>(emptyGraph);
   const [dragging, setDragging] = useState<boolean>(false);
+  const [selectedNodes, setSelectedNodes] = useState<NodeProps[]>([]);
   const canvasRef = useRef<SVGSVGElement>(null);
 
   const addNode = (event: React.MouseEvent<SVGSVGElement>) => {
     const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
-    setGraph({
-      autoIncrement: graph.autoIncrement + 1,
-      nodes: [...graph.nodes, {
-        id: graph.autoIncrement,
+    setGraph(prevGraph => ({
+      autoIncrement: prevGraph.autoIncrement + 1,
+      nodes: [...prevGraph.nodes, {
+        id: prevGraph.autoIncrement,
         x: coordinates.x,
         y: coordinates.y,
-      }]
-    })
+      }],
+      edges: prevGraph.edges,
+    }))
   }
 
-  const addEdge = (event: React.MouseEvent<SVGSVGElement>) => {
-    
-  }
+  const addEdge = (node: NodeProps) => {
+    setSelectedNodes(prevSelectedNodes => {
+      const newSelectedNodes = [...prevSelectedNodes, node];
+      if (newSelectedNodes.length === 2) {
+        const [node1, node2] = newSelectedNodes;
+        setGraph(prevGraph => ({
+          ...prevGraph,
+          edges: [...prevGraph.edges, {
+            id: prevGraph.edges.length,
+            node1,
+            node2,
+          }]
+        }));
+        return [];
+      }
+      return newSelectedNodes;
+    });
+  };
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     if (mode === 'edit' && tool === 'node') {
       addNode(event);
     }
   }
+
+  const handleNodeClick = (node: NodeProps) => {
+    if (mode === 'edit' && tool === 'edge') {
+      addEdge(node);
+    }
+  };
 
   const handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
     if (dragging && selectedNodeHandler !== null) {
@@ -95,6 +121,9 @@ const Canvas = () => {
           >
             {graph.nodes.map((node) => (
               <Node key={node.id} id={node.id} x={node.x} y={node.y} />
+            ))}
+            {graph.edges.map(edge => (
+              <Edge key={edge.id} id={edge.id} node1={edge.node1} node2={edge.node2} />
             ))}
           </svg>
         </CanvasContext.Provider>
