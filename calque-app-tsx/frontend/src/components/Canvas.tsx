@@ -1,67 +1,50 @@
 import React, { useContext, useRef, useState } from 'react';
-import { AppContext, SelectedNodeContext } from './Layout';
-import Node, { NodeProps } from './Node';
+import Edge from './Edge';
+import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
+import Node from './Node';
+import { getNode, insertNode, updateNode } from './State';
 
 function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.MouseEvent<T>) {
   const bounds = canvas.getBoundingClientRect();
   return {
-    x: event.clientX - bounds.left,
-    y: event.clientY - bounds.top,
+    x: Math.round(event.clientX - bounds.left),
+    y: Math.round(event.clientY - bounds.top),
   };
 }
 
+type CanvasAction =
+  | { kind: 'drag', nodeId: number }
+  | { kind: 'edge', nodeId: number }
+
 interface CanvasHandler {
   ref: React.RefObject<SVGSVGElement>;
-  dragging: boolean,
-  setDragging: React.Dispatch<boolean>;
+  action: CanvasAction | null,
+  setAction: React.Dispatch<CanvasAction | null>;
 }
 
 const CanvasContext = React.createContext<CanvasHandler>(undefined as any);
 
-interface Graph {
-  autoIncrement: number;
-  nodes: NodeProps[];
-}
-
-const emptyGraph = {
-  autoIncrement: 0,
-  nodes: [],
-}
-
 const Canvas = () => {
   const { mode, tool } = useContext(AppContext);
-  const { selectedNodeHandler } = useContext(SelectedNodeContext);
-  const [graph, setGraph] = useState<Graph>(emptyGraph);
-  const [dragging, setDragging] = useState<boolean>(false);
+  const graphHandler = useContext(GraphContext);
+  const { setSelectedEntity } = useContext(SelectedEntityContext);
+  const [action, setAction] = useState<CanvasAction | null>(null);
   const canvasRef = useRef<SVGSVGElement>(null);
-
-  const addNode = (event: React.MouseEvent<SVGSVGElement>) => {
-    const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
-    setGraph({
-      autoIncrement: graph.autoIncrement + 1,
-      nodes: [...graph.nodes, {
-        id: graph.autoIncrement,
-        x: coordinates.x,
-        y: coordinates.y,
-      }]
-    })
-  }
-
-  const addEdge = (event: React.MouseEvent<SVGSVGElement>) => {
-    
-  }
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     if (mode === 'edit' && tool === 'node') {
-      addNode(event);
+      const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
+      const node = insertNode(graphHandler, coordinates.x, coordinates.y);
+      setSelectedEntity({ kind: 'node', nodeId: node.id });
     }
   }
 
   const handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
-    if (dragging && selectedNodeHandler !== null) {
+    if (action !== null && action.kind === 'drag') {
       const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
-      selectedNodeHandler.setNode({
-        ...selectedNodeHandler.node,
+      const node = getNode(graphHandler.graph, action.nodeId);
+      updateNode(graphHandler, {
+        ...node,
         x: coordinates.x,
         y: coordinates.y,
       });
@@ -69,17 +52,21 @@ const Canvas = () => {
   };
 
   const handleMouseLeave = () => {
-    setDragging(false);
+    if (action !== null) {
+      setAction(null);
+    }
   };
 
   const handleMouseUp = () => {
-    setDragging(false);
+    if (action !== null && action.kind === 'drag') {
+      setAction(null);
+    }
   };
 
   return (
     <div className="flex grow justify-center bg-slate-400">
       <div className="bg-slate-100">
-        <CanvasContext.Provider value={{ref: canvasRef, dragging, setDragging}}>
+        <CanvasContext.Provider value={{ ref: canvasRef, action, setAction }}>
           <svg
             ref={canvasRef}
             className="relative z-20"
@@ -93,8 +80,11 @@ const Canvas = () => {
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
           >
-            {graph.nodes.map((node) => (
-              <Node key={node.id} id={node.id} x={node.x} y={node.y} />
+            {graphHandler.graph.nodes.map(node => (
+              <Node key={node.id} node={node} />
+            ))}
+            {graphHandler.graph.edges.map(edge => (
+              <Edge key={edge.id} edge={edge} />
             ))}
           </svg>
         </CanvasContext.Provider>
@@ -104,4 +94,4 @@ const Canvas = () => {
 };
 
 export default Canvas;
-export { CanvasContext };
+export { CanvasContext, getPointerCanvasCoordinates };

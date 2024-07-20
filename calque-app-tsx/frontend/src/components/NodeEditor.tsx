@@ -1,70 +1,54 @@
-import { NodeHandler } from './Node';
+import { useContext } from 'react';
+import { GraphContext } from './Layout';
+import { getNode, updateNode } from './State';
 
 interface NodeEditorProps {
-  handler: NodeHandler;
+  nodeId: number;
 }
 
 const NodeEditor = (props: NodeEditorProps) => {
+  const graphHandler = useContext(GraphContext);
+  const node = getNode(graphHandler.graph, props.nodeId);
+
   const onNameChange = (nameValue: string) => {
     const name = nameValue;
-    props.handler.setNode({
-      ...props.handler.node,
-      name,
-    });
+    updateNode(graphHandler, { ...node, name });
   };
 
   const onSizeChange = (sizeValue: string) => {
     const size = parseInt(sizeValue);
     if (!isNaN(size)) {
-      props.handler.setNode({
-        ...props.handler.node,
-        size,
-      });
+      updateNode(graphHandler, { ...node, size });
     }
   };
 
   const onColorChange = (colorValue: string) => {
     const color = colorValue;
-    props.handler.setNode({
-      ...props.handler.node,
-      color,
-    });
+    updateNode(graphHandler, { ...node, color });
   };
 
   const onXChange = (xValue: string) => {
     const x = parseInt(xValue);
     if (!isNaN(x)) {
-      props.handler.setNode({
-        ...props.handler.node,
-        x,
-      });
+      updateNode(graphHandler, {...node, x });
     }
   };
 
   const onYChange = (yValue: string) => {
     const y = parseInt(yValue);
     if (!isNaN(y)) {
-      props.handler.setNode({
-        ...props.handler.node,
-        y,
-      });
+      updateNode(graphHandler, { ...node, y });
     }
   };
 
   const onStrokeChange = (strokeValue: string) => {
     const stroke = strokeValue;
-    props.handler.setNode({
-      ...props.handler.node,
-      stroke
-    })
+    updateNode(graphHandler, { ...node, stroke })
   }
 
   const onStrokeWidthChange = (strokeWidthValue: string) => {
     const strokeWidth = parseInt(strokeWidthValue);
-    props.handler.setNode({
-      ...props.handler.node,
-      strokeWidth
-    })
+    updateNode(graphHandler, { ...node, strokeWidth })
   }
 
   return (
@@ -72,31 +56,31 @@ const NodeEditor = (props: NodeEditorProps) => {
       <h2>Node editor</h2>
       <div>
         <label>Name</label>
-        <input value={props.handler.node.name} onChange={e => onNameChange(e.target.value)} />
+        <input value={node.name} onChange={e => onNameChange(e.target.value)} />
       </div>
       <div>
         <label>Size</label>
-        <input value={props.handler.node.size} onChange={e => onSizeChange(e.target.value)} />
+        <input value={node.size} onChange={e => onSizeChange(e.target.value)} />
       </div>
       <div>
         <label>Color</label>
-        <input value={props.handler.node.color} onChange={e => onColorChange(e.target.value)} />
+        <input value={node.color} onChange={e => onColorChange(e.target.value)} />
       </div>
       <div>
         <label>X</label>
-        <input value={props.handler.node.x} onChange={e => onXChange(e.target.value)} />
+        <input value={node.x} onChange={e => onXChange(e.target.value)} />
       </div>
       <div>
         <label>Y</label>
-        <input value={props.handler.node.y} onChange={e => onYChange(e.target.value)} />
+        <input value={node.y} onChange={e => onYChange(e.target.value)} />
       </div>
       <div>
         <label>Stroke</label>
-        <input value={props.handler.node.stroke} onChange={e => onStrokeChange(e.target.value)} />
+        <input value={node.stroke} onChange={e => onStrokeChange(e.target.value)} />
       </div>
       <div>
         <label>Stroke Width</label>
-        <input value={props.handler.node.strokeWidth} onChange={e => onStrokeWidthChange(e.target.value)} />
+        <input value={node.strokeWidth} onChange={e => onStrokeWidthChange(e.target.value)} />
       </div>
     </div>
   );

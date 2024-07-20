@@ -1,69 +1,50 @@
-import { useContext, useState } from 'react';
-import { AppContext, SelectedNodeContext } from './Layout';
+import { useContext } from 'react';
+import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
 import { CanvasContext } from './Canvas';
-
-interface NodeState {
-  id: number;
-  name: string;
-  x: number;
-  y: number;
-  color: string;
-  size: number;
-  stroke: string;
-  strokeWidth: number;
-}
-
-interface NodeHandler {
-  node: NodeState,
-  setNode: React.Dispatch<NodeState>,
-}
+import { NodeState, insertEdge } from './State';
 
 interface NodeProps {
-  id: number;
-  x: number;
-  y: number;
+  node: NodeState;
 }
 
 const Node = (props: NodeProps) => {
   const { mode, tool } = useContext(AppContext);
-  const { setSelectedNodeHandler } = useContext(SelectedNodeContext);
-  const { setDragging } = useContext(CanvasContext);
+  const graphHandler = useContext(GraphContext);
+  const { setSelectedEntity } = useContext(SelectedEntityContext);
+  const { action, setAction } = useContext(CanvasContext);
 
-  const [node, setNode] = useState<NodeState>({
-    id: props.id,
-    name: `node-${props.id}`,
-    x: props.x,
-    y: props.y,
-    size: 25,
-    color: 'red',
-    stroke: 'black',
-    strokeWidth: 3,
-  });
+  const handleClick = () => {
+    console.log(mode, tool, action, props.node);
+    if (mode === 'edit' && tool === 'edge') {
+      if (action === null) {
+        setAction({ kind: 'edge', nodeId: props.node.id });
+      } else if (action.kind === 'edge' && action.nodeId !== props.node.id) {
+        const edge = insertEdge(graphHandler, action.nodeId, props.node.id);
+        setSelectedEntity({ kind: 'edge', edgeId: edge.id });
+        setAction(null);
+      }
+    }
+  };
 
   const handleMouseDown = () => {
     if (mode === 'edit' && tool === 'select') {
-      const setSelectedNode = (node: NodeState) => {
-        setNode(node);
-        setSelectedNodeHandler({ node, setNode: setSelectedNode });
-      };
-
-      setSelectedNodeHandler({ node, setNode: setSelectedNode });
-      setDragging(true);
+      setAction({ kind: 'drag', nodeId: props.node.id });
+      setSelectedEntity({ kind: 'node', nodeId: props.node.id });
     }
-  }
+  };
 
   return (
     <circle
-      stroke={node.stroke}
-      strokeWidth={node.strokeWidth}
-      cx={node.x}
-      cy={node.y}
-      r={node.size}
-      fill={node.color}
+      stroke={props.node.stroke}
+      strokeWidth={props.node.strokeWidth}
+      cx={props.node.x}
+      cy={props.node.y}
+      r={props.node.size}
+      fill={props.node.color}
+      onClick={handleClick}
       onMouseDown={handleMouseDown}
     />
   );
 }
 
 export default Node;
-export type { NodeHandler, NodeProps, NodeState };
