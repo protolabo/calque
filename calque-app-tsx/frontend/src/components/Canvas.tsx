@@ -47,6 +47,10 @@ const Canvas = () => {
     })
   }
 
+  const addEdge = (event: React.MouseEvent<SVGSVGElement>) => {
+    
+  }
+
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     if (mode === 'edit' && tool === 'node') {
       addNode(event);

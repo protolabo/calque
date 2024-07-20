@@ -5,6 +5,7 @@ import Rightbar from "./Rightbar"
 import React, { createContext, useState } from 'react';
 import Canvas from "./Canvas"
 import { NodeHandler } from "./Node";
+import { EdgeHandler } from "./Edge";
 
 type Mode = 'view' | 'edit';
 type Tool = 'select' | 'node' | 'edge' | 'pan';
@@ -21,8 +22,14 @@ interface SelectedNodeHandler {
   setSelectedNodeHandler: React.Dispatch<NodeHandler>,
 }
 
+interface SelectedEdgeHandler {
+  selectedEdgeHandler: EdgeHandler | null,
+  setSelectedEdgeHandler: React.Dispatch<EdgeHandler>,
+}
+
 const AppContext = createContext<AppHandler>(undefined as any);
 const SelectedNodeContext = createContext<SelectedNodeHandler>(undefined as any);
+const SelectedEdgeContext = createContext<SelectedEdgeHandler>(undefined as any);
 
 const Layout = () => {
   const [mode, setMode] = useState<Mode>('edit');
@@ -46,4 +53,4 @@ const Layout = () => {
 
 export default Layout;
 export type { Mode, Tool };
-export { AppContext, SelectedNodeContext };
+export { AppContext, SelectedNodeContext, SelectedEdgeContext };
