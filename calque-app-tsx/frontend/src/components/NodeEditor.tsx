@@ -51,6 +51,22 @@ const NodeEditor = (props: NodeEditorProps) => {
     }
   };
 
+  const onStrokeChange = (strokeValue: string) => {
+    const stroke = strokeValue;
+    props.handler.setNode({
+      ...props.handler.node,
+      stroke
+    })
+  }
+
+  const onStrokeWidthChange = (strokeWidthValue: string) => {
+    const strokeWidth = parseInt(strokeWidthValue);
+    props.handler.setNode({
+      ...props.handler.node,
+      strokeWidth
+    })
+  }
+
   return (
     <div>
       <h2>Node editor</h2>
@@ -73,6 +89,14 @@ const NodeEditor = (props: NodeEditorProps) => {
       <div>
         <label>Y</label>
         <input value={props.handler.node.y} onChange={e => onYChange(e.target.value)} />
+      </div>
+      <div>
+        <label>Stroke</label>
+        <input value={props.handler.node.stroke} onChange={e => onStrokeChange(e.target.value)} />
+      </div>
+      <div>
+        <label>Stroke Width</label>
+        <input value={props.handler.node.strokeWidth} onChange={e => onStrokeWidthChange(e.target.value)} />
       </div>
     </div>
   );

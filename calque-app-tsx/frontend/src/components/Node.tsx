@@ -7,8 +7,10 @@ interface NodeState {
   name: string;
   x: number;
   y: number;
-  color: string,
+  color: string;
   size: number;
+  stroke: string;
+  strokeWidth: number;
 }
 
 interface NodeHandler {
@@ -34,6 +36,8 @@ const Node = (props: NodeProps) => {
     y: props.y,
     size: 25,
     color: 'red',
+    stroke: 'black',
+    strokeWidth: 3,
   });
 
   const handleMouseDown = () => {
@@ -50,8 +54,8 @@ const Node = (props: NodeProps) => {
 
   return (
     <circle
-      stroke="black"
-      strokeWidth="3"
+      stroke={node.stroke}
+      strokeWidth={node.strokeWidth}
       cx={node.x}
       cy={node.y}
       r={node.size}
