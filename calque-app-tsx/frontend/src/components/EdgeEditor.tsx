@@ -3,7 +3,7 @@ interface EdgeEditorProps {
 }
 
 const EdgeEditor = (props: EdgeEditorProps) => {
-  return <div />
+  return <div>SALUT {props.edgeId}</div>
 };
 
 export default EdgeEditor;

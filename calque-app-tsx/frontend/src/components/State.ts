@@ -50,7 +50,7 @@ function insertNode(handler: GraphHandler, x: number, y: number) {
     name: `node-${handler.graph.autoIncrement}`,
     x,
     y,
-    size: 25,
+    size: 20,
     color: 'red',
     stroke: 'black',
     strokeWidth: 3,
