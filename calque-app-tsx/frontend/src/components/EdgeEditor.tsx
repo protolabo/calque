@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { GraphContext } from './Layout';
-import { getEdge, getNode, updateEdge, updateNode } from './State';
+import { getEdge, getNode, updateEdge, updateNode } from '../../models/State';
 
 interface EdgeEditorProps {
   edgeId: number;

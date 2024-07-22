@@ -1,87 +1,54 @@
-import { useContext } from 'react';
+import React, { useContext, ChangeEvent } from 'react';
 import { GraphContext } from './Layout';
-import { getNode, updateNode } from './State';
+import { getNode, updateNode } from '../../models/State';
+
+interface InputFieldProps {
+  label: string;
+  value: string | number;
+  onChange: (value: string | number) => void;
+  type?: 'text' | 'number' | 'color';
+}
+
+const InputField: React.FC<InputFieldProps> = ({ label, value, onChange, type = 'text' }) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    if (type === 'number') {
+      onChange(parseInt(inputValue));
+    } else {
+      onChange(inputValue);
+    }
+  };
+
+  return (
+    <div className='p-2 flex gap-4'>
+      <label>{label}</label>
+      <input type={type} value={value} onChange={handleChange} />
+    </div>
+  );
+};
 
 interface NodeEditorProps {
   nodeId: number;
 }
 
-const NodeEditor = (props: NodeEditorProps) => {
+const NodeEditor: React.FC<NodeEditorProps> = ({ nodeId }) => {
   const graphHandler = useContext(GraphContext);
-  const node = getNode(graphHandler.graph, props.nodeId);
+  const node = getNode(graphHandler.graph, nodeId);
 
-  const onNameChange = (nameValue: string) => {
-    const name = nameValue;
-    updateNode(graphHandler, { ...node, name });
+  const updateField = (fieldName: keyof typeof node, value: string | number) => {
+    updateNode(graphHandler, { ...node, [fieldName]: value });
   };
-
-  const onSizeChange = (sizeValue: string) => {
-    const size = parseInt(sizeValue);
-    if (!isNaN(size)) {
-      updateNode(graphHandler, { ...node, size });
-    }
-  };
-
-  const onColorChange = (colorValue: string) => {
-    const color = colorValue;
-    updateNode(graphHandler, { ...node, color });
-  };
-
-  const onXChange = (xValue: string) => {
-    const x = parseInt(xValue);
-    if (!isNaN(x)) {
-      updateNode(graphHandler, {...node, x });
-    }
-  };
-
-  const onYChange = (yValue: string) => {
-    const y = parseInt(yValue);
-    if (!isNaN(y)) {
-      updateNode(graphHandler, { ...node, y });
-    }
-  };
-
-  const onStrokeChange = (strokeValue: string) => {
-    const stroke = strokeValue;
-    updateNode(graphHandler, { ...node, stroke })
-  }
-
-  const onStrokeWidthChange = (strokeWidthValue: string) => {
-    const strokeWidth = parseInt(strokeWidthValue);
-    updateNode(graphHandler, { ...node, strokeWidth })
-  }
 
   return (
-    <div className='mx-auto mt-4'>
-      <h2>Node editor</h2>
-      <div>
-        <label>Name</label>
-        <input value={node.name} onChange={e => onNameChange(e.target.value)} />
-      </div>
-      <div>
-        <label>Size</label>
-        <input value={node.size} onChange={e => onSizeChange(e.target.value)} />
-      </div>
-      <div>
-        <label>Color</label>
-        <input value={node.color} onChange={e => onColorChange(e.target.value)} />
-      </div>
-      <div>
-        <label>X</label>
-        <input value={node.x} onChange={e => onXChange(e.target.value)} />
-      </div>
-      <div>
-        <label>Y</label>
-        <input value={node.y} onChange={e => onYChange(e.target.value)} />
-      </div>
-      <div>
-        <label>Stroke</label>
-        <input value={node.stroke} onChange={e => onStrokeChange(e.target.value)} />
-      </div>
-      <div>
-        <label>Stroke Width</label>
-        <input value={node.strokeWidth} onChange={e => onStrokeWidthChange(e.target.value)} />
-      </div>
+    <div className='mx-auto p-8 mt-2'>
+      <h2 className='text-bold'>Properties of Node {node.name}</h2>
+        <InputField label="Name" value={node.name} onChange={(value) => updateField('name', value)} />
+        <InputField label="Size" value={node.size} onChange={(value) => updateField('size', value)} type="number" />
+        <InputField label="Color" value={node.color} onChange={(value) => updateField('color', value)} type="color" />
+        <InputField label="X" value={node.x} onChange={(value) => updateField('x', value)} type="number" />
+        <InputField label="Y" value={node.y} onChange={(value) => updateField('y', value)} type="number" />
+        <InputField label="Stroke" value={node.stroke} onChange={(value) => updateField('stroke', value)} type="color" />
+        <InputField label="Stroke Width" value={node.strokeWidth} onChange={(value) => updateField('strokeWidth', value)} type="number" />
     </div>
   );
 };

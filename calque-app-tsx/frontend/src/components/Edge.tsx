@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
-import { EdgeState, getNode } from './State';
+import { EdgeState, getNode } from '../../models/State';
 
 interface EdgeProps {
   edge: EdgeState;

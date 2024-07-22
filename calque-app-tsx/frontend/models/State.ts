@@ -1,4 +1,4 @@
-import { GraphHandler } from "./Layout";
+import { GraphHandler } from "../src/components/Layout";
 
 interface GraphState {
   autoIncrement: number;

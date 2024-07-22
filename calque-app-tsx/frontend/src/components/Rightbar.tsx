@@ -1,16 +1,17 @@
 import { useContext } from 'react';
 import NodeEditor from './NodeEditor';
-import { Entity, SelectedEntityContext } from './Layout';
+import { AppContext, Entity, SelectedEntityContext } from './Layout';
 import EdgeEditor from './EdgeEditor';
 
 const Rightbar = () => {
   const { selectedEntity } = useContext(SelectedEntityContext);
+  const { mode } = useContext(AppContext)
 
   return (
     <div className="sticky flex-1 right-0 top-0 w-64 bg-secondary fixed  grid z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      {selectedEntity !== null && (
+      {mode === 'edit' && (selectedEntity !== null && (
         <EntityEditor entity={selectedEntity} />
-      )}
+      ))}
     </div>
   );
 };
