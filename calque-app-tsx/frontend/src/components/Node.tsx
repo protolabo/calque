@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
 import { CanvasContext } from './Canvas';
-import { NodeState, insertEdge } from '../../models/State';
+import { NodeState, insertEdge } from '../models/State';
 
 interface NodeProps {
   node: NodeState;

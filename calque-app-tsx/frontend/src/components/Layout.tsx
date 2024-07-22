@@ -4,7 +4,7 @@ import Leftbar from './Leftbar';
 import Rightbar from './Rightbar';
 import React, { createContext, useState } from 'react';
 import Canvas from './Canvas';
-import { GraphState, emptyGraph } from '../../models/State';
+import { GraphState, emptyGraph } from '../models/State';
 
 type Mode = 'view' | 'edit';
 type Tool = 'select' | 'node' | 'edge' | 'pan';

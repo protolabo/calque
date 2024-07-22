@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { GraphContext } from './Layout';
-import { getEdge, getNode, updateEdge, updateNode } from '../../models/State';
+import { getEdge, updateEdge } from '../models/State';
+import { InputField } from './InputField'
 
 interface EdgeEditorProps {
   edgeId: number;
@@ -10,39 +11,17 @@ const EdgeEditor = (props: EdgeEditorProps) => {
   const graphHandler = useContext(GraphContext);
   const edge = getEdge(graphHandler.graph, props.edgeId);
 
-  const onNameChange = (nameValue: string) => {
-    const name = nameValue;
-    updateEdge(graphHandler, { ...edge, name });
+  const updateField = (fieldName: keyof typeof edge, value: string | number) => {
+    updateEdge(graphHandler, { ...edge, [fieldName]: value });
   };
 
-  const onStrokeChange = (strokeValue: string) => {
-    const stroke = strokeValue;
-    updateEdge(graphHandler, { ...edge, stroke })
-  }
-
-  const onStrokeWidthChange = (strokeWidthValue: string) => {
-    const strokeWidth = parseInt(strokeWidthValue);
-    updateEdge(graphHandler, { ...edge, strokeWidth })
-  }
-
-
   return (
-  <div>
-    <h2>Edge editor</h2>
-      <div>
-        <label>Name</label>
-        <input value={edge.name} onChange={e => onNameChange(e.target.value)} />
-      </div>
-      <div>
-        <label>Stroke</label>
-        <input value={edge.stroke} onChange={e => onStrokeChange(e.target.value)} />
-      </div>
-      <div>
-        <label>Stroke Width</label>
-        <input value={edge.strokeWidth} onChange={e => onStrokeWidthChange(e.target.value)} />
-      </div>
-
-  </div>
+    <div className='mx-auto p-8 mt-2'>
+        <h2 className='text-bold'>Properties of {edge.name}</h2>
+        <InputField label="Name" value={edge.name} onChange={(value) => updateField('name', value)} />
+        <InputField label="Stroke" value={edge.stroke} onChange={(value) => updateField('stroke', value)} type="color" />
+        <InputField label="Stroke Width" value={edge.strokeWidth} onChange={(value) => updateField('strokeWidth', value)} type="number" />
+    </div>
 )
 };
 
