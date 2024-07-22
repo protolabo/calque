@@ -52,7 +52,7 @@ const NodeEditor = (props: NodeEditorProps) => {
   }
 
   return (
-    <div>
+    <div className='mx-auto mt-4'>
       <h2>Node editor</h2>
       <div>
         <label>Name</label>

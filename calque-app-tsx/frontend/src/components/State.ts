@@ -95,10 +95,10 @@ function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
   return edge;
 }
 
-function updateEdge(handler: GraphHandler) {
-  // TODO
+function updateEdge(handler: GraphHandler, updatedEdge: EdgeState) {
   const graph = {
     ...handler.graph,
+    edges: handler.graph.edges.map(edge => edge.id === updatedEdge.id ? updatedEdge : edge),
   };
 
   handler.setGraph(graph);

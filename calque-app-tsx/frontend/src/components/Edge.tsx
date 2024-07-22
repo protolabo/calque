@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { GraphContext } from './Layout';
+import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
 import { EdgeState, getNode } from './State';
 
 interface EdgeProps {
@@ -7,9 +7,18 @@ interface EdgeProps {
 }
 
 const Edge = (props: EdgeProps)  => {
+  const { mode, tool } = useContext(AppContext)
   const { graph } = useContext(GraphContext);
+  const { setSelectedEntity } = useContext(SelectedEntityContext);
+
   const node1 = getNode(graph, props.edge.node1id);
   const node2 = getNode(graph, props.edge.node2id);
+
+  const handleMouseDown = () => {
+    if (mode === "edit" && tool === "select") {
+      setSelectedEntity({ kind: 'edge', edgeId: props.edge.id });
+    }
+  }
 
   return (
     <line
@@ -17,8 +26,9 @@ const Edge = (props: EdgeProps)  => {
       y1={node1.y}
       x2={node2.x}
       y2={node2.y}
-      stroke="black"
-      strokeWidth={3}
+      stroke={props.edge.stroke}
+      strokeWidth={props.edge.strokeWidth}
+      onMouseDown={handleMouseDown}
     />
   );
 };
