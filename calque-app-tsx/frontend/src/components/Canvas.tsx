@@ -80,13 +80,14 @@ const Canvas = () => {
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
           >
-            {graphHandler.graph.edges.map(edge => (
-              <Edge key={edge.id} edge={edge} />
-            ))}
-            {graphHandler.graph.nodes.map(node => (
-              <Node key={node.id} node={node} />
-            ))}
-            
+            <g>
+              {graphHandler.graph.edges.map(edge => (
+                <Edge key={edge.id} edge={edge} />
+              ))}
+              {graphHandler.graph.nodes.map(node => (
+                <Node key={node.id} node={node} />
+              ))}
+            </g> 
           </svg>
         </CanvasContext.Provider>
       </div>
