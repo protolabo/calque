@@ -1,4 +1,6 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, ReactNode, useContext } from 'react';
+import { GraphContext } from './Layout';
+import { getNode, NodeState, EdgeState } from '../models/State';
 
 interface InputFieldProps {
     label: string;
@@ -25,5 +27,14 @@ const InputField: React.FC<InputFieldProps> = ({ label, value, onChange, type = 
   );
 };
 
+const Editor = (props: {children: ReactNode}) => {
+  return (
+    <div className='mx-auto p-8 mt-2'>
+      <h2 className='font-bold'>Properties of :</h2>
+      {props.children}
+    </div>    
+  )
+}
+
 export type { InputFieldProps }
-export { InputField }
+export { InputField, Editor }

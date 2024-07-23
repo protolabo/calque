@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { GraphContext } from './Layout';
 import { getNode, updateNode } from '../models/State';
-import { InputField } from './InputField'
+import { InputField, Editor } from './InputField'
 
 interface NodeEditorProps {
   nodeId: number;
@@ -16,8 +16,7 @@ const NodeEditor: React.FC<NodeEditorProps> = ({ nodeId }) => {
   };
 
   return (
-    <div className='mx-auto p-8 mt-2'>
-      <h2 className='font-bold'>Properties of {node.name}</h2>
+    <Editor>
         <InputField label="Name" value={node.name} onChange={(value) => updateField('name', value)} />
         <InputField label="Size" value={node.size} onChange={(value) => updateField('size', value)} type="number" />
         <InputField label="Color" value={node.color} onChange={(value) => updateField('color', value)} type="color" />
@@ -25,7 +24,7 @@ const NodeEditor: React.FC<NodeEditorProps> = ({ nodeId }) => {
         <InputField label="Y" value={node.y} onChange={(value) => updateField('y', value)} type="number" />
         <InputField label="Stroke" value={node.stroke} onChange={(value) => updateField('stroke', value)} type="color" />
         <InputField label="Stroke Width" value={node.strokeWidth} onChange={(value) => updateField('strokeWidth', value)} type="number" />
-    </div>
+    </Editor>
   );
 };
 
