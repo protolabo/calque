@@ -10,8 +10,10 @@ interface NodeProps {
 const Node = (props: NodeProps) => {
   const { mode, tool } = useContext(AppContext);
   const graphHandler = useContext(GraphContext);
-  const { setSelectedEntity } = useContext(SelectedEntityContext);
+  const { selectedEntity, setSelectedEntity } = useContext(SelectedEntityContext);
   const { action, setAction } = useContext(CanvasContext);
+
+  const isSelected = selectedEntity && selectedEntity.kind === 'node' && selectedEntity.nodeId === props.node.id;
 
   const handleClick = () => {
     console.log(mode, tool, action, props.node);
@@ -36,15 +38,27 @@ const Node = (props: NodeProps) => {
   return (
     <g>
       <circle
-        stroke={props.node.stroke}
-        strokeWidth={props.node.strokeWidth}
-        cx={props.node.x}
-        cy={props.node.y}
-        r={props.node.size}
-        fill={props.node.color}
-        onClick={handleClick}
-        onMouseDown={handleMouseDown}
-      />
+          stroke={props.node.stroke}
+          strokeWidth={props.node.strokeWidth}
+          cx={props.node.x}
+          cy={props.node.y}
+          r={props.node.size}
+          fill={props.node.color}
+          onClick={handleClick}
+          onMouseDown={handleMouseDown}
+        />
+      {isSelected ? (
+        <circle 
+          stroke="blue"
+          strokeWidth={props.node.strokeWidth}
+          cx={props.node.x}
+          cy={props.node.y}
+          r={props.node.size + 3}
+          opacity="0.5"
+          onClick={handleClick}
+          onMouseDown={handleMouseDown}
+        />
+      ) : <g/>}
       <text x={props.node.x + props.node.size +2} y={props.node.y + props.node.size +2} fill="black">{props.node.name}</text>
     </g>
   );

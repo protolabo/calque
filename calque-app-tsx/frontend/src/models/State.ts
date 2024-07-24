@@ -53,7 +53,7 @@ function insertNode(handler: GraphHandler, x: number, y: number) {
     size: 20,
     color: 'red',
     stroke: 'black',
-    strokeWidth: 3,
+    strokeWidth: 5,
   };
 
   const graph = {
@@ -82,7 +82,7 @@ function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
     node1id,
     node2id,
     stroke: 'black',
-    strokeWidth: 3,
+    strokeWidth: 5,
   };
 
   const graph = {
