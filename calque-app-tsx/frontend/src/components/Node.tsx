@@ -29,7 +29,7 @@ const Node = (props: NodeProps) => {
   };
 
   const handleMouseDown = () => {
-    if (mode === 'edit') {
+    if (mode === 'edit' && tool === 'select') {
       setAction({ kind: 'drag', nodeId: props.node.id });
       setSelectedEntity({ kind: 'node', nodeId: props.node.id });
     }
@@ -47,7 +47,7 @@ const Node = (props: NodeProps) => {
           onClick={handleClick}
           onMouseDown={handleMouseDown}
         />
-      {mode === 'edit' && tool === 'select' && (isSelected ? (
+      {mode === 'edit' && (isSelected ? (
         <circle 
           stroke="blue"
           strokeWidth={props.node.strokeWidth}
