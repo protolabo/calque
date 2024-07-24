@@ -29,7 +29,7 @@ const Node = (props: NodeProps) => {
   };
 
   const handleMouseDown = () => {
-    if (mode === 'edit' && tool === 'select') {
+    if (mode === 'edit') {
       setAction({ kind: 'drag', nodeId: props.node.id });
       setSelectedEntity({ kind: 'node', nodeId: props.node.id });
     }
