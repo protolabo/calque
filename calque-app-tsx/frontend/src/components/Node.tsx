@@ -47,7 +47,7 @@ const Node = (props: NodeProps) => {
           onClick={handleClick}
           onMouseDown={handleMouseDown}
         />
-      {isSelected ? (
+      {mode === 'edit' && (isSelected ? (
         <circle 
           stroke="blue"
           strokeWidth={props.node.strokeWidth}
@@ -58,7 +58,7 @@ const Node = (props: NodeProps) => {
           onClick={handleClick}
           onMouseDown={handleMouseDown}
         />
-      ) : <g/>}
+      ) : <g/> )}
       <text x={props.node.x + props.node.size +2} y={props.node.y + props.node.size +2} fill="black">{props.node.name}</text>
     </g>
   );

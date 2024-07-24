@@ -34,7 +34,7 @@ const Edge = (props: EdgeProps)  => {
         onMouseDown={handleMouseDown}
       />
     
-    {isSelected ? (
+    {mode === 'edit' && (isSelected ? (
       <line
         x1={node1.x}
         y1={node1.y}
@@ -47,7 +47,7 @@ const Edge = (props: EdgeProps)  => {
       />
     ) : (
       <g/>
-    )}
+    ))}
     </g>
     
   );
