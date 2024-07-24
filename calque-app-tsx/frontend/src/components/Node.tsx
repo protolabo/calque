@@ -34,16 +34,19 @@ const Node = (props: NodeProps) => {
   };
 
   return (
-    <circle
-      stroke={props.node.stroke}
-      strokeWidth={props.node.strokeWidth}
-      cx={props.node.x}
-      cy={props.node.y}
-      r={props.node.size}
-      fill={props.node.color}
-      onClick={handleClick}
-      onMouseDown={handleMouseDown}
-    />
+    <g>
+      <circle
+        stroke={props.node.stroke}
+        strokeWidth={props.node.strokeWidth}
+        cx={props.node.x}
+        cy={props.node.y}
+        r={props.node.size}
+        fill={props.node.color}
+        onClick={handleClick}
+        onMouseDown={handleMouseDown}
+      />
+      <text x={props.node.x + props.node.size +2} y={props.node.y + props.node.size +2} fill="black">{props.node.name}</text>
+    </g>
   );
 }
 
