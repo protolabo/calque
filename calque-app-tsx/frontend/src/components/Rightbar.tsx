@@ -21,8 +21,8 @@ const InputField: React.FC<InputFieldProps> = ({ label, value, onChange, type = 
   };
 
   return (
-    <div className='p-2 flex gap-4'>
-      <label>{label}</label>
+    <div className='p-2 grid gap-4'>
+      <label className='font-bold'>{label}</label>
       <input type={type} value={value} onChange={handleChange} />
     </div>
   );
@@ -33,7 +33,7 @@ const Rightbar = () => {
   const { mode } = useContext(AppContext)
 
   return (
-    <div className="sticky flex-1 top-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
+    <div className="sticky basis-1/6 w-64 top-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
       {mode === 'edit' && (selectedEntity !== null && (
         <EntityEditor entity={selectedEntity} />
       ))}
@@ -55,8 +55,8 @@ const Editor = (props: {children: ReactNode}) => {
 }
 
 const EditorTitle = (props: {children: ReactNode}) => {
-  const editorTitle = 'font-bold'
-  return <h2 className={editorTitle}></h2>
+  const editorTitle = 'font-bold text-lg'
+  return <h2 className={editorTitle}>{props.children}</h2>
 
 }
 

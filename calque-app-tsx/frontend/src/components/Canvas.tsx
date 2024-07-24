@@ -64,12 +64,11 @@ const Canvas = () => {
   };
 
   return (
-    <div className="flex grow justify-center bg-slate-400">
+    <div className="flex basis-4/6 justify-center bg-slate-400">
       <div className="bg-slate-100">
         <CanvasContext.Provider value={{ ref: canvasRef, action, setAction }}>
           <svg
             ref={canvasRef}
-            className="relative z-20"
             width="920"
             height="938"
             viewBox="0 0 920 938"

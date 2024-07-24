@@ -87,10 +87,7 @@ const Leftbar: FC = () => {
   ];
 
   return (
-    <div className="sticky top-0 bg-secondary text-primary left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      {/*{mode === "editor" && sections.map((section, index) => (
-        <LbGroupElements key={index} title={section.title} icon={section.icon} children={section.items} />
-      ))}*/}
+    <div className="sticky basis-1/6 top-0 bg-secondary text-primary left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
       {sections.map((section, index) => (
         <LbGroupElements key={index} title={section.title} icon={section.icon} children={section.items} />
         ))}
