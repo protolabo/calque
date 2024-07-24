@@ -47,7 +47,7 @@ const Node = (props: NodeProps) => {
           onClick={handleClick}
           onMouseDown={handleMouseDown}
         />
-      {mode === 'edit' && (isSelected ? (
+      {mode === 'edit' && tool === 'select' && (isSelected ? (
         <circle 
           stroke="blue"
           strokeWidth={props.node.strokeWidth}
