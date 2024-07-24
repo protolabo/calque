@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { GraphContext } from './Layout';
 import { getEdge, updateEdge } from '../models/State';
-import { InputField, Editor } from './InputField'
+import { InputField, Editor, EditorTitle } from './Rightbar'
 
-interface EdgeEditorProps {
+export interface EdgeEditorProps {
   edgeId: number;
 }
 
@@ -17,6 +17,7 @@ const EdgeEditor = (props: EdgeEditorProps) => {
 
   return (
     <Editor>
+        <EditorTitle>Properties of Edge {edge.name}</EditorTitle>
         <InputField label="Name" value={edge.name} onChange={(value) => updateField('name', value)} />
         <InputField label="Stroke" value={edge.stroke} onChange={(value) => updateField('stroke', value)} type="color" />
         <InputField label="Stroke Width" value={edge.strokeWidth} onChange={(value) => updateField('strokeWidth', value)} type="number" />

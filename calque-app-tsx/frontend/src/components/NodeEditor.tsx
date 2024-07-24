@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { GraphContext } from './Layout';
 import { getNode, updateNode } from '../models/State';
-import { InputField, Editor } from './InputField'
+import { InputField, Editor, EditorTitle } from './Rightbar'
 
-interface NodeEditorProps {
+export interface NodeEditorProps {
   nodeId: number;
 }
 
@@ -17,6 +17,7 @@ const NodeEditor: React.FC<NodeEditorProps> = ({ nodeId }) => {
 
   return (
     <Editor>
+        <EditorTitle>Properties of Node {node.name}</EditorTitle>
         <InputField label="Name" value={node.name} onChange={(value) => updateField('name', value)} />
         <InputField label="Size" value={node.size} onChange={(value) => updateField('size', value)} type="number" />
         <InputField label="Color" value={node.color} onChange={(value) => updateField('color', value)} type="color" />
