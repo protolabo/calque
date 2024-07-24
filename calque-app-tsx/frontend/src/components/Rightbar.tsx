@@ -1,9 +1,7 @@
 import React, { ChangeEvent, ReactNode, useContext } from 'react';
 import NodeEditor from './NodeEditor';
-import { AppContext, Entity, GraphContext, SelectedEntityContext } from './Layout';
-import EdgeEditor, { EdgeEditorProps } from './EdgeEditor';
-import { getEdge, getNode, NodeState } from '../models/State';
-import { NodeEditorProps } from './NodeEditor';
+import { AppContext, Entity, SelectedEntityContext } from './Layout';
+import EdgeEditor from './EdgeEditor';
 
 interface InputFieldProps {
     label: string;
