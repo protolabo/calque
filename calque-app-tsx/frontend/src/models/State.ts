@@ -75,20 +75,20 @@ function updateNode(handler: GraphHandler, updatedNode: NodeState) {
   handler.setGraph(graph);
 }
 
-function deleteNode(handler: GraphHandler, selectedNode: NodeState) {
+function deleteNode(handler: GraphHandler, nodeId: number) {
   const graph = {
     ...handler.graph,
-    nodes: handler.graph.nodes.filter(node => node.id !== selectedNode.id),
-    edges: handler.graph.edges.filter(edge => edge.node1id !== selectedNode.id && edge.node2id !== selectedNode.id),
+    nodes: handler.graph.nodes.filter(node => node.id !== nodeId),
+    edges: handler.graph.edges.filter(edge => edge.node1id !== nodeId && edge.node2id !== nodeId),
   };
 
   handler.setGraph(graph);
 }
 
-function deleteEdge(handler: GraphHandler, selectedEdge: EdgeState) {
+function deleteEdge(handler: GraphHandler, edgeId: number) {
   const graph = {
     ...handler.graph,
-    edges: handler.graph.edges.filter(edge => edge.id !== selectedEdge.id),
+    edges: handler.graph.edges.filter(edge => edge.id !== edgeId),
   };
 
   handler.setGraph(graph);

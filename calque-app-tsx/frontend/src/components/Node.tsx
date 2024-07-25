@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
-import { AppContext, GraphContext, GraphHandler, SelectedEntityContext } from './Layout';
+import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
 import { CanvasContext } from './Canvas';
-import { NodeState, deleteNode, getNode, insertEdge } from '../models/State';
+import { NodeState, deleteNode, insertEdge } from '../models/State';
 
 interface NodeProps {
   node: NodeState;
@@ -35,6 +35,25 @@ const Node = (props: NodeProps) => {
       setSelectedEntity({ kind: 'node', nodeId: props.node.id });
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => { // Typing the event as KeyboardEvent
+      if (mode === 'edit' && isSelected && (event.key === 'Delete' || event.key === 'Backspace')) {
+        event.preventDefault(); // Prevent the default backspace action (navigate back)
+        deleteNode(graphHandler, props.node.id);
+        setSelectedEntity(null);
+        setAction(null);
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isSelected, props.node.id, graphHandler, setSelectedEntity, setAction]);
 
   return (
     <g>
