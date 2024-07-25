@@ -75,6 +75,25 @@ function updateNode(handler: GraphHandler, updatedNode: NodeState) {
   handler.setGraph(graph);
 }
 
+function deleteNode(handler: GraphHandler, selectedNode: NodeState) {
+  const graph = {
+    ...handler.graph,
+    nodes: handler.graph.nodes.filter(node => node.id !== selectedNode.id),
+    edges: handler.graph.edges.filter(edge => edge.node1id !== selectedNode.id && edge.node2id !== selectedNode.id),
+  };
+
+  handler.setGraph(graph);
+}
+
+function deleteEdge(handler: GraphHandler, selectedEdge: EdgeState) {
+  const graph = {
+    ...handler.graph,
+    edges: handler.graph.edges.filter(edge => edge.id !== selectedEdge.id),
+  };
+
+  handler.setGraph(graph);
+}
+
 function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
   const edge = {
     id: handler.graph.autoIncrement,
@@ -111,4 +130,4 @@ const emptyGraph = {
 };
 
 export type { GraphState, NodeState, EdgeState };
-export { emptyGraph, getNode, getEdge , insertNode, updateNode, insertEdge, updateEdge };
+export { emptyGraph, getNode, getEdge , insertNode, updateNode, insertEdge, updateEdge, deleteEdge, deleteNode };

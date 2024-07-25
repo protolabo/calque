@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
+import { useContext, useEffect } from 'react';
+import { AppContext, GraphContext, GraphHandler, SelectedEntityContext } from './Layout';
 import { CanvasContext } from './Canvas';
-import { NodeState, insertEdge } from '../models/State';
+import { NodeState, deleteNode, getNode, insertEdge } from '../models/State';
 
 interface NodeProps {
   node: NodeState;
@@ -19,10 +19,11 @@ const Node = (props: NodeProps) => {
     console.log(mode, tool, action, props.node);
     if (mode === 'edit' && tool === 'edge') {
       if (action === null) {
+        setSelectedEntity({ kind : 'node', nodeId: props.node.id })
         setAction({ kind: 'edge', nodeId: props.node.id });
       } else if (action.kind === 'edge' && action.nodeId !== props.node.id) {
         const edge = insertEdge(graphHandler, action.nodeId, props.node.id);
-        setSelectedEntity({ kind: 'edge', edgeId: edge.id });
+        setSelectedEntity({ kind: 'edge', edgeId: edge.id })
         setAction(null);
       }
     }

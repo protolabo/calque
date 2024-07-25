@@ -36,6 +36,9 @@ const Canvas = () => {
       const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
       const node = insertNode(graphHandler, coordinates.x, coordinates.y);
       setSelectedEntity({ kind: 'node', nodeId: node.id });
+    } 
+    if (event.target === event.currentTarget && tool !== 'node') {
+      setSelectedEntity(null);
     }
   }
 
