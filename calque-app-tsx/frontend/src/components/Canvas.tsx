@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import React, { useContext, useRef, useState } from 'react';
 import Edge from './Edge';
 import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
@@ -66,6 +67,62 @@ const Canvas = () => {
     }
   };
 
+  const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
+    let clipboardData = event.clipboardData /*|| window.clipboardData*/;
+    if (!clipboardData) return;
+
+    // Check if there is an image in the clipboard
+    let items = clipboardData.items;
+    if (items) {
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf('image') !== -1) {
+                // Handle image paste
+                handleImagePaste(items[i]);
+                break;
+            }
+        }
+    }
+  };
+
+  const handleImagePaste = (item: DataTransferItem) => {
+    let file = item.getAsFile();
+    if (!file) return;
+
+    let reader = new FileReader();
+    reader.onload = (event) => {
+        let imageData = event.target?.result as string;
+        createImageElement(imageData);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const createImageElement = (imageData: string) => {
+    // Create a new SVG 'image' element
+    const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+    svgImage.setAttributeNS(null, 'x', '0');
+    svgImage.setAttributeNS(null, 'y', '0');
+    svgImage.setAttributeNS('http://www.w3.org/1999/xlink', 'href', imageData);
+    // Set other attributes as needed (width, height, etc.)
+
+    // Append the new image element to your SVG canvas
+    if (canvasRef.current) {
+        canvasRef.current.insertBefore(svgImage, canvasRef.current.firstChild);
+    }
+  };
+
+  /*  function initializeZoom() {
+    d3.select("svg")
+      .call(zoom);
+  }
+
+  const zoom = d3.zoom().on("zoom", handleZoom);
+  function handleZoom(e) {
+    const { x, y, k } = e.transform;
+
+    d3.select("svg g")
+      .attr("transform", () => `scale(${k})`)
+  }*/
+
   return (
     <div className="flex basis-4/6 justify-center bg-slate-400">
       <div className="bg-slate-100">
@@ -81,6 +138,7 @@ const Canvas = () => {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
+            onPaste={handlePaste}
           >
             <g>
               {graphHandler.graph.edges.map(edge => (
