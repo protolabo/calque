@@ -26,8 +26,7 @@ const Edge = (props: EdgeProps)  => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => { // Typing the event as KeyboardEvent
-      if (isSelected && (event.key === 'Delete' || event.key === 'Backspace')) {
-        event.preventDefault(); // Prevent the default backspace action (navigate back)
+      if (mode === 'edit' && isSelected && (event.key === 'Delete')) {
         deleteEdge(graphHandler, props.edge.id);
         setSelectedEntity(null);
         setAction(null);
