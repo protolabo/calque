@@ -50,10 +50,10 @@ function insertNode(handler: GraphHandler, x: number, y: number) {
     name: `node-${handler.graph.autoIncrement}`,
     x,
     y,
-    size: 20,
-    color: 'red',
-    stroke: 'black',
-    strokeWidth: 5,
+    size: 15,
+    color: 'white',
+    stroke: 'blue',
+    strokeWidth: 10,
   };
 
   const graph = {
@@ -100,8 +100,8 @@ function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
     name: `edge-${handler.graph.autoIncrement}`,
     node1id,
     node2id,
-    stroke: 'black',
-    strokeWidth: 5,
+    stroke: 'blue',
+    strokeWidth: 40,
   };
 
   const graph = {
