@@ -31,6 +31,7 @@ const Canvas = () => {
   const { setSelectedEntity } = useContext(SelectedEntityContext);
   const [action, setAction] = useState<CanvasAction | null>(null);
   const canvasRef = useRef<SVGSVGElement>(null);
+  const [image, setImage] = useState<string | null>(null);
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     if (mode === 'edit' && tool === 'node') {
@@ -76,15 +77,15 @@ const Canvas = () => {
     // Check if there is an image in the clipboard
     let items = clipboardData.items;
     if (items) {
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].type.indexOf('image') !== -1) {
-                // Handle image paste
-                handleImagePaste(items[i]);
-                break;
-            }
+      for (const item of items) {
+        if (item.type.includes('image')){
+          handleImagePaste(item);
+          break;
         }
+      }
     }
   };
+  
 
   const handleImagePaste = (item: DataTransferItem) => {
     let file = item.getAsFile();
@@ -93,28 +94,9 @@ const Canvas = () => {
     let reader = new FileReader();
     reader.onload = (event) => {
         let imageData = event.target?.result as string;
-        createImageElement(imageData);
+        setImage(imageData)
     };
     reader.readAsDataURL(file);
-  };
-
-  const createImageElement = (imageData: string) => {
-    const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-    svgImage.setAttributeNS(null, 'x', '0');
-    svgImage.setAttributeNS(null, 'y', '0');
-    svgImage.setAttributeNS(null, 'opacity', '0.3');
-    svgImage.setAttributeNS('http://www.w3.org/1999/xlink', 'href', imageData);
-
-    /* Cacher le "calque" (la carte pastée) en mode preview *
-     
-    if (mode === 'view') {
-      svgImage.setAttributeNS(null, 'visibility', 'hidden');
-    }
-    */
-
-    if (canvasRef.current) {
-        canvasRef.current.insertBefore(svgImage, canvasRef.current.firstChild);
-    }
   };
 
   /*  D3 zoom function *
@@ -149,6 +131,7 @@ const Canvas = () => {
             onMouseUp={handleMouseUp}
             onPaste={handlePaste}
           >
+            {image !== null && <image href={image} x='0' y='0' opacity='0.3' />}
             <g>
               {graphHandler.graph.edges.map(edge => (
                 <Edge key={edge.id} edge={edge} />
