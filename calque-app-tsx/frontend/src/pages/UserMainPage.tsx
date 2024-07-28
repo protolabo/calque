@@ -1,6 +1,6 @@
 function UserMainPage() {
   return (
-    <div>UserMainPage</div>
+    <div/>
   )
 }
 
