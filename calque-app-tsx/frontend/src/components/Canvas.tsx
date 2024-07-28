@@ -38,8 +38,10 @@ const Canvas = () => {
       const node = insertNode(graphHandler, coordinates.x, coordinates.y);
       setSelectedEntity({ kind: 'node', nodeId: node.id });
     } 
-    if (event.target === event.currentTarget && tool !== 'node') {
-      setSelectedEntity(null);
+    if (event.target === event.currentTarget || event.target instanceof SVGImageElement) {
+      if (tool !== 'node') {
+        setSelectedEntity(null);
+      }
     }
   }
 
@@ -97,20 +99,27 @@ const Canvas = () => {
   };
 
   const createImageElement = (imageData: string) => {
-    // Create a new SVG 'image' element
     const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
     svgImage.setAttributeNS(null, 'x', '0');
     svgImage.setAttributeNS(null, 'y', '0');
+    svgImage.setAttributeNS(null, 'opacity', '0.3');
     svgImage.setAttributeNS('http://www.w3.org/1999/xlink', 'href', imageData);
-    // Set other attributes as needed (width, height, etc.)
 
-    // Append the new image element to your SVG canvas
+    /* Cacher le "calque" (la carte pastée) en mode preview *
+     
+    if (mode === 'view') {
+      svgImage.setAttributeNS(null, 'visibility', 'hidden');
+    }
+    */
+
     if (canvasRef.current) {
         canvasRef.current.insertBefore(svgImage, canvasRef.current.firstChild);
     }
   };
 
-  /*  function initializeZoom() {
+  /*  D3 zoom function *
+  
+  function initializeZoom() {
     d3.select("svg")
       .call(zoom);
   }
