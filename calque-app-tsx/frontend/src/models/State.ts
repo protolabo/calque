@@ -15,6 +15,7 @@ interface NodeState {
   size: number;
   stroke: string;
   strokeWidth: number;
+  description: string;
 }
 
 interface EdgeState {
@@ -24,6 +25,22 @@ interface EdgeState {
   node2id: number;
   stroke: string;
   strokeWidth: number;
+}
+
+type Line = 'Continuous' | 'Broken' | 'Loop';
+
+interface LineState {
+  id: number;
+  name: string;
+  nodes: number[];
+  nodeFill: string;
+  nodeStroke: string;
+  nodeStrokeWidth: number;
+  edges: number[];
+  edgeStroke: string;
+  edgeStrokeWidth: number;
+  duration: number;
+  type: Line;
 }
 
 function getNode(graph: GraphState, nodeId: number): NodeState {
@@ -54,6 +71,7 @@ function insertNode(handler: GraphHandler, x: number, y: number) {
     color: 'white',
     stroke: 'blue',
     strokeWidth: 10,
+    description: '',
   };
 
   const graph = {

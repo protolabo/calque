@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { GraphContext } from './Layout';
 import { getNode, updateNode } from '../models/State';
 import { InputField, Editor, EditorTitle } from './Rightbar'
@@ -8,6 +8,7 @@ export interface NodeEditorProps {
 }
 
 const NodeEditor: React.FC<NodeEditorProps> = ({ nodeId }) => {
+  // const [ nodeState, setNodeState ] = useState(currentNodeState)
   const graphHandler = useContext(GraphContext);
   const node = getNode(graphHandler.graph, nodeId);
 
@@ -25,6 +26,7 @@ const NodeEditor: React.FC<NodeEditorProps> = ({ nodeId }) => {
         <InputField label="Y" value={node.y} onChange={(value) => updateField('y', value)} type="number" />
         <InputField label="Stroke" value={node.stroke} onChange={(value) => updateField('stroke', value)} type="color" />
         <InputField label="Stroke Width" value={node.strokeWidth} onChange={(value) => updateField('strokeWidth', value)} type="number" />
+        <InputField label="Description" value={node.description} onChange={(value) => updateField('description', value)}/>
     </Editor>
   );
 };
