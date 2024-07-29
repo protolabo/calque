@@ -15,7 +15,9 @@ const Image = (props: ImageProps) => {
 
   const isSelected = selectedEntity && selectedEntity.kind === 'image' && selectedEntity.imgId === props.image.id;
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    setSelectedEntity({ kind: 'image', imgId: props.image.id });
+  };
 
   const handleMouseDown = () => {
     if (mode === 'edit' && tool === 'select') {

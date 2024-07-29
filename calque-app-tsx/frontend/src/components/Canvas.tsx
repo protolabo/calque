@@ -150,6 +150,7 @@ const Canvas = () => {
         <CanvasContext.Provider value={{ ref: canvasRef, action, setAction }}>
           <svg
             ref={canvasRef}
+            id="canvas"
             width="920"
             height="938"
             viewBox="0 0 920 938"

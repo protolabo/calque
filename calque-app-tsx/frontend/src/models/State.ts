@@ -48,8 +48,8 @@ interface ImageState {
   id: number;
   x: number;
   y: number;
-  //width: number | undefined; // TODO gérer les undefined, c'est temporaire
-  //height: number | undefined;
+  width: number | undefined; // TODO gérer les undefined, c'est temporaire
+  height: number | undefined;
   stroke: string;
   href: string;
 }
@@ -130,8 +130,8 @@ function insertImage(handler: GraphHandler, href: string) {
     id: graph.autoIncrement,
     x: 0,
     y: 0,
-    //width: 100,
-    //height: 100,
+    width: 100,
+    height: 100,
     href
   } as ImageState;
 

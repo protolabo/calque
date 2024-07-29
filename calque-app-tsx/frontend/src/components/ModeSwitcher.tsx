@@ -5,6 +5,7 @@ import { LiaToggleOnSolid } from 'react-icons/lia';
 import { MdPreview } from 'react-icons/md';
 import { AppContext } from './Layout';
 import { TiExport } from 'react-icons/ti';
+import { CanvasContext } from './Canvas';
 
 const ModeSwitcher = () => {
   const { mode, setMode } = useContext(AppContext);
@@ -15,6 +16,20 @@ const ModeSwitcher = () => {
 
   const handleMouseEnter = useCallback(() => setHovered(true), []);
   const handleMouseLeave = useCallback(() => setHovered(false), []);
+  const exportMap = () => {
+    const map = document.getElementById("canvas")
+    if (map) {
+      const serializer = new XMLSerializer();
+      const svgString = serializer.serializeToString(map);
+      const blob = new Blob([svgString], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'exported-image.svg';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  };
 
   return (
     <div className="flex justify-end items-center gap-8">
@@ -34,7 +49,8 @@ const ModeSwitcher = () => {
         </button>
         <MdPreview className={previewIconStyle} />
       </div>
-      <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg'>
+      <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
+        onClick={exportMap}>
         Export
         <TiExport className='w-6 h-6'/>
       </button>
