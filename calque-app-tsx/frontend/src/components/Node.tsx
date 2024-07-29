@@ -16,7 +16,6 @@ const Node = (props: NodeProps) => {
   const isSelected = selectedEntity && selectedEntity.kind === 'node' && selectedEntity.nodeId === props.node.id;
 
   const handleClick = () => {
-    console.log(mode, tool, action, props.node);
     if (mode === 'edit' && tool === 'edge') {
       if (action === null) {
         setSelectedEntity({ kind : 'node', nodeId: props.node.id })
@@ -35,6 +34,8 @@ const Node = (props: NodeProps) => {
       setSelectedEntity({ kind: 'node', nodeId: props.node.id });
     }
   };
+
+  // DELETE NODE
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => { // Typing the event as KeyboardEvent
