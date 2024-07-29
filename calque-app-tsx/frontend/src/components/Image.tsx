@@ -1,3 +1,4 @@
+/*
 import { useContext, useEffect } from "react";
 import { deleteImage, ImageState } from "../models/State"
 import { AppContext, GraphContext, SelectedEntityContext } from "./Layout";
@@ -47,7 +48,7 @@ const Image = (props: ImageProps) => {
 
   return (
     <g>
-        <image 
+        <image /
             x={props.image.x}
             y={props.image.y}
             href={props.image.href}
@@ -70,3 +71,5 @@ const Image = (props: ImageProps) => {
 }
 
 export default Image
+
+*/

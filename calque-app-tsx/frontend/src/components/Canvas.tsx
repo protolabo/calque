@@ -34,6 +34,7 @@ const Canvas = () => {
   const [image, setImage] = useState<string | null>(null);
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
+    console.log(mode, tool, event, event.target)
     if (mode === 'edit' && tool === 'node') {
       const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
       const node = insertNode(graphHandler, coordinates.x, coordinates.y);
@@ -47,6 +48,7 @@ const Canvas = () => {
   }
 
   const handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
+    /*
     if (action !== null) {
       switch(action.kind) {
         case 'drag':
@@ -74,6 +76,7 @@ const Canvas = () => {
           break;
       }
     }
+      */
   };
 
   const handleMouseLeave = () => {
@@ -83,6 +86,7 @@ const Canvas = () => {
   };
 
   const handleMouseUp = () => {
+    /*
     if (action !== null) {
       switch(action.kind) {
         case 'drag':
@@ -97,11 +101,12 @@ const Canvas = () => {
         default:
           break;
       }
-    }
+    }*/
   };
 
   const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
     let clipboardData = event.clipboardData /*|| window.clipboardData*/;
+    console.log(clipboardData)
     if (mode !== 'edit' || !clipboardData) return;
 
     // Check if there is an image in the clipboard
@@ -109,6 +114,7 @@ const Canvas = () => {
     if (items) {
       for (const item of items) {
         if (item.type.includes('image')){
+          console.log(item)
           handleImagePaste(item);
           break;
         }
@@ -124,6 +130,7 @@ const Canvas = () => {
     let reader = new FileReader();
     reader.onload = (event) => {
         let imageData = event.target?.result as string;
+        console.log(imageData)
         setImage(imageData)
     };
     reader.readAsDataURL(file);
