@@ -12,6 +12,7 @@ type Tool = 'select' | 'node' | 'edge' | 'pan';
 type Entity =
   | { kind: 'node', nodeId: number }
   | { kind: 'edge', edgeId: number }
+  | { kind: 'image', imgId: number }
 
 interface AppHandler {
   mode: Mode;

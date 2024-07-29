@@ -3,7 +3,7 @@ import React, { useContext, useRef, useState } from 'react';
 import Edge from './Edge';
 import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
 import Node from './Node';
-import { getNode, insertNode, updateNode } from '../models/State';
+import { getImage, getNode, insertImage, insertNode, updateImage, updateNode } from '../models/State';
 
 function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.MouseEvent<T>) {
   const bounds = canvas.getBoundingClientRect();
@@ -16,6 +16,7 @@ function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.Mous
 type CanvasAction =
   | { kind: 'drag', nodeId: number }
   | { kind: 'edge', nodeId: number }
+  | { kind: 'dragImg', imgId: number }
 
 interface CanvasHandler {
   ref: React.RefObject<SVGSVGElement>;
@@ -47,14 +48,32 @@ const Canvas = () => {
   }
 
   const handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
-    if (action !== null && action.kind === 'drag') {
-      const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
-      const node = getNode(graphHandler.graph, action.nodeId);
-      updateNode(graphHandler, {
-        ...node,
-        x: coordinates.x,
-        y: coordinates.y,
-      });
+    if (action !== null) {
+      switch(action.kind) {
+        case 'drag':
+          const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
+          const node = getNode(graphHandler.graph, action.nodeId);
+          updateNode(graphHandler, {
+            ...node,
+            x: coordinates.x,
+            y: coordinates.y,
+          });
+          break;
+        case 'dragImg':
+          const imgCoordinates = getPointerCanvasCoordinates(event.currentTarget, event);
+          const image = getImage(graphHandler.graph, action.imgId);
+          updateImage(graphHandler, {
+            ...image,
+            x: imgCoordinates.x,
+            y: imgCoordinates.y,
+          });
+          break;
+        case 'edge':
+          // TODO peut-être étirer un edge du node1 au prochain node?
+          break;
+        default:
+          break;
+      }
     }
   };
 
@@ -65,14 +84,26 @@ const Canvas = () => {
   };
 
   const handleMouseUp = () => {
-    if (action !== null && action.kind === 'drag') {
-      setAction(null);
+    if (action !== null) {
+      switch(action.kind) {
+        case 'drag':
+          setAction(null);
+          break;
+        case 'dragImg':
+          setAction(null);
+          break;
+        case 'edge':
+          // TODO supprimer la "demi-edge" qui suivait le curseur si on n'est pas sur un node, sinon créer le edge?? maybe??
+          break;
+        default:
+          break;
+      }
     }
   };
 
   const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
     let clipboardData = event.clipboardData /*|| window.clipboardData*/;
-    if (!clipboardData) return;
+    if (mode !== 'edit' || !clipboardData) return;
 
     // Check if there is an image in the clipboard
     let items = clipboardData.items;
