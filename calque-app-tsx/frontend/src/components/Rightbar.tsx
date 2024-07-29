@@ -33,11 +33,15 @@ const Rightbar = () => {
   const { mode } = useContext(AppContext)
 
   return (
-    <div className="sticky basis-1/6 w-64 top-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      {mode === 'edit' && (selectedEntity !== null && (
+    <>
+    {mode === 'edit' && 
+      <div className="sticky basis-1/6 w-64 top-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
+      {selectedEntity !== null && (
         <EntityEditor entity={selectedEntity} />
-      ))}
-    </div>
+      )}
+      </div>}
+    </>
+    
   );
 };
 

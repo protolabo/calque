@@ -1,4 +1,3 @@
-import * as d3 from "d3";
 import React, { useContext, useRef, useState } from 'react';
 import Edge from './Edge';
 import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
@@ -146,8 +145,8 @@ const Canvas = () => {
   }*/
 
   return (
-    <div className="flex basis-4/6 justify-center bg-slate-400">
-      <div className="bg-slate-100">
+    <div className="flex basis-4/6 grow justify-center bg-slate-400">
+      <div className="bg-slate-100 justify-center">
         <CanvasContext.Provider value={{ ref: canvasRef, action, setAction }}>
           <svg
             ref={canvasRef}
