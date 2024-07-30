@@ -11,7 +11,7 @@ const Image = (props: ImageProps) => {
   const { mode, tool } = useContext(AppContext);
   const graphHandler = useContext(GraphContext);
   const { selectedEntity, setSelectedEntity } = useContext(SelectedEntityContext);
-  const { action, setAction } = useContext(CanvasContext);
+  const { setAction } = useContext(CanvasContext);
 
   const isSelected = selectedEntity && selectedEntity.kind === 'image' && selectedEntity.imgId === props.image.id;
 
@@ -64,15 +64,24 @@ const Image = (props: ImageProps) => {
             onMouseDown={handleMouseDown}
         />
         {mode === 'edit' && (isSelected ? (
+          <rect 
+            stroke="blue" 
+            strokeWidth={3} 
+            width={props.image.width} 
+            height={props.image.height} 
+            opacity="0.5"
+            x={props.image.x}
+            y={props.image.y}
+            >
             <image
-                stroke='blue'
-                strokeWidth={3}
                 x={props.image.x}
                 y={props.image.y}
                 href={props.image.href}
                 onClick={handleClick}
                 onMouseDown={handleMouseDown}
             />
+          </rect>
+            
         ) : <g/> )}
     </g>
   )
