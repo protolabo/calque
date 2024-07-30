@@ -7,7 +7,7 @@ interface ImageProps {
     image: ImageState;
 }
 
-const Image = (props: ImageProps) => {
+const MyImage = (props: ImageProps) => {
   const { mode, tool } = useContext(AppContext);
   const graphHandler = useContext(GraphContext);
   const { selectedEntity, setSelectedEntity } = useContext(SelectedEntityContext);
@@ -89,4 +89,4 @@ const Image = (props: ImageProps) => {
   )
 }
 
-export default Image
+export default MyImage

@@ -3,7 +3,7 @@ import Edge from './Edge';
 import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
 import Node from './Node';
 import { getImage, getNode, insertImage, insertNode, updateImage, updateNode } from '../models/State';
-import Image from './Image';
+import MyImage from './Image';
 
 function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.MouseEvent<T>) {
   const bounds = canvas.getBoundingClientRect();
@@ -119,9 +119,13 @@ const Canvas = () => {
             reader.onloadend = (e: ProgressEvent<FileReader>) => {
               const imageData = e.target?.result;
               if (typeof imageData === 'string') {
-                setImage(imageData);  
-                const newImage = insertImage(graphHandler, imageData);
-                setSelectedEntity({ kind: 'image', imgId: newImage.id });
+                const img = new Image();
+                img.onload = () => {
+                  setImage(imageData); // update state `image`
+                  const newImage = insertImage(graphHandler, imageData, img.width, img.height); // create image element in the canvas svg
+                  setSelectedEntity({ kind: 'image', imgId: newImage.id });
+                };
+                img.src = imageData;
               }
             };
             reader.readAsDataURL(file);
@@ -205,7 +209,7 @@ const Canvas = () => {
             {/*image !== null && <image href={image} x='0' y='0' opacity='0.3' />*/}
             <g>
               {graphHandler.graph.images.map(image => (
-                <Image key={image.id} image={image}/>
+                <MyImage key={image.id} image={image}/>
               ))}
               <g>
                 {graphHandler.graph.edges.map(edge => (

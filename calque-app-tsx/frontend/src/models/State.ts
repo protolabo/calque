@@ -1,4 +1,3 @@
-import { image } from "d3";
 import { GraphHandler } from "../components/Layout";
 
 interface GraphState {
@@ -51,8 +50,8 @@ interface ImageState {
   x: number;
   y: number;
   opacity: number;
-  width: number | undefined; // TODO gérer les undefined, c'est temporaire
-  height: number | undefined;
+  width: number;
+  height: number;
   stroke: string;
   href: string;
   description: string;
@@ -128,14 +127,14 @@ function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
   return edge;
 }
 
-function insertImage(handler: GraphHandler, href: string) {
+function insertImage(handler: GraphHandler, href: string, width: number, height: number) {
   const image = {
     id: handler.graph.autoIncrement,
     name: `image-${handler.graph.autoIncrement}`,
     x: 0,
     y: 0,
-    width: 300,
-    height: 300,
+    width,
+    height,
     opacity: 1,
     href
   } as ImageState;
