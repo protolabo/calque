@@ -1,4 +1,3 @@
-/*
 import { useContext, useEffect } from "react";
 import { deleteImage, ImageState } from "../models/State"
 import { AppContext, GraphContext, SelectedEntityContext } from "./Layout";
@@ -16,16 +15,25 @@ const Image = (props: ImageProps) => {
 
   const isSelected = selectedEntity && selectedEntity.kind === 'image' && selectedEntity.imgId === props.image.id;
 
-  const handleClick = () => {
-    setSelectedEntity({ kind: 'image', imgId: props.image.id });
-  };
+  const handleClick = () => {};
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (event: React.MouseEvent<SVGImageElement>) => {
     if (mode === 'edit' && tool === 'select') {
-        setAction({ kind: 'dragImg', imgId: props.image.id });
-        setSelectedEntity({ kind: 'image', imgId: props.image.id });
+      const rect = event.currentTarget.getBoundingClientRect();
+      const offsetX = event.clientX - rect.left; // Calculate the offset for X
+      const offsetY = event.clientY - rect.top;  // Calculate the offset for Y
+  
+      setAction({
+        kind: 'dragImg',
+        imgId: props.image.id,
+        offsetX, // Store offsetX
+        offsetY  // Store offsetY
+      });
+  
+      setSelectedEntity({ kind: 'image', imgId: props.image.id });
     }
   };
+  
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => { // Typing the event as KeyboardEvent
@@ -48,7 +56,7 @@ const Image = (props: ImageProps) => {
 
   return (
     <g>
-        <image /
+        <image 
             x={props.image.x}
             y={props.image.y}
             href={props.image.href}
@@ -71,5 +79,3 @@ const Image = (props: ImageProps) => {
 }
 
 export default Image
-
-*/
