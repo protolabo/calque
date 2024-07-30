@@ -3,6 +3,7 @@ import Edge from './Edge';
 import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
 import Node from './Node';
 import { getImage, getNode, insertImage, insertNode, updateImage, updateNode } from '../models/State';
+import Image from './Image';
 
 function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.MouseEvent<T>) {
   const bounds = canvas.getBoundingClientRect();
@@ -15,8 +16,8 @@ function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.Mous
 type CanvasAction =
   | { kind: 'drag', nodeId: number }
   | { kind: 'edge', nodeId: number }
-  | { kind: 'dragImg', imgId: number }
-
+  | { kind: 'dragImg', imgId: number, offsetX: number, offsetY: number }
+  
 interface CanvasHandler {
   ref: React.RefObject<SVGSVGElement>;
   action: CanvasAction | null,
@@ -105,8 +106,41 @@ const Canvas = () => {
   };
 
   const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
+<<<<<<< Updated upstream
     let clipboardData = event.clipboardData /*|| window.clipboardData*/;
     console.log(clipboardData)
+=======
+    const clipboardData = event.clipboardData;
+    if (mode !== 'edit' || !clipboardData) return;
+  
+    let items = clipboardData.items;
+    if (items) {
+      for (const item of items) {
+        if (item.type.includes('image')) {
+          const file = item.getAsFile();
+          if (file) {
+            const reader = new FileReader();
+            reader.onloadend = (e) => {
+              const imageData = e.target?.result;
+              if (typeof imageData === 'string') {
+                const newImage = insertImage(graphHandler, imageData);
+                setSelectedEntity({ kind: 'image', imgId: newImage.id });
+              }
+            };
+            reader.readAsDataURL(file);
+          }
+          break;
+        }
+      }
+    }
+  };
+  
+
+  /*
+
+  const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
+    let clipboardData = event.clipboardData;
+>>>>>>> Stashed changes
     if (mode !== 'edit' || !clipboardData) return;
 
     // Check if there is an image in the clipboard
@@ -121,7 +155,6 @@ const Canvas = () => {
       }
     }
   };
-  
 
   const handleImagePaste = (item: DataTransferItem) => {
     let file = item.getAsFile();
@@ -135,6 +168,9 @@ const Canvas = () => {
     };
     reader.readAsDataURL(file);
   };
+
+  */
+
 
   /*  D3 zoom function *
   
@@ -169,14 +205,20 @@ const Canvas = () => {
             onMouseUp={handleMouseUp}
             onPaste={handlePaste}
           >
-            {image !== null && <image href={image} x='0' y='0' opacity='0.3' />}
+            {/*image !== null && <image href={image} x='0' y='0' opacity='0.3' />*/}
             <g>
-              {graphHandler.graph.edges.map(edge => (
-                <Edge key={edge.id} edge={edge} />
+              {graphHandler.graph.images.map(image => (
+                <Image key={image.id} image={image}/>
               ))}
-              {graphHandler.graph.nodes.map(node => (
-                <Node key={node.id} node={node} />
-              ))}
+              <g>
+                {graphHandler.graph.edges.map(edge => (
+                  <Edge key={edge.id} edge={edge} />
+                ))}
+                {graphHandler.graph.nodes.map(node => (
+                  <Node key={node.id} node={node} />
+                ))}
+
+              </g>
             </g> 
           </svg>
         </CanvasContext.Provider>
