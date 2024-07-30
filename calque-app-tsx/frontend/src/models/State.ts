@@ -125,9 +125,8 @@ function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
 }
 
 function insertImage(handler: GraphHandler, href: string) {
-  let graph = handler.graph;
   const image = {
-    id: graph.autoIncrement,
+    id: handler.graph.autoIncrement,
     x: 0,
     y: 0,
     width: 100,
@@ -135,8 +134,12 @@ function insertImage(handler: GraphHandler, href: string) {
     href
   } as ImageState;
 
-  graph.autoIncrement++;
-  graph.images.push(image);
+  const graph = {
+    ...handler.graph,
+    autoIncrement: handler.graph.autoIncrement + 1,
+    images: [...handler.graph.images, image],
+  }
+
   handler.setGraph(graph);
   return image;
 }
