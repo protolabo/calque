@@ -2,6 +2,7 @@ import React, { ChangeEvent, ReactNode, useContext } from 'react';
 import NodeEditor from './NodeEditor';
 import { AppContext, Entity, SelectedEntityContext } from './Layout';
 import EdgeEditor from './EdgeEditor';
+import ImageEditor from './ImageEditor';
 
 interface InputFieldProps {
     label: string;
@@ -12,8 +13,12 @@ interface InputFieldProps {
 
 const InputField: React.FC<InputFieldProps> = ({ label, value, onChange, type = 'text' }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
     const inputValue = e.target.value;
-    if (type === 'number') {
+    // onChange(inputValue);
+    if (type === 'number' && label === 'Opacity') {
+      onChange(parseFloat(inputValue)); 
+    } else if(type === 'number'){
       onChange(parseInt(inputValue));
     } else {
       onChange(inputValue);
@@ -71,6 +76,10 @@ const EntityEditor = (props: EntityEditorProps) => {
 
   if (props.entity.kind === 'edge') {
     return <EdgeEditor edgeId={props.entity.edgeId} />
+  }
+
+  if (props.entity.kind === 'image') {
+    return <ImageEditor imageId={props.entity.imgId} />
   }
 }
 

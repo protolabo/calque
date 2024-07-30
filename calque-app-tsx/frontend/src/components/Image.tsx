@@ -62,6 +62,7 @@ const Image = (props: ImageProps) => {
             href={props.image.href}
             onClick={handleClick}
             onMouseDown={handleMouseDown}
+            opacity={props.image.opacity}
         />
         {mode === 'edit' && (isSelected ? (
           <rect 
@@ -79,6 +80,7 @@ const Image = (props: ImageProps) => {
                 href={props.image.href}
                 onClick={handleClick}
                 onMouseDown={handleMouseDown}
+                opacity={props.image.opacity}
             />
           </rect>
             
