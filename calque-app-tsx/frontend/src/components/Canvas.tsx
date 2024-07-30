@@ -49,7 +49,6 @@ const Canvas = () => {
   }
 
   const handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
-    /*
     if (action !== null) {
       switch(action.kind) {
         case 'drag':
@@ -77,7 +76,6 @@ const Canvas = () => {
           break;
       }
     }
-      */
   };
 
   const handleMouseLeave = () => {
@@ -87,7 +85,6 @@ const Canvas = () => {
   };
 
   const handleMouseUp = () => {
-    /*
     if (action !== null) {
       switch(action.kind) {
         case 'drag':
@@ -102,7 +99,7 @@ const Canvas = () => {
         default:
           break;
       }
-    }*/
+    }
   };
 
   const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
