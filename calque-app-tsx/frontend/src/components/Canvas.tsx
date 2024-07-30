@@ -106,10 +106,6 @@ const Canvas = () => {
   };
 
   const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
-<<<<<<< Updated upstream
-    let clipboardData = event.clipboardData /*|| window.clipboardData*/;
-    console.log(clipboardData)
-=======
     const clipboardData = event.clipboardData;
     if (mode !== 'edit' || !clipboardData) return;
   
