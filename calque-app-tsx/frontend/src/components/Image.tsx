@@ -17,7 +17,7 @@ const MyImage = (props: ImageProps) => {
 
   const handleClick = () => {};
 
-  const handleMouseDown = (event: React.MouseEvent<SVGImageElement>) => {
+  const handleMouseDown = (event: React.MouseEvent<SVGImageElement | SVGRectElement>) => {
     if (mode === 'edit' && tool === 'select') {
       const rect = event.currentTarget.getBoundingClientRect();
       const offsetX = event.clientX - rect.left; // Calculate the offset for X
@@ -73,13 +73,13 @@ const MyImage = (props: ImageProps) => {
             opacity="0.5"
             x={props.image.x}
             y={props.image.y}
+            onMouseDown={handleMouseDown}
+            onClick={handleClick}
             >
             <image
                 x={props.image.x}
                 y={props.image.y}
                 href={props.image.href}
-                onClick={handleClick}
-                onMouseDown={handleMouseDown}
                 opacity={props.image.opacity}
             />
           </rect>
