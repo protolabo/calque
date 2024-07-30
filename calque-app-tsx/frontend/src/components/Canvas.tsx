@@ -61,12 +61,15 @@ const Canvas = () => {
           });
           break;
         case 'dragImg':
-          const imgCoordinates = getPointerCanvasCoordinates(event.currentTarget, event);
+          const canvasCoordinates = getPointerCanvasCoordinates(event.currentTarget, event);
+          const newX = canvasCoordinates.x - action.offsetX;
+          const newY = canvasCoordinates.y - action.offsetY;
+              
           const image = getImage(graphHandler.graph, action.imgId);
           updateImage(graphHandler, {
             ...image,
-            x: imgCoordinates.x,
-            y: imgCoordinates.y,
+            x: newX,
+            y: newY,
           });
           break;
         case 'edge':
