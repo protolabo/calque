@@ -21,6 +21,11 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ imageId }) => {
         <InputField label="Name" value={image.name} onChange={(value) => updateField('name', value)} />
         <InputField label="X" value={image.x} onChange={(value) => updateField('x', value)} type="number" />
         <InputField label="Y" value={image.y} onChange={(value) => updateField('y', value)} type="number" />
+        <InputField label="Size" value={image.width} type="number" onChange={(value) => {
+          //const newHeight: number = (value as number) * image.ratio;
+          updateField('width', value);
+          //updateField('height', value);
+        }} />
         <InputField label="Opacity" value={image.opacity} onChange={(value) => updateField('opacity', value)} type="number" />
         <InputField label="Description" value={image.description} onChange={(value) => updateField('description', value)}/>
     </Editor>

@@ -59,6 +59,8 @@ const MyImage = (props: ImageProps) => {
         <image 
             x={props.image.x}
             y={props.image.y}
+            width={props.image.width} 
+            height={props.image.width * props.image.ratio}
             href={props.image.href}
             onClick={handleClick}
             onMouseDown={handleMouseDown}
@@ -69,7 +71,7 @@ const MyImage = (props: ImageProps) => {
             stroke="blue" 
             strokeWidth={3} 
             width={props.image.width} 
-            height={props.image.height} 
+            height={props.image.width * props.image.ratio} 
             opacity="0.5"
             x={props.image.x}
             y={props.image.y}
@@ -79,6 +81,8 @@ const MyImage = (props: ImageProps) => {
             <image
                 x={props.image.x}
                 y={props.image.y}
+                width={props.image.width} 
+                height={props.image.width * props.image.ratio} 
                 href={props.image.href}
                 opacity={props.image.opacity}
             />

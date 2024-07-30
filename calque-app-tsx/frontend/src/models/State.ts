@@ -51,7 +51,8 @@ interface ImageState {
   y: number;
   opacity: number;
   width: number;
-  height: number;
+  ratio: number;
+  //height: number;
   stroke: string;
   href: string;
   description: string;
@@ -128,13 +129,14 @@ function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
 }
 
 function insertImage(handler: GraphHandler, href: string, width: number, height: number) {
+  const ratio = height / width;
   const image = {
     id: handler.graph.autoIncrement,
     name: `image-${handler.graph.autoIncrement}`,
     x: 0,
     y: 0,
     width,
-    height,
+    ratio,
     opacity: 1,
     href
   } as ImageState;
