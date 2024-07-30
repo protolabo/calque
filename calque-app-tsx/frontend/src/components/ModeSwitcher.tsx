@@ -5,7 +5,6 @@ import { LiaToggleOnSolid } from 'react-icons/lia';
 import { MdPreview } from 'react-icons/md';
 import { AppContext } from './Layout';
 import { TiExport } from 'react-icons/ti';
-import { CanvasContext } from './Canvas';
 
 const ModeSwitcher = () => {
   const { mode, setMode } = useContext(AppContext);
@@ -17,8 +16,9 @@ const ModeSwitcher = () => {
   const handleMouseEnter = useCallback(() => setHovered(true), []);
   const handleMouseLeave = useCallback(() => setHovered(false), []);
   const exportMap = () => {
-    const map = document.getElementById("canvas")
+    const map = document.getElementById("canvas")?.cloneNode(true) as SVGSVGElement;
     if (map) {
+      map.querySelectorAll('image').forEach(img => img.remove());
       const serializer = new XMLSerializer();
       const svgString = serializer.serializeToString(map);
       const blob = new Blob([svgString], { type: 'image/svg+xml' });
