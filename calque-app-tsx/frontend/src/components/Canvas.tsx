@@ -108,7 +108,7 @@ const Canvas = () => {
   const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
     const clipboardData = event.clipboardData;
     if (mode !== 'edit' || !clipboardData) return;
-  
+
     let items = clipboardData.items;
     if (items) {
       for (const item of items) {
@@ -116,9 +116,10 @@ const Canvas = () => {
           const file = item.getAsFile();
           if (file) {
             const reader = new FileReader();
-            reader.onloadend = (e) => {
+            reader.onloadend = (e: ProgressEvent<FileReader>) => {
               const imageData = e.target?.result;
               if (typeof imageData === 'string') {
+                setImage(imageData);  
                 const newImage = insertImage(graphHandler, imageData);
                 setSelectedEntity({ kind: 'image', imgId: newImage.id });
               }
@@ -129,7 +130,7 @@ const Canvas = () => {
         }
       }
     }
-  };
+  }
   
 
   /*
