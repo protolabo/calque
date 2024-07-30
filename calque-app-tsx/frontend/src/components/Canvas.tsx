@@ -35,6 +35,7 @@ const Canvas = () => {
   const [image, setImage] = useState<string | null>(null);
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
+    document.getElementById('canvas')?.focus()
     console.log(mode, tool, event, event.target)
     if (mode === 'edit' && tool === 'node') {
       const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
@@ -135,43 +136,6 @@ const Canvas = () => {
       }
     }
   }
-  
-
-  /*
-
-  const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
-    let clipboardData = event.clipboardData;
->>>>>>> Stashed changes
-    if (mode !== 'edit' || !clipboardData) return;
-
-    // Check if there is an image in the clipboard
-    let items = clipboardData.items;
-    if (items) {
-      for (const item of items) {
-        if (item.type.includes('image')){
-          console.log(item)
-          handleImagePaste(item);
-          break;
-        }
-      }
-    }
-  };
-
-  const handleImagePaste = (item: DataTransferItem) => {
-    let file = item.getAsFile();
-    if (!file) return;
-
-    let reader = new FileReader();
-    reader.onload = (event) => {
-        let imageData = event.target?.result as string;
-        console.log(imageData)
-        setImage(imageData)
-    };
-    reader.readAsDataURL(file);
-  };
-
-  */
-
 
   /*  D3 zoom function *
   
@@ -197,6 +161,7 @@ const Canvas = () => {
             id="canvas"
             width="920"
             height="938"
+            tabIndex={0}
             viewBox="0 0 920 938"
             fill="white"
             xmlns="http://www.w3.org/2000/svg"
@@ -206,7 +171,6 @@ const Canvas = () => {
             onMouseUp={handleMouseUp}
             onPaste={handlePaste}
           >
-            {/*image !== null && <image href={image} x='0' y='0' opacity='0.3' />*/}
             <g>
               {graphHandler.graph.images.map(image => (
                 <MyImage key={image.id} image={image}/>
