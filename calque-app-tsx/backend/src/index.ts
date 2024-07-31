@@ -25,8 +25,8 @@ app.use(express.json()); // Parse JSON bodies for API requests
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Define the path to the certificate and key files
-const key = fs.readFileSync(path.join(__dirname, 'server.key'), 'utf8');
-const cert = fs.readFileSync(path.join(__dirname, 'server.cert'), 'utf8');
+const key = fs.readFileSync(path.join(__dirname, 'localhost+2-key.pem'), 'utf8');
+const cert = fs.readFileSync(path.join(__dirname, 'localhost+2.pem'), 'utf8');
 
 // Create a HTTPS server with the certificate and key
 const server = https.createServer({ key: key, cert: cert }, app);

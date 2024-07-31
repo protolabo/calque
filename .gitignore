@@ -36,3 +36,7 @@ calque-app-tsx/frontend/src/pages/Testpage.tsx
 calque-app-tsx/frontend/src/pages/Testpage.tsx
 calque-app-tsx/backend/src/server.cert
 calque-app-tsx/backend/src/server.key
+calque-app-tsx/backend/localhost+2.pem
+calque-app-tsx/backend/localhost+2-key.pem
+calque-app-tsx/backend/src/localhost+2.pem
+calque-app-tsx/backend/src/localhost+2-key.pem
