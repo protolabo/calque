@@ -34,3 +34,5 @@ calque-app-tsx/frontend/src/assets/LogoTestW.asset.tsx
 calque-app-tsx/frontend/src/pages/Testpage.tsx
 calque-app-tsx/frontend/src/pages/Testpage.tsx
 calque-app-tsx/frontend/src/pages/Testpage.tsx
+calque-app-tsx/backend/src/server.cert
+calque-app-tsx/backend/src/server.key

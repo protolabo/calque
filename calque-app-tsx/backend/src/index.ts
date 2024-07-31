@@ -1,25 +1,35 @@
 import express, { Application, Request, Response } from 'express';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoute from './routes/user.route';
 import projectRoute from './routes/project.route';
 import responseLogger from './middleware/res_logger.middleware';
 dotenv.config();
 
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+
 const app: Application = express();
 const port: string = (process.env.PORT || "3000");
 
 // Connect to MongoDB
-mongoose.connect(process.env.DATABASE_URL as string);
+// mongoose.connect(process.env.DATABASE_URL as string);
 
-const db = mongoose.connection;
-db.on('error', (error) => console.error('Connection error:', error));
-db.once('open', () => console.log('Connected to the Database.'));
+// const db = mongoose.connection;
+// db.on('error', (error) => console.error('Connection error:', error));
+// db.once('open', () => console.log('Connected to the Database.'));
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies for API requests
-app.use(express.urlencoded({ extended: false })); // Parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
+// Define the path to the certificate and key files
+const key = fs.readFileSync(path.join(__dirname, 'server.key'), 'utf8');
+const cert = fs.readFileSync(path.join(__dirname, 'server.cert'), 'utf8');
+
+// Create a HTTPS server with the certificate and key
+const server = https.createServer({ key: key, cert: cert }, app);
 
 //Middleware
 app.use(responseLogger); //will print the return values in the console
@@ -28,12 +38,18 @@ app.use('/api/user', userRoute);
 app.use('/api/project', projectRoute);
 
 app.get('/', (req: Request, res: Response) => {
+  console.log('Received a request with query:', req.query);
   res.send('Hello World!');
 });
 
 // Start server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
+});
+
+// Define the HTTPS server port
+server.listen(5000, () => {
+  console.log(`HTTPS Server running on https://localhost:5000`);
 });
 /* end */
 

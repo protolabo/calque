@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 import Project, { IProject } from '../models/project.model';
 import { IUser } from '../models/user.model'; // Assuming IUser interface is defined in user.model.ts
-import mongoose, { Schema, Document } from 'mongoose'; //schema class and Document interface
+import mongoose from 'mongoose'; //schema class and Document interface
+// , { Schema, Document }
 
 // Controller class 
 class ProjectController {
     // GET all projects
     public async getAllProjects(req: Request, res: Response): Promise<void> {
         try {
+            console.log(req)
             const projects: IProject[] = await Project.find({});
             res.json(projects);
         } catch (err:any) {

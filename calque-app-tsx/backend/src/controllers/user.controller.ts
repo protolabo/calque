@@ -18,8 +18,9 @@ class UserController {
     }
 
     // GET all users
-    public async getAllUsers(req: Request, res: Response): Promise<void> {
+    public async getAllUsers(req: Request , res: Response): Promise<void> {
         try {
+            console.log(req)
             const users: IUser[] = await User.find({});
             //response
             //res.json(...) converts an array of objects to a json response that will be returned as a response
