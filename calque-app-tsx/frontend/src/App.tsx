@@ -6,6 +6,7 @@ import UserMainPage from './pages/UserMainPage';
 //import Testpage from './pages/TestPage';
 import MainMenu from './pages/MainMenu';
 import LandingPage from './pages/LandingPage';
+import EndUserPage from './pages/EndUserPage';
 
 function App() { // changé la route pour /test à l'élément MainMenu, car je pouvais pas comment-out
   return (
@@ -17,6 +18,7 @@ function App() { // changé la route pour /test à l'élément MainMenu, car je 
         <Route path='/menu' element={<MainMenu/>}/>
         {/*<Route path='/test' element={<TestPage/>}/>*/}
         <Route path='land' element={<LandingPage/>}/>
+        <Route path='enduser' element={<EndUserPage/>}/>
     </Routes>
     
   );  

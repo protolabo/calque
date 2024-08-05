@@ -3,12 +3,13 @@ import { FaRegEdit } from 'react-icons/fa';
 import { LiaToggleOffSolid } from 'react-icons/lia';
 import { LiaToggleOnSolid } from 'react-icons/lia';
 import { MdPreview } from 'react-icons/md';
-import { AppContext } from './Layout';
+import { AppContext, SelectedEntityContext } from './Layout';
 import { TiExport } from 'react-icons/ti';
 
 const ModeSwitcher = () => {
   const { mode, setMode } = useContext(AppContext);
-  const [hovered, setHovered] = useState(false);
+  const [ hovered, setHovered ] = useState(false);
+  const { setSelectedEntity } = useContext(SelectedEntityContext);
 
   const editorIconStyle  = mode === 'edit' ? 'w-8 h-8' : 'w-8 h-8 opacity-50';
   const previewIconStyle = mode === 'view' ? 'w-8 h-8' : 'w-8 h-8 opacity-50';
@@ -16,19 +17,23 @@ const ModeSwitcher = () => {
   const handleMouseEnter = useCallback(() => setHovered(true), []);
   const handleMouseLeave = useCallback(() => setHovered(false), []);
   const exportMap = () => {
-    const map = document.getElementById("canvas")?.cloneNode(true) as SVGSVGElement;
-    if (map) {
-      map.querySelectorAll('image').forEach(img => img.remove());
-      const serializer = new XMLSerializer();
-      const svgString = serializer.serializeToString(map);
-      const blob = new Blob([svgString], { type: 'image/svg+xml' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'exported-image.svg';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
+    setSelectedEntity(null);
+    setTimeout(() => {
+      const map = document.getElementById("canvas")?.cloneNode(true) as SVGSVGElement;
+      if (map) {
+        map.querySelectorAll('image').forEach(img => img.remove());
+        const serializer = new XMLSerializer();
+        const svgString = serializer.serializeToString(map);
+        const blob = new Blob([svgString], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'myMap.calque.svg';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    }, 0);
+    
   };
 
   return (
