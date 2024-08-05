@@ -70,7 +70,7 @@ function AddMapButton() {
         <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48">
           <AiOutlinePlus className="w-12 h-12" />
         </div>
-        <div className="mt-2">Text</div>
+        <div className="mt-2">Create Map</div>
       </div>
     </Link>
     
