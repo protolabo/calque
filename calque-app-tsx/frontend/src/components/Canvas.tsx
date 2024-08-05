@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Edge from './Edge';
 import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
 import Node from './Node';
@@ -35,8 +35,6 @@ const Canvas = () => {
   const [image, setImage] = useState<string | null>(null);
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
-    document.getElementById('canvas')?.focus()
-    console.log(mode, tool, event, event.target)
     if (mode === 'edit' && tool === 'node') {
       const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
       const node = insertNode(graphHandler, coordinates.x, coordinates.y);
@@ -107,8 +105,12 @@ const Canvas = () => {
   };
 
   const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
+    console.log("Ctrl + V used")
     const clipboardData = event.clipboardData;
-    if (mode !== 'edit' || !clipboardData) return;
+    if (mode !== 'edit' || !clipboardData) {
+      console.log("Item cannot be pasted")
+      return;
+    }
 
     let items = clipboardData.items;
     if (items) {
@@ -122,8 +124,8 @@ const Canvas = () => {
               if (typeof imageData === 'string') {
                 const img = new Image();
                 img.onload = () => {
-                  setImage(imageData); // update state `image`
-                  const newImage = insertImage(graphHandler, imageData, img.width, img.height); // create image element in the canvas svg
+                  setImage(imageData); 
+                  const newImage = insertImage(graphHandler, imageData, img.width, img.height);
                   setSelectedEntity({ kind: 'image', imgId: newImage.id });
                 };
                 img.src = imageData;
@@ -136,6 +138,28 @@ const Canvas = () => {
       }
     }
   }
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      canvasRef.current.focus();
+    }
+  }, []); 
+
+  useEffect(() => {
+    const handlePaste = (event: ClipboardEvent) => {
+      const items = event.clipboardData?.items;
+      console.log(items);
+    };
+
+    const canvasElem = canvasRef.current;
+    canvasElem?.addEventListener('paste', handlePaste);
+
+    canvasElem?.focus();
+
+    return () => {
+      canvasElem?.removeEventListener('paste', handlePaste);
+    };
+  }, []);
 
   /*  D3 zoom function *
   
