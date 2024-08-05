@@ -1,10 +1,11 @@
+import React, { createContext, useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import Leftbar from './Leftbar';
 import Rightbar from './Rightbar';
-import React, { createContext, useState } from 'react';
 import Canvas from './Canvas';
 import { GraphState, emptyGraph } from '../models/State';
+import { loadState, saveState } from '../redux/localStorage';
 
 type Mode = 'view' | 'edit';
 type Tool = 'select' | 'node' | 'edge' | 'pan';
@@ -38,8 +39,12 @@ const SelectedEntityContext = createContext<SelectedEntityHandler>(undefined as 
 const Layout = () => {
   const [mode, setMode] = useState<Mode>('edit');
   const [tool, setTool] = useState<Tool>('select');
-  const [graph, setGraph] = useState<GraphState>(emptyGraph);
+  const [graph, setGraph] = useState<GraphState>(loadState() || emptyGraph);
   const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
+
+  useEffect(() => {
+    saveState(graph);
+  }, [graph]);
 
   return (
     <AppContext.Provider value={{ mode, setMode, tool, setTool }}>
