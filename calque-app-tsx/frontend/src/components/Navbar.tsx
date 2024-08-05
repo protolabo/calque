@@ -3,6 +3,7 @@ import ToolBar from './ToolBar';
 import Logo from "../assets/Logo.asset";
 import ModeSwitcher from "./ModeSwitcher";
 import { AppContext } from './Layout';
+import { Link } from "react-router-dom";
 
 
 function NbLeft(props: {children: ReactNode}){
@@ -41,25 +42,26 @@ function NbTitle(props: {children: ReactNode}){
 }
 
 function Navbar() {
-    const { mode } = useContext(AppContext)
+    const { mode, page, setPage } = useContext(AppContext)
 
     return (
         <div className="bg-primary text-white p-2 grid grid-cols-3">
-
             <NbLeft>
-                <Logo/>
-                {mode === 'edit' && <ToolBar />}
+                <Link to="/" onClick={() => setPage('menu')}><Logo/></Link>
+                {page === 'creation' && mode === 'edit' && <ToolBar />}
             </NbLeft>
-
             <NbTitle>
                 {mode === 'view' && <div>Preview of</div>}
-                <div>Carte-globale</div>
-                <div>/</div>
-                <div>Sous-carte-1</div>
+                {page === 'creation' && (
+                <>
+                  <div>Carte-globale</div>
+                  <div>/</div>
+                  <div>Sous-carte-1</div>
+                </>
+                )}
+                {page === 'menu' && <div>My maps</div>}
             </NbTitle>
-
             <ModeSwitcher />
-
         </div>
     )
 }

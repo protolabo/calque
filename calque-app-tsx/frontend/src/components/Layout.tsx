@@ -1,12 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Navbar } from './Navbar';
-import Leftbar from './Leftbar';
-import Rightbar from './Rightbar';
-import Canvas from './Canvas';
 import { GraphState, emptyGraph } from '../models/State';
 import { loadState, saveState } from '../redux/localStorage';
 
+type Page = 'menu' | 'creation' | 'enduser'
 type Mode = 'view' | 'edit';
 type Tool = 'select' | 'node' | 'edge' | 'pan';
 
@@ -16,6 +14,8 @@ type Entity =
   | { kind: 'image', imgId: number }
 
 interface AppHandler {
+  page: Page
+  setPage: React.Dispatch<React.SetStateAction<Page>>;
   mode: Mode;
   setMode: React.Dispatch<Mode>;
   tool: Tool;
@@ -37,8 +37,22 @@ const GraphContext = createContext<GraphHandler>(undefined as any);
 const SelectedEntityContext = createContext<SelectedEntityHandler>(undefined as any);
 
 const Layout = () => {
+  const getPageFromUrl = (): Page => {
+    const path = window.location.pathname;
+
+    switch (path) {
+      case '/create-map':
+        return 'creation';
+      case '/enduser':
+        return 'enduser';
+      default:
+        return 'menu';
+    }
+  };
+
   const [mode, setMode] = useState<Mode>('edit');
   const [tool, setTool] = useState<Tool>('select');
+  const [page, setPage] = useState<Page>(getPageFromUrl);
   const [graph, setGraph] = useState<GraphState>(loadState() || emptyGraph);
   const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
 
@@ -47,15 +61,10 @@ const Layout = () => {
   }, [graph]);
 
   return (
-    <AppContext.Provider value={{ mode, setMode, tool, setTool }}>
+    <AppContext.Provider value={{ page, setPage, mode, setMode, tool, setTool }}>
       <GraphContext.Provider value={{ graph, setGraph }}>
         <SelectedEntityContext.Provider value={{ selectedEntity, setSelectedEntity }}>
           <Navbar />
-          <div className="flex flex-row">
-            <Leftbar />
-            <Canvas />
-            <Rightbar />
-          </div>
           <Outlet />
         </SelectedEntityContext.Provider>
       </GraphContext.Provider>

@@ -5,9 +5,10 @@ import { LiaToggleOnSolid } from 'react-icons/lia';
 import { MdPreview } from 'react-icons/md';
 import { AppContext, SelectedEntityContext } from './Layout';
 import { TiExport } from 'react-icons/ti';
+import { LuUserCircle2 } from "react-icons/lu";
 
 const ModeSwitcher = () => {
-  const { mode, setMode } = useContext(AppContext);
+  const { page, mode, setMode } = useContext(AppContext);
   const [ hovered, setHovered ] = useState(false);
   const { setSelectedEntity } = useContext(SelectedEntityContext);
 
@@ -38,27 +39,40 @@ const ModeSwitcher = () => {
 
   return (
     <div className="flex justify-end items-center gap-8">
-      <div className="flex flex-wrap items-center gap-4">
-        {mode === 'edit' && hovered && <div>Preview your map</div>}
-        {mode === 'view' && hovered && <div>Continue editing</div>}
-        <FaRegEdit className={editorIconStyle} />
-        <button
-          onClick={() => setMode(mode === 'view' ? 'edit' : 'view')}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {mode === 'view'
-            ? <LiaToggleOnSolid className='w-6 h-6'/>
-            : <LiaToggleOffSolid className='w-6 h-6'/>
-          }
-        </button>
-        <MdPreview className={previewIconStyle} />
-      </div>
-      <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
-        onClick={exportMap}>
-        Export
-        <TiExport className='w-6 h-6'/>
-      </button>
+      {page === "creation" &&
+        <>
+          <div className="flex flex-wrap items-center gap-4">
+            {mode === 'edit' && hovered && <div>Preview your map</div>}
+            {mode === 'view' && hovered && <div>Continue editing</div>}
+            <FaRegEdit className={editorIconStyle} />
+            <button
+              onClick={() => setMode(mode === 'view' ? 'edit' : 'view')}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              {mode === 'view'
+                ? <LiaToggleOnSolid className='w-6 h-6'/>
+                : <LiaToggleOffSolid className='w-6 h-6'/>
+              }
+            </button>
+            <MdPreview className={previewIconStyle} />
+          </div>
+          <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
+            onClick={exportMap}>
+            Export
+            <TiExport className='w-6 h-6'/>
+          </button>
+        </>
+      }
+      {page === 'menu' && (
+        <>
+          <div className="flex gap-2 items-center">
+            <div className="text-white">User-1</div>
+            <LuUserCircle2 className='w-8 h-8'/>
+          </div>
+        </>
+      )
+      }
     </div>
   );
 };

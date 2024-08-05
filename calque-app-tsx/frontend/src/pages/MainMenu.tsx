@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import LogoIcon from "../assets/Logo.asset"
 import { AiOutlinePlus } from "react-icons/ai";
+import { useContext } from "react";
+import { AppContext } from "../components/Layout";
 
 function MainMenu() {
   return (
     <>
-      <MenuNavbar/>
-      <MenuCategories/>
       <MenuMap/>
     </>
   )
@@ -63,8 +63,9 @@ function MenuMapFile() {
 }
 
 function AddMapButton() {
+  const { setPage } = useContext(AppContext)
   return (
-    <Link to="/">
+    <Link to="/create-map" onClick={() => setPage('creation')}>
       <div className="rounded-lg">
         <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48">
           <AiOutlinePlus className="w-12 h-12" />
@@ -78,7 +79,7 @@ function AddMapButton() {
 
 function MenuMap() {
   return (
-    <div className="grid grid-cols-4 mx-8 gap-8">
+    <div className="grid grid-cols-4 mx-8 gap-8 mt-8">
       <AddMapButton />
       <MenuMapFile />
 
@@ -86,5 +87,5 @@ function MenuMap() {
   );
 }
 
-export { MenuNavbar, MenuMap, MenuCategories, MenuSubCategories, MenuMapFile, AddMapButton }
+export { MenuMap, MenuCategories, MenuSubCategories, MenuMapFile, AddMapButton }
 export default MainMenu
