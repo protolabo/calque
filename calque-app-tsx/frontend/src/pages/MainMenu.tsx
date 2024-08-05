@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import LogoIcon from "../assets/Logo.asset"
 import { AiOutlinePlus } from "react-icons/ai";
 
@@ -6,7 +7,6 @@ function MainMenu() {
     <>
       <MenuNavbar/>
       <MenuCategories/>
-      <MenuSubCategories/>
       <MenuMap/>
     </>
   )
@@ -23,8 +23,6 @@ function MenuNavbar() {
         <div className="grow rounded-full bg-slate-100 w-full h-8 px-64 flex items-center">Search</div>
       </div>
       <div className="flex flex-row gap-2 items-center">
-        <div className="text-white">Login</div>
-        <div className="text-white">Sign Up</div>
         <div className="text-white">Camille</div>
         <div className="rounded-full w-8 h-8 bg-slate-100"></div>
       </div>
@@ -66,12 +64,15 @@ function MenuMapFile() {
 
 function AddMapButton() {
   return (
-    <div className="rounded-lg">
-      <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48">
-        <AiOutlinePlus className="w-12 h-12" />
+    <Link to="/">
+      <div className="rounded-lg">
+        <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48">
+          <AiOutlinePlus className="w-12 h-12" />
+        </div>
+        <div className="mt-2">Text</div>
       </div>
-      <div className="mt-2">Text</div>
-    </div>
+    </Link>
+    
   );
 }
 
@@ -80,9 +81,7 @@ function MenuMap() {
     <div className="grid grid-cols-4 mx-8 gap-8">
       <AddMapButton />
       <MenuMapFile />
-      <MenuMapFile />
-      <MenuMapFile />
-      <MenuMapFile />
+
     </div>
   );
 }
