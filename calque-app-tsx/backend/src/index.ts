@@ -1,20 +1,20 @@
 import express, { Application, Request, Response } from 'express';
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+const cors = require('cors');
+//routes
 import userRoute from './routes/user.route';
 import projectRoute from './routes/project.route';
+//middleware
 import responseLogger from './middleware/res_logger.middleware';
+
+
 dotenv.config();
-
-
-
 var bodyParser = require('body-parser');
-const cors = require('cors');
 //const https = require('https');
 //const fs = require('fs');
 //const path = require('path');
-
-
+//
 //cors
 const corsOptions = {
   origin: true, // all addresses for now
@@ -28,11 +28,11 @@ app.use(cors(corsOptions));
 const port: string = (process.env.PORT || "3000");
 
 // Connect to MongoDB
-// mongoose.connect(process.env.DATABASE_URL as string);
+mongoose.connect(process.env.DATABASE_URL as string);
 
-// const db = mongoose.connection;
-// db.on('error', (error) => console.error('Connection error:', error));
-// db.once('open', () => console.log('Connected to the Database.'));
+const db = mongoose.connection;
+db.on('error', (error) => console.error('Connection error:', error));
+db.once('open', () => console.log('Connected to the Database.'));
 
 // Middleware
 //app.use(bodyParser.json({limit: "50mb"}));

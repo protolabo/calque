@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Project, { IProject } from '../models/project.model';
-import { IUser } from '../models/user.model'; // Assuming IUser interface is defined in user.model.ts
-import mongoose from 'mongoose'; //schema class and Document interface
+//import { IUser } from '../models/user.model'; // Assuming IUser interface is defined in user.model.ts
+//import mongoose from 'mongoose'; //schema class and Document interface
 // , { Schema, Document }
 
 // Controller class 
@@ -41,7 +41,7 @@ class ProjectController {
                 title,
                 description,
                 content,
-                creator: new mongoose.Types.ObjectId(creator) as IUser['_id'] // Assuming creator is the _id of a user
+                creator // Assuming creator is the _id of a user
             });
             const savedProject: IProject = await newProject.save();
             res.status(201).json(savedProject);
@@ -53,7 +53,7 @@ class ProjectController {
     // PUT update project by ID
     public async updateProject(req: Request, res: Response): Promise<void> {
         try {
-            const updatedProject: IProject | null = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            const updatedProject: IProject | null = await Project.findOneAndUpdate({ title:req.params.id }, req.body, { new: true });
             if (!updatedProject) {
                 res.status(404).json({ message: 'Project not found' });
                 return;
