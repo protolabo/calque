@@ -1,12 +1,12 @@
 import mongoose, { Schema, Document } from 'mongoose'; //schema class and Document interface
-import { IUser } from './user.model';  // Assuming user.model.ts exports IUser interface
+//import { IUser } from './user.model';  // Assuming user.model.ts exports IUser interface
 
 // Interface for defining the Project document structure
 export interface IProject extends Document {
     title: string;
     description: string;
     content: string;
-    creator: IUser['_id'];  // Reference to User's ObjectId
+    creator: string;  // Reference to User's ObjectId
     createdAt: Date;
     // Other project fields if any
 }
@@ -22,21 +22,21 @@ export interface IProject extends Document {
 // Define the Mongoose schema for Project
 const ProjectSchema: Schema = new Schema({
     title: {
+        unique:true,
         type: String,
         required: true
     },
     description: {
         type: String,
-        required: true
+        default:''
     },
     content: {
         type: String,
         required: true
     },
     creator: {
-        type: Schema.Types.ObjectId, //type = object schema User
-        ref: 'User',
-        required: true
+        type: String, //type = object schema User
+        default:'unknown'
     },
     createdAt: {
         type: Date,

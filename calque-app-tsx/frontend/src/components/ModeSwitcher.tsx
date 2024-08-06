@@ -22,6 +22,8 @@ const ModeSwitcher = () => {
 
   const handleMouseEnter = useCallback(() => setHovered(true), []);
   const handleMouseLeave = useCallback(() => setHovered(false), []);
+
+
   const exportMap = () => {
     setSelectedEntity(null);
     setTimeout(() => {
@@ -45,15 +47,25 @@ const ModeSwitcher = () => {
 
 
   const saveToDatabase = () => {
-      const graph = loadState()
-      console.log(graph)
+      const map = document.getElementById("canvas")?.cloneNode(true) as SVGSVGElement;
+      const serializer = new XMLSerializer();
+      const content = serializer.serializeToString(map);
+      const titleVariable = "test"
+      //
+      const body = {
+        "title":`${titleVariable}`,
+        "description":"this is a description",
+        "content": content,
+        "creator" : "unknown user"
+      }
+      console.log(map)
       // Send the POST request using fetch
-      fetch('http://localhost:3000/api/project/', {
+      fetch(`http://localhost:3000/api/project/`, {
           method: 'POST',
           headers: { 
               'Content-Type': 'application/json',
           },
-          body: JSON.stringify(graph),
+          body: JSON.stringify(body),
       })
       .then(response => {
           if (!response.ok) {
@@ -66,7 +78,33 @@ const ModeSwitcher = () => {
       })
       .catch(error => {
           console.error('Erreur lors de la creation de la recette:', error); // Handle any errors
-      });
+          //
+          //
+            // If post fails, try PUT
+            fetch(`http://localhost:3000/api/project/${titleVariable}`, {
+                method: 'PUT',
+                headers: { 
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse the JSON de la repoonse
+            })
+            .then(data => {
+                console.log('Recette ajoutee:', data); // Handle donnée de réponse
+            })
+            .catch(error => {
+                console.error('Erreur lors de la creation de la recette:', error); // Handle any errors
+            })
+          }
+          //
+          //
+          //
+        );
 
 
   }
