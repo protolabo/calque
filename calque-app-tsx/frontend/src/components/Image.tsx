@@ -20,14 +20,14 @@ const MyImage = (props: ImageProps) => {
   const handleMouseDown = (event: React.MouseEvent<SVGImageElement | SVGRectElement>) => {
     if (mode === 'edit' && tool === 'select') {
       const rect = event.currentTarget.getBoundingClientRect();
-      const offsetX = event.clientX - rect.left; // Calculate the offset for X
-      const offsetY = event.clientY - rect.top;  // Calculate the offset for Y
+      const offsetX = event.clientX - rect.left; 
+      const offsetY = event.clientY - rect.top; 
   
       setAction({
         kind: 'dragImg',
         imgId: props.image.id,
-        offsetX, // Store offsetX
-        offsetY  // Store offsetY
+        offsetX, 
+        offsetY  
       });
   
       setSelectedEntity({ kind: 'image', imgId: props.image.id });
@@ -36,19 +36,17 @@ const MyImage = (props: ImageProps) => {
   
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => { // Typing the event as KeyboardEvent
+    const handleKeyDown = (event: KeyboardEvent) => { 
         if (mode === 'edit' && isSelected && (event.key === 'Delete')) {
-          event.preventDefault(); // Prevent the default backspace action (navigate back)
+          event.preventDefault(); 
           deleteImage(graphHandler, props.image.id);
           setSelectedEntity(null);
           setAction(null);
         }
     };
 
-    // Add event listener
     window.addEventListener('keydown', handleKeyDown);
 
-    // Cleanup
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -57,6 +55,7 @@ const MyImage = (props: ImageProps) => {
   return (
     <g>
         <image 
+            className="imageContainer"
             x={props.image.x}
             y={props.image.y}
             width={props.image.width} 
@@ -79,6 +78,7 @@ const MyImage = (props: ImageProps) => {
             onClick={handleClick}
             >
             <image
+                className="imageContainer"
                 x={props.image.x}
                 y={props.image.y}
                 width={props.image.width} 

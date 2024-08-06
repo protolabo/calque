@@ -1,0 +1,8 @@
+#canvas {
+    --background-svg: url(''); /* Set a default path */
+}
+
+.imageContainer {
+    background-image: var(--background-svg); 
+    background-repeat: none;
+}
