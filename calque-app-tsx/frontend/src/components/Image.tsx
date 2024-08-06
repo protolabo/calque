@@ -13,7 +13,7 @@ const MyImage = (props: ImageProps) => {
   const { selectedEntity, setSelectedEntity } = useContext(SelectedEntityContext);
   const { setAction } = useContext(CanvasContext);
 
-  const isSelected = selectedEntity && selectedEntity.kind === 'image' && selectedEntity.imgId === props.image.id;
+  const isSelected = selectedEntity && selectedEntity.kind === 'image' && selectedEntity.id === props.image.id;
 
   const handleClick = () => {};
 
@@ -30,7 +30,7 @@ const MyImage = (props: ImageProps) => {
         offsetY  
       });
   
-      setSelectedEntity({ kind: 'image', imgId: props.image.id });
+      setSelectedEntity({ kind: 'image', id: props.image.id });
     }
   };
   

@@ -9,9 +9,9 @@ type Mode = 'view' | 'edit';
 type Tool = 'select' | 'node' | 'edge' | 'pan';
 
 type Entity =
-  | { kind: 'node', nodeId: number }
-  | { kind: 'edge', edgeId: number }
-  | { kind: 'image', imgId: number }
+  | { kind: 'node', id: number }
+  | { kind: 'edge', id: number }
+  | { kind: 'image', id: number }
 
 interface AppHandler {
   page: Page

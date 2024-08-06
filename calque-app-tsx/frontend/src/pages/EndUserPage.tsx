@@ -1,13 +1,21 @@
 import { CgImport } from "react-icons/cg";
 import LogoIcon from "../assets/Logo.asset"
-import React, { useRef, useState } from 'react';
+import React, { createContext, useContext, useRef, useState } from 'react';
 import * as d3 from "d3";
 import { BaseType } from "d3";
+//import { Entity, SelectedEntityContext } from "../components/Layout";
 
-function UserNavBar() {
-    const [svgContent, setSvgContent] = useState<string | null>(null);
+interface SelectedEntityHandler {
+    selectedEntity: BaseType | null;
+    setSelectedEntity: React.Dispatch<BaseType | null>
+}
+
+const SelectedEntityContext = createContext<SelectedEntityHandler>(undefined as any);
+
+function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseType | null>>) {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    //const [ selectedEntity, setSelectedEntity ] = useState<Entity | null>(null);
+
 
     // Function to handle button click and trigger file input
     const handleImportClick = () => {
@@ -22,12 +30,10 @@ function UserNavBar() {
         if (file) {
             const fileName = file.name;
             if (fileName.includes('.calque')) {
-                setSelectedFile(file);
                 const fileReader = new FileReader();
 
                 fileReader.onload = (e) => {
                     const fileContent = e.target?.result as string;
-                    setSvgContent(fileContent);
                     setTimeout(() => {
                         if (fileContent) {
                             document.getElementById('Map')!.innerHTML = fileContent;
@@ -35,16 +41,18 @@ function UserNavBar() {
                                 .selectAll('circle')
                                 .attr('og-fill', function() { return d3.select(this).attr('fill') })
                                 .attr('og-stroke', function() { return d3.select(this).attr('stroke')})
+                                .attr('id', function() { return d3.select(this).attr('data-id')})
                                 .on('mouseover', function() {return handleNodeMouseOver(d3.select(this))})
                                 .on('mouseout', function() {return handleNodeMouseOut(d3.select(this))})
-                                .on('click', function() {return handleNodeClick(d3.select(this))});
+                                .on('click', function() {return setSelectedEntity(this)});
 
                             d3.select('#Map')
                                 .selectAll('line')
                                 .attr('og-color', function() { return d3.select(this).attr('stroke') })
+                                .attr('id', function() { return d3.select(this).attr('data-id')})
                                 .on('mouseover', function() {return handleEdgeMouseOver(d3.select(this))})
                                 .on('mouseout', function() {return handleEdgeMouseOut(d3.select(this))})
-                                .on('click', function() {return handleEdgeClick(d3.select(this))});
+                                .on('click', function() {return setSelectedEntity(this)});
                         }
                     }, 0);
                 };
@@ -81,9 +89,14 @@ function UserNavBar() {
             .attr('stroke', () => edge.attr('og-color'))
     }
 
-    const handleNodeClick = (node: d3.Selection<BaseType, unknown, null, undefined>) => {}
+    /*const handleNodeClick = (node: d3.Selection<BaseType, unknown, null, undefined>) => {
+        setSelectedEntity({ kind: 'node', id: node.attr('id') as unknown as number ?? 0 }); // TODO mieux gérer les id
+    }
 
-    const handleEdgeClick = (edge: d3.Selection<BaseType, unknown, null, undefined>) => {}
+    const handleEdgeClick = (edge: d3.Selection<BaseType, unknown, null, undefined>) => {
+        setSelectedEntity({ kind: 'edge', id: edge.attr('id') as unknown as number ?? 0 }); // TODO mieux gérer les id
+
+    }*/
 
     return (
       <div>
@@ -129,18 +142,41 @@ function MapSVG() {
     return (
         <div>
             <svg width={800} height={100}>
-                <circle cx={300} cy={50} r={10} fill="pink" stroke="red" strokeWidth={5} />
+                {/*<circle cx={300} cy={50} r={10} fill="pink" stroke="red" strokeWidth={5} />*/}
             </svg>
         </div>
     )
 }
 
+function RightBar() {
+    const { selectedEntity } = useContext(SelectedEntityContext);
+    let description: string;
+    if (selectedEntity) {
+        description = d3.select(selectedEntity)
+                        .attr('data-description');
+    }
+    else description = '';
+    return (
+        <div className="sticky basis-1/6 w-64 top-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
+        {selectedEntity !== null && (
+            <p>{description}</p>
+        )}
+        </div>        
+    );
+}
+
 function EndUserPage() {
+    const [selectedEntity, setSelectedEntity] = useState<BaseType | null>(null);
 
     return (
         <>
-            <UserNavBar />
-            <MapSVG />
+            <SelectedEntityContext.Provider value={{ selectedEntity, setSelectedEntity }}>
+                {UserNavBar(setSelectedEntity)}
+                <div className="flex flex-row">
+                    <MapSVG />
+                    <RightBar />
+                </div>
+            </SelectedEntityContext.Provider>
         </>
     )
   }

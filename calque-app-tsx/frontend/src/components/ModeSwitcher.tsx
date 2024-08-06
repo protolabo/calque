@@ -22,6 +22,7 @@ const ModeSwitcher = () => {
 
   const handleMouseEnter = useCallback(() => setHovered(true), []);
   const handleMouseLeave = useCallback(() => setHovered(false), []);
+  
   const exportMap = () => {
     setSelectedEntity(null);
     setTimeout(() => {

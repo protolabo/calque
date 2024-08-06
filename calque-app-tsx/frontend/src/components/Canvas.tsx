@@ -39,7 +39,7 @@ const Canvas = () => {
     if (mode === 'edit' && tool === 'node') {
       const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
       const node = insertNode(graphHandler, coordinates.x, coordinates.y);
-      setSelectedEntity({ kind: 'node', nodeId: node.id });
+      setSelectedEntity({ kind: 'node', id: node.id });
     } 
     if (event.target === event.currentTarget || event.target instanceof SVGImageElement) {
       if (tool !== 'node') {
@@ -127,7 +127,7 @@ const Canvas = () => {
                 img.onload = () => {
                   //setImage(imageData); 
                   const newImage = insertImage(graphHandler, imageData, img.width, img.height);
-                  setSelectedEntity({ kind: 'image', imgId: newImage.id });
+                  setSelectedEntity({ kind: 'image', id: newImage.id });
                 };
                 img.src = imageData;
               }

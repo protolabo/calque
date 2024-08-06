@@ -71,15 +71,15 @@ const EditorTitle = (props: {children: ReactNode}) => {
 
 const EntityEditor = (props: EntityEditorProps) => {
   if (props.entity.kind === 'node') {
-    return <NodeEditor nodeId={props.entity.nodeId} />
+    return <NodeEditor nodeId={props.entity.id} />
   }
 
   if (props.entity.kind === 'edge') {
-    return <EdgeEditor edgeId={props.entity.edgeId} />
+    return <EdgeEditor edgeId={props.entity.id} />
   }
 
   if (props.entity.kind === 'image') {
-    return <ImageEditor imageId={props.entity.imgId} />
+    return <ImageEditor imageId={props.entity.id} />
   }
 }
 

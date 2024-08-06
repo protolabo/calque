@@ -16,11 +16,11 @@ const Edge = (props: EdgeProps)  => {
   const node1 = getNode(graphHandler.graph, props.edge.node1id);
   const node2 = getNode(graphHandler.graph, props.edge.node2id);
 
-  const isSelected = selectedEntity && selectedEntity.kind === 'edge' && selectedEntity.edgeId === props.edge.id;
+  const isSelected = selectedEntity && selectedEntity.kind === 'edge' && selectedEntity.id === props.edge.id;
 
   const handleMouseDown = () => {
     if (mode === "edit" && tool === "select") {
-      setSelectedEntity({ kind: 'edge', edgeId: props.edge.id });
+      setSelectedEntity({ kind: 'edge', id: props.edge.id });
     }
   }
 
@@ -50,6 +50,7 @@ const Edge = (props: EdgeProps)  => {
         x2={node2.x}
         y2={node2.y}
         stroke={props.edge.stroke}
+        data-id={props.edge.id}
         strokeWidth={props.edge.strokeWidth}
         onMouseDown={handleMouseDown}
       />

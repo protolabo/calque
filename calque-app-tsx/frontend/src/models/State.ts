@@ -52,7 +52,6 @@ interface ImageState {
   opacity: number;
   width: number;
   ratio: number;
-  //height: number;
   stroke: string;
   href: string;
   description: string;
@@ -85,8 +84,8 @@ function getImage(graph: GraphState, imageId: number): ImageState {
   return image;
 }
 
-function insertNode(handler: GraphHandler, x: number, y: number) {
-  const node = {
+function insertNode(handler: GraphHandler, x: number, y: number): NodeState {
+  const node: NodeState = {
     id: handler.graph.autoIncrement,
     name: `node-${handler.graph.autoIncrement}`,
     x,

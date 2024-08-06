@@ -13,16 +13,16 @@ const Node = (props: NodeProps) => {
   const { selectedEntity, setSelectedEntity } = useContext(SelectedEntityContext);
   const { action, setAction } = useContext(CanvasContext);
 
-  const isSelected = selectedEntity && selectedEntity.kind === 'node' && selectedEntity.nodeId === props.node.id;
+  const isSelected = selectedEntity && selectedEntity.kind === 'node' && selectedEntity.id === props.node.id;
 
   const handleClick = () => {
     if (mode === 'edit' && tool === 'edge') {
       if (action === null) {
-        setSelectedEntity({ kind : 'node', nodeId: props.node.id })
+        setSelectedEntity({ kind : 'node', id: props.node.id })
         setAction({ kind: 'edge', nodeId: props.node.id });
       } else if (action.kind === 'edge' && action.nodeId !== props.node.id) {
         const edge = insertEdge(graphHandler, action.nodeId, props.node.id);
-        setSelectedEntity({ kind: 'edge', edgeId: edge.id })
+        setSelectedEntity({ kind: 'edge', id: edge.id })
         setAction(null);
       }
     }
@@ -31,7 +31,7 @@ const Node = (props: NodeProps) => {
   const handleMouseDown = () => {
     if (mode === 'edit' && tool === 'select') {
       setAction({ kind: 'drag', nodeId: props.node.id });
-      setSelectedEntity({ kind: 'node', nodeId: props.node.id });
+      setSelectedEntity({ kind: 'node', id: props.node.id });
     }
   };
 
@@ -64,6 +64,8 @@ const Node = (props: NodeProps) => {
           cy={props.node.y}
           r={props.node.size}
           fill={props.node.color}
+          data-id={props.node.id}
+          data-description={props.node.description}
           onClick={handleClick}
           onMouseDown={handleMouseDown}
         />
