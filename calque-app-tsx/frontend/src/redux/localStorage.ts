@@ -18,4 +18,12 @@ export const loadState = () => {
       // Ignore write errors
     }
   };
+
+  export const resetState = () => {
+    try {
+      localStorage.removeItem('state');
+    } catch (err) {
+      // Ignore errors
+    }
+  };
   

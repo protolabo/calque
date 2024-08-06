@@ -67,8 +67,8 @@ function AddMapButton() {
   return (
     <Link to="/create-map" onClick={() => setPage('creation')}>
       <div className="rounded-lg">
-        <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48">
-          <AiOutlinePlus className="w-12 h-12" />
+        <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48 hover:border-secondary">
+          <AiOutlinePlus className="w-12 h-12 hover:fill-secondary" />
         </div>
         <div className="mt-2">Create Map</div>
       </div>
