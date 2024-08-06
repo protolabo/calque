@@ -35,6 +35,7 @@ const Canvas = () => {
   const [image, setImage] = useState<string | null>(null);
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
+    console.log("canvas is clicked")
     if (mode === 'edit' && tool === 'node') {
       const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
       const node = insertNode(graphHandler, coordinates.x, coordinates.y);
@@ -185,7 +186,6 @@ const Canvas = () => {
             id="canvas"
             width="920"
             height="938"
-            tabIndex={0}
             viewBox="0 0 920 938"
             fill="white"
             xmlns="http://www.w3.org/2000/svg"
@@ -199,15 +199,12 @@ const Canvas = () => {
               {graphHandler.graph.images.map(image => (
                 <MyImage key={image.id} image={image}/>
               ))}
-              <g>
-                {graphHandler.graph.edges.map(edge => (
-                  <Edge key={edge.id} edge={edge} />
-                ))}
-                {graphHandler.graph.nodes.map(node => (
-                  <Node key={node.id} node={node} />
-                ))}
-
-              </g>
+              {graphHandler.graph.edges.map(edge => (
+                <Edge key={edge.id} edge={edge} />
+              ))}
+              {graphHandler.graph.nodes.map(node => (
+                <Node key={node.id} node={node} />
+              ))}
             </g> 
           </svg>
         </CanvasContext.Provider>
