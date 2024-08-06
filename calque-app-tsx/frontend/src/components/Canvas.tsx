@@ -32,7 +32,7 @@ const Canvas = () => {
   const { setSelectedEntity } = useContext(SelectedEntityContext);
   const [action, setAction] = useState<CanvasAction | null>(null);
   const canvasRef = useRef<SVGSVGElement>(null);
-  const [image, setImage] = useState<string | null>(null);
+  //const [image, setImage] = useState<string | null>(null);
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     console.log("canvas is clicked")
@@ -125,7 +125,7 @@ const Canvas = () => {
               if (typeof imageData === 'string') {
                 const img = new Image();
                 img.onload = () => {
-                  setImage(imageData); 
+                  //setImage(imageData); 
                   const newImage = insertImage(graphHandler, imageData, img.width, img.height);
                   setSelectedEntity({ kind: 'image', imgId: newImage.id });
                 };

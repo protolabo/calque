@@ -6,11 +6,25 @@ import projectRoute from './routes/project.route';
 import responseLogger from './middleware/res_logger.middleware';
 dotenv.config();
 
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
+
+
+var bodyParser = require('body-parser');
+const cors = require('cors');
+//const https = require('https');
+//const fs = require('fs');
+//const path = require('path');
+
+
+//cors
+const corsOptions = {
+  origin: true, // all addresses for now
+  optionsSuccessStatus: 200
+};
+
+
 
 const app: Application = express();
+app.use(cors(corsOptions));
 const port: string = (process.env.PORT || "3000");
 
 // Connect to MongoDB
@@ -21,15 +35,23 @@ const port: string = (process.env.PORT || "3000");
 // db.once('open', () => console.log('Connected to the Database.'));
 
 // Middleware
+//app.use(bodyParser.json({limit: "50mb"}));
+//app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+//app.use(express.json({limit: '50mb'}));
+app.use(bodyParser({limit: '50mb'}));
+//
 app.use(express.json()); // Parse JSON bodies for API requests
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Define the path to the certificate and key files
+/*
 const key = fs.readFileSync(path.join(__dirname, 'localhost+2-key.pem'), 'utf8');
 const cert = fs.readFileSync(path.join(__dirname, 'localhost+2.pem'), 'utf8');
 
 // Create a HTTPS server with the certificate and key
 const server = https.createServer({ key: key, cert: cert }, app);
+*/
+
 
 //Middleware
 app.use(responseLogger); //will print the return values in the console
@@ -47,12 +69,13 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
+
+/*
 // Define the HTTPS server port
 server.listen(5000, () => {
   console.log(`HTTPS Server running on https://localhost:5000`);
 });
-/* end */
-
+*/
 
 
 

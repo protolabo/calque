@@ -18,7 +18,7 @@ function App() { // changé la route pour /test à l'élément MainMenu, car je 
         <Route path='/user' element={<UserMainPage/>}/>
         {/*<Route path='/test' element={<TestPage/>}/>*/}
         <Route path='land' element={<LandingPage/>}/>
-        <Route path='enduser' element={<EndUserPage/>}/>
+        <Route path='map' element={<EndUserPage/>}/>
     </Routes>
     
   );  

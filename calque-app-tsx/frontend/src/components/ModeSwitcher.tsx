@@ -6,6 +6,11 @@ import { MdPreview } from 'react-icons/md';
 import { AppContext, SelectedEntityContext } from './Layout';
 import { TiExport } from 'react-icons/ti';
 import { LuUserCircle2 } from "react-icons/lu";
+import { FaRegSave } from "react-icons/fa";
+import { loadState, saveState } from '../redux/localStorage';
+
+
+
 
 const ModeSwitcher = () => {
   const { page, mode, setMode } = useContext(AppContext);
@@ -34,14 +39,43 @@ const ModeSwitcher = () => {
         URL.revokeObjectURL(url);
       }
     }, 0);
-    
   };
 
+ 
+
+
+  const saveToDatabase = () => {
+      const graph = loadState()
+      console.log(graph)
+      // Send the POST request using fetch
+      fetch('http://localhost:3000/api/project/', {
+          method: 'POST',
+          headers: { 
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(graph),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json(); // Parse the JSON de la repoonse
+      })
+      .then(data => {
+          console.log('Recette ajoutee:', data); // Handle donnée de réponse
+      })
+      .catch(error => {
+          console.error('Erreur lors de la creation de la recette:', error); // Handle any errors
+      });
+
+
+  }
+
   return (
-    <div className="flex justify-end items-center gap-8">
+    <div className="flex justify-end items-center gap-4">
       {page === "creation" &&
         <>
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-2">
             {mode === 'edit' && hovered && <div>Preview your map</div>}
             {mode === 'view' && hovered && <div>Continue editing</div>}
             <FaRegEdit className={editorIconStyle} />
@@ -57,6 +91,12 @@ const ModeSwitcher = () => {
             </button>
             <MdPreview className={previewIconStyle} />
           </div>
+          <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
+            onClick={saveToDatabase}>
+              Save
+              <FaRegSave className='w-6 h-6'/>
+          </button>
+
           <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
             onClick={exportMap}>
             Export
