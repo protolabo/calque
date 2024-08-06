@@ -165,7 +165,7 @@ function RightBar() {
     );
 }
 
-function EndUserPage() {
+function EndUserPage() { // TODO style
     const [selectedEntity, setSelectedEntity] = useState<BaseType | null>(null);
 
     return (
