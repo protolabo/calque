@@ -136,7 +136,7 @@ function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseT
             <div className="flex flex-row gap-2 items-center text-white">
                 <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
                     onClick={handleImportClick}>
-                    Import
+                    Importer
                     <CgImport className='w-6 h-6'/>
                 </button>
                 <input
