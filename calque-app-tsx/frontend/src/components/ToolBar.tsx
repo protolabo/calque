@@ -16,7 +16,7 @@ const tools: ToolIconProps[] = [
   {name: 'select', icon: RiCursorFill},
   {name: 'node', icon: VscCircleLargeFilled},
   {name: 'edge', icon: Edge},
-  {name: 'pan', icon: FaHandPaper},
+  //{name: 'pan', icon: FaHandPaper},
 ];
 
 const ToolBar = () => {

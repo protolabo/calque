@@ -27,6 +27,7 @@ interface EdgeState {
   node2id: number;
   stroke: string;
   strokeWidth: number;
+  description: string;
 }
 
 type Line = 'Continuous' | 'Broken' | 'Loop';
@@ -116,6 +117,7 @@ function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
     node2id,
     stroke: 'blue',
     strokeWidth: 40,
+    description: '',
   };
 
   const graph = {

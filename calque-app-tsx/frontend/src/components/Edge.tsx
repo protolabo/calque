@@ -53,6 +53,7 @@ const Edge = (props: EdgeProps)  => {
         data-id={props.edge.id}
         strokeWidth={props.edge.strokeWidth}
         onMouseDown={handleMouseDown}
+        data-description={props.edge.description}
       />
     
     {mode === 'edit' && (isSelected ? (
@@ -65,6 +66,7 @@ const Edge = (props: EdgeProps)  => {
         strokeWidth={props.edge.strokeWidth + 3}
         opacity={0.5}
         onMouseDown={handleMouseDown}
+        data-description={props.edge.description}
       />
     ) : (
       <g/>

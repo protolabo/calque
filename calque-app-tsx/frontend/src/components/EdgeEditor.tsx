@@ -21,6 +21,7 @@ const EdgeEditor = (props: EdgeEditorProps) => {
         <InputField label="Name" value={edge.name} onChange={(value) => updateField('name', value)} />
         <InputField label="Stroke" value={edge.stroke} onChange={(value) => updateField('stroke', value)} type="color" />
         <InputField label="Stroke Width" value={edge.strokeWidth} onChange={(value) => updateField('strokeWidth', value)} type="number" />
+        <InputField label="Description" value={edge.description} onChange={(value) => updateField('description', value)} />
     </Editor>
 )
 };

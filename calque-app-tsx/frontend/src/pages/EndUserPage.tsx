@@ -6,6 +6,10 @@ import { BaseType } from "d3";
 import { Link } from "react-router-dom";
 //import { Entity, SelectedEntityContext } from "../components/Layout";
 
+/**
+ * Essayez d'importer tresorcarte.calque qui se trouve dans /public
+ */
+
 interface SelectedEntityHandler {
     selectedEntity: BaseType | null;
     setSelectedEntity: React.Dispatch<BaseType | null>
@@ -54,6 +58,14 @@ function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseT
                                 .on('mouseover', function() {return handleEdgeMouseOver(d3.select(this))})
                                 .on('mouseout', function() {return handleEdgeMouseOut(d3.select(this))})
                                 .on('click', function() {return setSelectedEntity(this)});
+
+                            d3.select('#Map')
+                                .selectAll('image')
+                                .attr('id', function() { return d3.select(this).attr('data-id')})
+                                .attr('og-opacity', function() { return d3.select(this).attr('opacity') })
+                                .on('mouseover', function() {return handleImageMouseOver(d3.select(this))})
+                                .on('mouseout', function() {return handleImageMouseOut(d3.select(this))})
+                                .on('click', function() {return setSelectedEntity(this)});
                         }
                     }, 0);
                 };
@@ -76,6 +88,11 @@ function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseT
             .duration(200)
             .attr('stroke', 'orange');
     }
+    const handleImageMouseOver = (image: d3.Selection<BaseType, unknown, null, undefined>) => {
+      image.transition()
+          .duration(200)
+          .attr('opacity', '0.5');
+  }
 
     const handleNodeMouseOut = (node: d3.Selection<BaseType, unknown, null, undefined>) => {
         node.transition()
@@ -89,6 +106,12 @@ function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseT
             .duration(200)
             .attr('stroke', () => edge.attr('og-color'))
     }
+
+    const handleImageMouseOut = (image: d3.Selection<BaseType, unknown, null, undefined>) => {
+      image.transition()
+          .duration(200)
+          .attr('opacity', () => image.attr('og-opacity'))
+  }
 
     /*const handleNodeClick = (node: d3.Selection<BaseType, unknown, null, undefined>) => {
         setSelectedEntity({ kind: 'node', id: node.attr('id') as unknown as number ?? 0 }); // TODO mieux gérer les id

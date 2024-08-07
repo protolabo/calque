@@ -5,9 +5,7 @@ import { LiaToggleOnSolid } from 'react-icons/lia';
 import { MdPreview } from 'react-icons/md';
 import { AppContext, SelectedEntityContext } from './Layout';
 import { TiExport } from 'react-icons/ti';
-import { LuUserCircle2 } from "react-icons/lu";
 import { FaRegSave } from "react-icons/fa";
-import { loadState, saveState } from '../redux/localStorage';
 
 const ModeSwitcher = () => {
   const { page, mode, setMode } = useContext(AppContext);
@@ -25,7 +23,7 @@ const ModeSwitcher = () => {
     setTimeout(() => {
       const map = document.getElementById("canvas")?.cloneNode(true) as SVGSVGElement;
       if (map) {
-        map.querySelectorAll('image').forEach(img => img.remove());
+        // map.querySelectorAll('image').forEach(img => img.remove());
         const serializer = new XMLSerializer();
         const svgString = serializer.serializeToString(map);
         const blob = new Blob([svgString], { type: 'image/svg+xml' });

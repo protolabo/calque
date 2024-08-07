@@ -64,6 +64,8 @@ const MyImage = (props: ImageProps) => {
             onClick={handleClick}
             onMouseDown={handleMouseDown}
             opacity={props.image.opacity}
+            data-description={props.image.description}
+            data-id={props.image.id}
         />
         {mode === 'edit' && (isSelected ? (
           <rect 
@@ -85,6 +87,8 @@ const MyImage = (props: ImageProps) => {
                 height={props.image.width * props.image.ratio} 
                 href={props.image.href}
                 opacity={props.image.opacity}
+                data-description={props.image.description}
+                data-id={props.image.id}
             />
           </rect>
             
