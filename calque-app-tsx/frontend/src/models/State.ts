@@ -1,4 +1,5 @@
 import { GraphHandler } from "../components/Layout";
+import { loadState } from "../redux/localStorage";
 
 interface GraphState {
   autoIncrement: number;
@@ -212,5 +213,7 @@ const emptyGraph = {
   images: []
 };
 
+const currentGraph = loadState()
+
 export type { GraphState, NodeState, EdgeState, ImageState };
-export { emptyGraph, getNode, getEdge, getImage, insertNode, insertImage, updateNode, updateImage, insertEdge, updateEdge, deleteEdge, deleteNode, deleteImage };
+export { currentGraph, emptyGraph, getNode, getEdge, getImage, insertNode, insertImage, updateNode, updateImage, insertEdge, updateEdge, deleteEdge, deleteNode, deleteImage };

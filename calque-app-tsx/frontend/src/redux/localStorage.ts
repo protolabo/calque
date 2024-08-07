@@ -21,9 +21,10 @@ export const loadState = () => {
 
   export const resetState = () => {
     try {
-      localStorage.removeItem('state');
+      localStorage.clear();
     } catch (err) {
       // Ignore errors
+      console.log("Local Storage has not been reset")
     }
   };
   

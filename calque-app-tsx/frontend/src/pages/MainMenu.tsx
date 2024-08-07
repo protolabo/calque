@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import LogoIcon from "../assets/Logo.asset"
 import { AiOutlinePlus } from "react-icons/ai";
 import { useContext } from "react";
-import { AppContext } from "../components/Layout";
+import { AppContext, GraphContext, SelectedEntityContext } from "../components/Layout";
+import { emptyGraph } from "../models/State";
+import { resetState } from "../redux/localStorage";
+import { BiImport } from "react-icons/bi";
+import { PiGraph } from "react-icons/pi";
 
 function MainMenu() {
   return (
@@ -52,25 +56,55 @@ function MenuSubCategories(){
 }
 
 function MenuMapFile() {
+  const { setPage } = useContext(AppContext)
   return (
-    <div className="rounded-lg">
-      <div className="flex justify-center items-center rounded-lg border-solid border-black border-2 w-80 h-48">
-        Map img
+    <Link to={"/create-map"} onClick={() => setPage('creation')}>
+      <div className="rounded-lg group hover:border-secondary">
+        <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48 group-hover:border-secondary">
+          <PiGraph className="w-12 h-12 group-hover:fill-secondary"/>
+        </div>
+        <div className="mt-2 group-hover:text-secondary">Sans-titre-1</div>
       </div>
-      <div className="mt-2">Map Title</div>
-    </div>
+    </Link>
+  );
+}
+
+function MenuImportMap() {
+  const { setPage } = useContext(AppContext)
+  return (
+    <Link to={"/map"} onClick={() => {setPage('creation')}}>
+      <div className="rounded-lg group hover:border-secondary">
+        <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48 group-hover:border-secondary">
+          <BiImport className="w-12 h-12 group-hover:fill-secondary"/>
+        </div>
+        <div className="mt-2 group-hover:text-secondary">Importer une carte existante .calque</div>
+      </div>
+    </Link>
   );
 }
 
 function AddMapButton() {
   const { setPage } = useContext(AppContext)
+  const { setGraph } = useContext(GraphContext)
+  const { setSelectedEntity } = useContext(SelectedEntityContext)
+
+  const handleClick = () => {
+    console.log("Resetting graph state to emptyGraph:", emptyGraph);
+    setSelectedEntity(null);
+    resetState(); // Clear local storage
+    setGraph(emptyGraph); // Set graph state to emptyGraph
+    setPage('creation'); // Navigate to create-map page
+  };
+  
   return (
-    <Link to="/create-map" onClick={() => setPage('creation')}>
-      <div className="rounded-lg">
-        <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48 hover:border-secondary">
-          <AiOutlinePlus className="w-12 h-12 hover:fill-secondary" />
+    <Link 
+      to="/create-map" 
+      onClick={handleClick}>
+      <div className="rounded-lg group hover:border-secondary">
+        <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48 group-hover:border-secondary">
+          <AiOutlinePlus className="w-12 h-12 group-hover:fill-secondary" />
         </div>
-        <div className="mt-2">Create Map</div>
+        <div className="mt-2 group-hover:text-secondary">Créer une nouvelle carte</div>
       </div>
     </Link>
     
@@ -79,13 +113,13 @@ function AddMapButton() {
 
 function MenuMap() {
   return (
-    <div className="grid grid-cols-4 mx-8 gap-8 mt-8">
+    <div className="flex flex-row justify-evenly justify-center mx-8 gap-8 mt-12">
       <AddMapButton />
       <MenuMapFile />
-
+      <MenuImportMap />
     </div>
   );
 }
 
-export { MenuMap, MenuCategories, MenuSubCategories, MenuMapFile, AddMapButton }
+export { MenuImportMap, MenuMap, MenuCategories, MenuSubCategories, MenuMapFile, AddMapButton }
 export default MainMenu

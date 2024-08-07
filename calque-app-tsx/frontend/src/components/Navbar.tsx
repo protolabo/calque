@@ -57,7 +57,7 @@ function Navbar() {
                   <div>Sans-titre-1</div>
                 </>
                 )}
-                {page === 'menu' && <div>My maps</div>}
+                {page === 'menu' && <div>Mes cartes</div>}
             </NbTitle>
             <ModeSwitcher />
         </div>

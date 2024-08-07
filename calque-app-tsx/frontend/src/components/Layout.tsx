@@ -60,6 +60,10 @@ const Layout = () => {
     saveState(graph);
   }, [graph]);
 
+  useEffect(() => {
+    console.log("Graph state initialized:", graph);
+  }, [graph]);
+
   return (
     <AppContext.Provider value={{ page, setPage, mode, setMode, tool, setTool }}>
       <GraphContext.Provider value={{ graph, setGraph }}>

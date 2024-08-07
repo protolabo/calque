@@ -104,11 +104,10 @@ function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseT
         <div className="flex flex-row justify-between bg-primary p-2 items-center">
             <div className="flex flex-row items-center gap-2">
             <Link to={"/"}><LogoIcon/></Link>
-            <div className="text-white">Calque</div>
             </div>
             <div className="flex justify-center grow">
                 <div className="text-white flex gap-2 items-center font-bold text-xl px-1">
-                <div>Utilise une carte calque déjà existante</div>
+                <div>Utiliser une carte calque déjà existante</div>
                 </div>
             </div>
             <div className="flex flex-row gap-2 items-center text-white">
