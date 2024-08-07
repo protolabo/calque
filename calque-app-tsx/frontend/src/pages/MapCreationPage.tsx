@@ -6,7 +6,7 @@ import { AppContext } from "../components/Layout"
 function MapCreationPage() {
   return (
     <div className="flex flex-row">
-            <Leftbar />
+            {/*<Leftbar />*/}
             <Canvas />
             <Rightbar />
           </div>

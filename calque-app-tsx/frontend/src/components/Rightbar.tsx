@@ -44,6 +44,13 @@ const Rightbar = () => {
       {selectedEntity !== null && (
         <EntityEditor entity={selectedEntity} />
       )}
+      {selectedEntity === null && (  
+        <>
+          <div className='m-4'>Clique sur l'icone Rond pour ajouter des noeuds. </div>
+          <div className='m-4'> Clique sur un noeud pour modifier ses propriétés.</div>
+          <div className='m-4'> Clique sur la barre diagonale pour relier les noeuds en cliquant sur les noeuds à relier.</div>
+        </>
+      )}
       </div>}
     </>
     

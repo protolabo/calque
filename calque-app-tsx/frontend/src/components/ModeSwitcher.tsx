@@ -9,9 +9,6 @@ import { LuUserCircle2 } from "react-icons/lu";
 import { FaRegSave } from "react-icons/fa";
 import { loadState, saveState } from '../redux/localStorage';
 
-
-
-
 const ModeSwitcher = () => {
   const { page, mode, setMode } = useContext(AppContext);
   const [ hovered, setHovered ] = useState(false);
@@ -113,8 +110,8 @@ const ModeSwitcher = () => {
       {page === "creation" &&
         <>
           <div className="flex flex-wrap items-center gap-2">
-            {mode === 'edit' && hovered && <div>Preview your map</div>}
-            {mode === 'view' && hovered && <div>Continue editing</div>}
+            {mode === 'edit' && hovered && <div>Aperçu</div>}
+            {mode === 'view' && hovered && <div>Modifier</div>}
             <FaRegEdit className={editorIconStyle} />
             <button
               onClick={() => setMode(mode === 'view' ? 'edit' : 'view')}
@@ -130,13 +127,13 @@ const ModeSwitcher = () => {
           </div>
           <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
             onClick={saveToDatabase}>
-              Save
+              Sauvegarder
               <FaRegSave className='w-6 h-6'/>
           </button>
 
           <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
             onClick={exportMap}>
-            Export
+            Exporter
             <TiExport className='w-6 h-6'/>
           </button>
         </>
@@ -144,8 +141,8 @@ const ModeSwitcher = () => {
       {page === 'menu' && (
         <>
           <div className="flex gap-2 items-center">
-            <div className="text-white">User-1</div>
-            <LuUserCircle2 className='w-8 h-8'/>
+            {/*<div className="text-white">User-1</div>
+            <LuUserCircle2 className='w-8 h-8'/>*/}
           </div>
         </>
       )

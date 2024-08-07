@@ -3,6 +3,7 @@ import LogoIcon from "../assets/Logo.asset"
 import React, { createContext, useContext, useRef, useState } from 'react';
 import * as d3 from "d3";
 import { BaseType } from "d3";
+import { Link } from "react-router-dom";
 //import { Entity, SelectedEntityContext } from "../components/Layout";
 
 interface SelectedEntityHandler {
@@ -102,14 +103,12 @@ function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseT
       <div>
         <div className="flex flex-row justify-between bg-primary p-2 items-center">
             <div className="flex flex-row items-center gap-2">
-            <LogoIcon/>
+            <Link to={"/"}><LogoIcon/></Link>
             <div className="text-white">Calque</div>
             </div>
             <div className="flex justify-center grow">
                 <div className="text-white flex gap-2 items-center font-bold text-xl px-1">
-                <div>Carte-globale</div>
-                <div>/</div>
-                <div>Sous-carte-1</div>
+                <div>Utilise une carte calque déjà existante</div>
                 </div>
             </div>
             <div className="flex flex-row gap-2 items-center text-white">
@@ -127,7 +126,7 @@ function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseT
                 />
             </div>
         </div>
-        <div id="Map"></div>
+        
         {/*svgContent && (
             <div className="importedSVG"
             dangerouslySetInnerHTML={{ __html: svgContent }}
@@ -140,11 +139,7 @@ function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseT
 
 function MapSVG() {
     return (
-        <div>
-            <svg width={800} height={100}>
-                {/*<circle cx={300} cy={50} r={10} fill="pink" stroke="red" strokeWidth={5} />*/}
-            </svg>
-        </div>
+        <div id="Map" className="basis-5/6"></div>
     )
 }
 
@@ -157,9 +152,11 @@ function RightBar() {
     }
     else description = '';
     return (
-        <div className="sticky basis-1/6 w-64 top-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
+        <div className="sticky basis-1/6 w-64 top-0 right-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
         {selectedEntity !== null && (
-            <p>{description}</p>
+          <>
+            <div className="m-2 mt-8 font-bold text-center">{description}</div>
+          </>
         )}
         </div>        
     );

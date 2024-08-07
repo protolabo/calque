@@ -51,12 +51,10 @@ function Navbar() {
                 {page === 'creation' && mode === 'edit' && <ToolBar />}
             </NbLeft>
             <NbTitle>
-                {mode === 'view' && <div>Preview of</div>}
+                {mode === 'view' && <div>Aperçu</div>}
                 {page === 'creation' && (
                 <>
-                  <div>Carte-globale</div>
-                  <div>/</div>
-                  <div>Sous-carte-1</div>
+                  <div>Sans-titre-1</div>
                 </>
                 )}
                 {page === 'menu' && <div>My maps</div>}

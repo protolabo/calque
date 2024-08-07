@@ -23,7 +23,7 @@ const LbSecTitle: FC<LbSecTitleProps> = ({ children, toggle, isOpen }) => {
         <button  onClick={toggle}>{isOpen ? <GoTriangleDown className="w-4 h-4"/> : <GoTriangleRight className="w-4 h-4"/>}</button>
         <div>{children}</div>
       </div>
-      <FiPlus className="w-5 h-5"/>
+      {/*<FiPlus className="w-5 h-5"/>*/}
     </div>
   );
 };
@@ -55,26 +55,12 @@ const LbGroupElements: FC<LbGroupElementsProps> = ({ title, icon, children }) =>
   return (
       <div className="first:border-b-2 border-slate-400 py-2">
         <LbSecTitle toggle={toggle} isOpen={isOpen}>{title}</LbSecTitle>
-        {isOpen && children.map((child, index) => (
+        {/* isOpen && children.map((child, index) => (
           <LbSubSection key={index} icon={icon}>{child}</LbSubSection>
-        ))}
+        )) */}
       </div> 
   );
 };
-
-/**
- *   Je pense que pour preview des etages, des lignes et des tags, il est mieux de garder la leftbar.
- *   Ainsi je garderais aussi la rightbar pour l'esthetisme.
- *
- *   Preview etages: Cliquer sur un etage va preview un etage de la sous-carte
- *   Preview lignes: Cliquer sur une ligne va highlight cette ligne,
- *   et toutes les autres lignes vont devenir transparents
- *   Preview tags: Cliquer sur un tag va highlight tous les nodes possedant tag,
- *   et tous les autres nodes ainsi que les edges seront transparents.
- *
- *   - Camille
- */
-
 
 const Leftbar: FC = () => {
   const { mode } = useContext(AppContext)
