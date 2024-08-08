@@ -37,14 +37,21 @@ const ModeSwitcher = () => {
     }, 0);
   };
 
- 
-
+  const generateRandomString = (length: number) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
 
   const saveToDatabase = () => {
       const map = document.getElementById("canvas")?.cloneNode(true) as SVGSVGElement;
       const serializer = new XMLSerializer();
       const content = serializer.serializeToString(map);
-      const titleVariable = "test"
+      const titleVariable = generateRandomString(15)
       //
       const body = {
         "title":`${titleVariable}`,

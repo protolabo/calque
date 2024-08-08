@@ -42,6 +42,7 @@ app.use(bodyParser({limit: '50mb'}));
 //
 app.use(express.json()); // Parse JSON bodies for API requests
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(cors())
 
 // Define the path to the certificate and key files
 /*
