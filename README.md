@@ -94,5 +94,5 @@ Le projet est supervisé par [Louis-Edouard LAFONTANT](mailto:louis.edouard.lafo
 ## Contributeurs
 
 - Camille Divisia [@divcamillediv](https://github.com/divcamillediv)
-- Xavier Benoit [@YkseBay](https://github.com/YkseBay)
+- Xia Benoit [@YkseBay](https://github.com/YkseBay)
 - Émanuel Rollin [@LipoBruh](https://github.com/LipoBruh)
