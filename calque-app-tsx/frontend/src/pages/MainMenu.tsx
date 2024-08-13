@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import LogoIcon from "../assets/Logo.asset"
+// import LogoIcon from "../assets/Logo.asset"
 import { AiOutlinePlus } from "react-icons/ai";
 import { useContext } from "react";
 import { AppContext, GraphContext, SelectedEntityContext } from "../components/Layout";
@@ -16,6 +16,7 @@ function MainMenu() {
   )
 }
 
+/*
 function MenuNavbar() {
   return(
     <div className="flex flex-row justify-between bg-primary p-2 items-center">
@@ -33,6 +34,7 @@ function MenuNavbar() {
     </div>
   )
 }
+  */
 
 function MenuCategories() {
   return(
@@ -91,9 +93,9 @@ function AddMapButton() {
   const handleClick = () => {
     console.log("Resetting graph state to emptyGraph:", emptyGraph);
     setSelectedEntity(null);
-    resetState(); // Clear local storage
-    setGraph(emptyGraph); // Set graph state to emptyGraph
-    setPage('creation'); // Navigate to create-map page
+    resetState();
+    setGraph(emptyGraph); 
+    setPage('creation');
   };
   
   return (

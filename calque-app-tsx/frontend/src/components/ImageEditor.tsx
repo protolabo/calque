@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { GraphContext } from './Layout';
 import { getImage, updateImage } from '../models/State';
 import { InputField, Editor, EditorTitle } from './Rightbar'

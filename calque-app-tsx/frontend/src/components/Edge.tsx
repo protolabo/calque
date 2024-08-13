@@ -25,7 +25,7 @@ const Edge = (props: EdgeProps)  => {
   }
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => { // Typing the event as KeyboardEvent
+    const handleKeyDown = (event: KeyboardEvent) => { 
       if (mode === 'edit' && isSelected && (event.key === 'Delete')) {
         deleteEdge(graphHandler, props.edge.id);
         setSelectedEntity(null);
@@ -33,10 +33,8 @@ const Edge = (props: EdgeProps)  => {
       }
     };
 
-    // Add event listener
     window.addEventListener('keydown', handleKeyDown);
 
-    // Cleanup
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };

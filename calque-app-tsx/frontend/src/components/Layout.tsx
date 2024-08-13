@@ -8,6 +8,18 @@ type Page = 'menu' | 'creation' | 'enduser'
 type Mode = 'view' | 'edit';
 type Tool = 'select' | 'node' | 'edge' | 'pan';
 
+const pageToPathMap: Record<Page, string> = {
+  menu: '/',
+  creation: '/create-map',
+  enduser: '/map'
+};
+
+const pathToPageMap: Record<string, Page> = {
+  '/': 'menu',
+  '/create-map': 'creation',
+  '/map': 'enduser',
+};
+
 type Entity =
   | { kind: 'node', id: number }
   | { kind: 'edge', id: number }
@@ -37,24 +49,35 @@ const GraphContext = createContext<GraphHandler>(undefined as any);
 const SelectedEntityContext = createContext<SelectedEntityHandler>(undefined as any);
 
 const Layout = () => {
-  const getPageFromUrl = (): Page => {
-    const path = window.location.pathname;
-
-    switch (path) {
-      case '/create-map':
-        return 'creation';
-      case '/enduser':
-        return 'enduser';
-      default:
-        return 'menu';
-    }
-  };
-
   const [mode, setMode] = useState<Mode>('edit');
   const [tool, setTool] = useState<Tool>('select');
-  const [page, setPage] = useState<Page>(getPageFromUrl);
   const [graph, setGraph] = useState<GraphState>(loadState() || emptyGraph);
   const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
+  const [page, setPage] = useState<Page>(() => {
+    const path = window.location.pathname;
+    return pathToPageMap[path] || 'menu';
+  });
+
+  const navigateTo = (page: Page) => {
+    const path = pageToPathMap[page];
+    window.history.pushState({}, '', path);
+    handlePageChange(page); 
+  };
+
+  const handlePageChange = (page: Page) => {
+    switch (page) {
+      case 'creation':
+        navigateTo('creation')
+        break;
+      case 'enduser':
+        navigateTo('enduser')
+        break;
+      case 'menu':
+      default:
+        navigateTo('menu')
+        break;
+    }
+  };
 
   useEffect(() => {
     saveState(graph);
@@ -63,6 +86,33 @@ const Layout = () => {
   useEffect(() => {
     console.log("Graph state initialized:", graph);
   }, [graph]);
+
+  // Update URL
+  useEffect(() => {
+    const path = pageToPathMap[page];
+    window.history.pushState({}, '', path);
+  }, [page]);
+
+  // Go back go forward <- ->
+  useEffect(() => {
+    const handlePopState = () => {
+      console.log("page is being changed")
+      const path = window.location.pathname;
+      const newPage = pathToPageMap[path];
+      
+      if (newPage && newPage !== page) {
+        setPage(newPage); 
+        console.log("going to a new page")
+      } 
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+  
 
   return (
     <AppContext.Provider value={{ page, setPage, mode, setMode, tool, setTool }}>

@@ -38,7 +38,7 @@ const Node = (props: NodeProps) => {
   // DELETE NODE
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => { // Typing the event as KeyboardEvent
+    const handleKeyDown = (event: KeyboardEvent) => { 
       if (mode === 'edit' && isSelected && event.key === 'Delete') {
         deleteNode(graphHandler, props.node.id);
         setSelectedEntity(null);
@@ -46,10 +46,8 @@ const Node = (props: NodeProps) => {
       }
     };
 
-    // Add event listener
     window.addEventListener('keydown', handleKeyDown);
 
-    // Cleanup
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };

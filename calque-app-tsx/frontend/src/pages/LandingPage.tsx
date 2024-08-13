@@ -1,5 +1,3 @@
-import LogoIcon from "../assets/Logo.asset"
-
 function LandingPage() {
   return (
     <div>

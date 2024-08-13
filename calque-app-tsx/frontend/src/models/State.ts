@@ -30,6 +30,8 @@ interface EdgeState {
   description: string;
 }
 
+/* LIGNES
+
 type Line = 'Continuous' | 'Broken' | 'Loop';
 
 interface LineState {
@@ -45,6 +47,8 @@ interface LineState {
   duration: number;
   type: Line;
 }
+
+*/
 
 interface ImageState {
   id: number;

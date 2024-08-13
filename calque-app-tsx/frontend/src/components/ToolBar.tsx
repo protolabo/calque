@@ -4,7 +4,7 @@ import { Tool, AppContext } from './Layout';
 
 //icons
 import { VscCircleLargeFilled} from "react-icons/vsc";
-import { FaHandPaper } from "react-icons/fa";
+//import { FaHandPaper } from "react-icons/fa";
 import Edge from "./../assets/Edge.asset";
 import { RiCursorFill } from "react-icons/ri";
 //General components

@@ -1,7 +1,7 @@
 import { ReactNode, useContext, useState, FC } from "react";
 
 // Icons
-import { FiPlus } from "react-icons/fi";
+// import { FiPlus } from "react-icons/fi";
 import { MdLayers } from "react-icons/md";
 import { IconType } from "react-icons";
 import LineIcon from "./../assets/Line.asset";
@@ -28,10 +28,12 @@ const LbSecTitle: FC<LbSecTitleProps> = ({ children, toggle, isOpen }) => {
   );
 };
 
+/*
 interface LbSubSectionProps {
   icon: IconType;
   children: ReactNode;
 }
+
 
 const LbSubSection: FC<LbSubSectionProps> = ({ icon: Icon, children }) => {
   return (
@@ -41,6 +43,7 @@ const LbSubSection: FC<LbSubSectionProps> = ({ icon: Icon, children }) => {
     </div>
   );
 };
+*/
 
 interface LbGroupElementsProps {
   title: string;
@@ -48,7 +51,8 @@ interface LbGroupElementsProps {
   children: string[];
 }
 
-const LbGroupElements: FC<LbGroupElementsProps> = ({ title, icon, children }) => {
+// const LbGroupElements: FC<LbGroupElementsProps> = ({ title, icon, children }) => {
+const LbGroupElements: FC<LbGroupElementsProps> = ({ title }) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
 
