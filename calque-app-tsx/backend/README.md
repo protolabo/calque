@@ -354,21 +354,10 @@ newUser.save()
  
 
 
+ ## 👟 Notes on JEST & Supertest 👟 :
 
-# Extra Notes (Not part of the project):
+ ### Config file (jest.config.ts):
 
-## Connect-Mongo
- Store sessions in our MongoDB
+ Assures compatibility between typescript and jest / supertest rather than having to build first.
 
-
-## Express-session
- For sessions and cookies
-
-## Template engine
-
-## Method-override
- Add PUT and DELETE methods to the Template engine
-
-## Passport
-
-## Passport-google-oauth20 
+### 

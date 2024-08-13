@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --env=node",
     "serve": "node dist/index.js",
     "serverStart": "nodemon dist/index.ts",
     "tscVersion": "tsc --v",
-    "build": "tsc"
+    "build": "f"
   },
   "keywords": [],
   "author": "",
@@ -17,14 +17,22 @@
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "mongodb": "^6.8.0",
-    "mongoose": "^8.4.3"
+    "mongodb": "^6.8.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/mongodb": "^4.0.7",
     "@types/node": "^20.14.13",
+    "@types/supertest": "^6.0.2",
     "dotenv": "^16.4.5",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.0.0",
+    "mongoose": "^8.5.2",
     "nodemon": "^3.1.4",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   }

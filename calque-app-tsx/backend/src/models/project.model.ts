@@ -42,7 +42,6 @@ const ProjectSchema: Schema = new Schema({
         type: Date,
         default: Date.now
     }
-    // Other project fields can be added here
 });
 
 // Define and export the Mongoose model for Project
