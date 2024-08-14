@@ -360,4 +360,16 @@ newUser.save()
 
  Assures compatibility between typescript and jest / supertest rather than having to build first.
 
-### 
+ Also specifies the path of our test folder.
+
+ Types for typescript are specified in tsconfig.json.
+
+ ### Running the tests:
+
+  A single test can be run with the following npm command : 
+
+ ` npm run test projectRoutesFail.test.ts ` 
+
+ All tests can be run with :
+
+` npm run test `

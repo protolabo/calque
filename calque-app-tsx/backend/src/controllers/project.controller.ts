@@ -20,7 +20,7 @@ class ProjectController {
     // GET project by ID
     public async getProjectById(req: Request, res: Response): Promise<void> {
         try {
-            const project: IProject | null = await Project.findById(req.params.id);
+            const project: IProject | null = await Project.findOne({ title:req.params.id });
             if (!project) {
                 res.status(404).json({ message: 'Project not found' });
                 return;
@@ -34,8 +34,18 @@ class ProjectController {
     // POST create a new project
     public async createProject(req: Request, res: Response): Promise<void> {
         try {
-            // Destructure the properties from the request body
             const { title, description, content, creator } = req.body;
+            // Check for required fields
+            if (!title || !content) {
+                res.status(400).json({ message: 'Title and content are required.' });
+                return;
+            }
+            // Check if the project already exists
+            const existingProject = await Project.findOne({ $or: [{ title }] });
+            if (existingProject) {
+                res.status(400).json({ message: 'Project already exists.' });
+                return;
+            }
             //create the document
             const newProject: IProject = new Project({
                 title,
@@ -67,7 +77,7 @@ class ProjectController {
     // DELETE project by ID
     public async deleteProject(req: Request, res: Response): Promise<void> {
         try {
-            const deletedProject: IProject | null = await Project.findByIdAndDelete(req.params.id);
+            const deletedProject: IProject | null = await Project.findOneAndDelete({ title:req.params.id });
             if (!deletedProject) {
                 res.status(404).json({ message: 'Project not found' });
                 return;
