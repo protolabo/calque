@@ -1,5 +1,5 @@
 import express, { Application, Request, Response } from 'express';
-import mongoose from 'mongoose';
+//import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
@@ -50,12 +50,4 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!'); 
 });
 
-// MongoDB connection setup
-mongoose.connect(process.env.DATABASE_URL as string);
-
-const db = mongoose.connection;
-db.on('error', (error) => console.error('Connection error:', error));
-db.once('open', () => console.log('Connected to the Database.'));
-
-// Export the app (connection with client will be handled elsewhere)
 export default app;

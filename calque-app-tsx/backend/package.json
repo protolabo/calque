@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "test": "jest --env=node",
+    "test": "jest",
     "serve": "node dist/index.js",
     "serverStart": "nodemon dist/index.ts",
     "tscVersion": "tsc --v",
-    "build": "f"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "install": "^0.13.0",
     "mongodb": "^6.8.0"
   },
   "devDependencies": {
