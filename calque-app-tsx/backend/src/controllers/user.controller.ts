@@ -33,7 +33,8 @@ class UserController {
     // GET user by ID
     public async getUserById(req: Request, res: Response): Promise<void> {
         try {
-            const user: IUser | null = await User.findById(req.params.id);
+            //console.log(req.params.id)
+            const user: string | null = await User.findOne({username:req.params.id});
             if (!user) {
                 res.status(404).json({ message: 'User not found' });
                 return;
@@ -96,12 +97,13 @@ class UserController {
     // PUT update user by ID
     public async updateUser(req: Request, res: Response): Promise<void> {
         try {
-            const updatedUser: IUser | null = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            const updatedUser: IUser | null = await User.findOneAndUpdate({username:req.params.id}, req.body, { new: true });
             if (!updatedUser) {
                 res.status(404).json({ message: 'User not found' });
                 return;
             }
-            res.json(updatedUser);
+             // Respond with the created user
+            res.status(200).json(updatedUser);
         } catch (err:any) {
             res.status(400).json({ message: err.message });
         }
@@ -110,12 +112,12 @@ class UserController {
     // DELETE user by ID
     public async deleteUser(req: Request, res: Response): Promise<void> {
         try {
-            const deletedUser: IUser | null = await User.findByIdAndDelete(req.params.id);
+            const deletedUser: IUser | null = await User.findOneAndDelete({username:req.params.id});
             if (!deletedUser) {
                 res.status(404).json({ message: 'User not found' });
                 return;
             }
-            res.json({ message: 'User deleted successfully' });
+            res.status(200).json({ message: 'User deleted successfully' });
         } catch (err:any) {
             res.status(500).json({ message: err.message });
         }
