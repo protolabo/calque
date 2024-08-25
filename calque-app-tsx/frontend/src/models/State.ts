@@ -97,8 +97,8 @@ function insertNode(handler: GraphHandler, x: number, y: number): NodeState {
     x,
     y,
     size: 15,
-    color: 'white',
-    stroke: 'blue',
+    color: '#FFFFFF',
+    stroke: '#3E4256',
     strokeWidth: 10,
     description: '',
   };
@@ -119,8 +119,8 @@ function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
     name: `edge-${handler.graph.autoIncrement}`,
     node1id,
     node2id,
-    stroke: 'blue',
-    strokeWidth: 40,
+    stroke: '#3E4256',
+    strokeWidth: 15,
     description: '',
   };
 

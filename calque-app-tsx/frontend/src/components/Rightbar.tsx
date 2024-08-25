@@ -46,9 +46,18 @@ const Rightbar = () => {
       )}
       {selectedEntity === null && (  
         <>
+        {/*
           <div className='m-4'>Clique sur l'icone Rond pour ajouter des noeuds. </div>
           <div className='m-4'> Clique sur un noeud pour modifier ses propriétés.</div>
           <div className='m-4'> Clique sur la barre diagonale pour relier les noeuds en cliquant sur les noeuds à relier.</div>
+        
+        */}
+        <div className='m-4'>Click on the circle icon to add nodes.</div>
+        <div className='m-4'>Click on a node to edit its properties.</div>
+        <div className='m-4'>Click on the diagonal line to link the nodes by clicking on the nodes that you want to link.</div>
+        <div className='m-4'>Ctrl + V (or Cmd + V on Mac) to add images.</div>
+        <div className='m-4'><strong>Chromium users: </strong> (Google Chrome, Edge...) Add a node before pasting an image.</div>
+        <div className='m-4'><strong>Export: </strong>Keep the .calque in the name so you can import that map on the website.</div>
         </>
       )}
       </div>}

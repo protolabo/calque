@@ -130,13 +130,13 @@ function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseT
             </div>
             <div className="flex justify-center grow">
                 <div className="text-white flex gap-2 items-center font-bold text-xl px-1">
-                <div>Utiliser une carte calque déjà existante</div>
+                <div>Interact with an existing map</div>
                 </div>
             </div>
             <div className="flex flex-row gap-2 items-center text-white">
                 <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
                     onClick={handleImportClick}>
-                    Importer
+                    Import
                     <CgImport className='w-6 h-6'/>
                 </button>
                 <input

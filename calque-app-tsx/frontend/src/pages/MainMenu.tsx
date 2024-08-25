@@ -65,7 +65,7 @@ function MenuMapFile() {
         <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48 group-hover:border-secondary">
           <PiGraph className="w-12 h-12 group-hover:fill-secondary"/>
         </div>
-        <div className="mt-2 group-hover:text-secondary">Sans-titre-1</div>
+        <div className="mt-2 group-hover:text-secondary">Untitled-1</div>
       </div>
     </Link>
   );
@@ -79,7 +79,7 @@ function MenuImportMap() {
         <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48 group-hover:border-secondary">
           <BiImport className="w-12 h-12 group-hover:fill-secondary"/>
         </div>
-        <div className="mt-2 group-hover:text-secondary">Importer une carte existante .calque</div>
+        <div className="mt-2 group-hover:text-secondary">Import an existing .calque map</div>
       </div>
     </Link>
   );
@@ -106,7 +106,7 @@ function AddMapButton() {
         <div className="border-2 flex justify-center items-center rounded-lg border-solid border-black w-80 h-48 group-hover:border-secondary">
           <AiOutlinePlus className="w-12 h-12 group-hover:fill-secondary" />
         </div>
-        <div className="mt-2 group-hover:text-secondary">Créer une nouvelle carte</div>
+        <div className="mt-2 group-hover:text-secondary">Create a new map</div>
       </div>
     </Link>
     
