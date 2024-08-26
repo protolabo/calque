@@ -11,6 +11,11 @@ interface InputFieldProps {
     type?: 'text' | 'number' | 'color';
 }
 
+interface TutoProps {
+  children: ReactNode
+  strong? : string;
+}
+
 const InputField: React.FC<InputFieldProps> = ({ label, value, onChange, type = 'text' }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
@@ -33,6 +38,33 @@ const InputField: React.FC<InputFieldProps> = ({ label, value, onChange, type = 
   );
 };
 
+const RBTutorial = ( props: TutoProps ) => {
+  return(
+    <div className='m-4'>
+      {props.strong && <strong>{props.strong}</strong>}
+      {props.children}
+    </div>
+  )
+}
+
+const RBTutorials : React.FC = () => {
+  return(
+    <>
+      {/*
+          <RBTutorial> Clique sur l'icone Rond pour ajouter des noeuds. </RBTutorial>
+          <RBTutorial> Clique sur un noeud pour modifier ses propriétés.</RBTutorial>
+          <RBTutorial> Clique sur la barre diagonale pour relier les noeuds en cliquant sur les noeuds à relier.</RBTutorial>
+       */}
+      <RBTutorial>Click on the circle icon to add nodes.</RBTutorial>
+      <RBTutorial>Click on a node to edit its properties.</RBTutorial>
+      <RBTutorial>Click on the diagonal line to link the nodes by clicking on the nodes that you want to link.</RBTutorial>
+      <RBTutorial>Ctrl + V (or Cmd + V on Mac) to add images.</RBTutorial>
+      <RBTutorial strong="Chromium users: "> (Google Chrome, Edge...) Add a node before pasting an image.</RBTutorial>
+      <RBTutorial strong="Export: ">Keep the .calque in the name so you can import that map on the website.</RBTutorial>
+    </>
+  )
+}
+
 const Rightbar = () => {
   const { selectedEntity } = useContext(SelectedEntityContext);
   const { mode } = useContext(AppContext)
@@ -41,25 +73,12 @@ const Rightbar = () => {
     <>
     {mode === 'edit' && 
       <div className="sticky basis-1/6 w-64 top-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      {selectedEntity !== null && (
-        <EntityEditor entity={selectedEntity} />
-      )}
-      {selectedEntity === null && (  
-        <>
-        {/*
-          <div className='m-4'>Clique sur l'icone Rond pour ajouter des noeuds. </div>
-          <div className='m-4'> Clique sur un noeud pour modifier ses propriétés.</div>
-          <div className='m-4'> Clique sur la barre diagonale pour relier les noeuds en cliquant sur les noeuds à relier.</div>
-        
-        */}
-        <div className='m-4'>Click on the circle icon to add nodes.</div>
-        <div className='m-4'>Click on a node to edit its properties.</div>
-        <div className='m-4'>Click on the diagonal line to link the nodes by clicking on the nodes that you want to link.</div>
-        <div className='m-4'>Ctrl + V (or Cmd + V on Mac) to add images.</div>
-        <div className='m-4'><strong>Chromium users: </strong> (Google Chrome, Edge...) Add a node before pasting an image.</div>
-        <div className='m-4'><strong>Export: </strong>Keep the .calque in the name so you can import that map on the website.</div>
-        </>
-      )}
+        {selectedEntity !== null && (
+          <EntityEditor entity={selectedEntity} />
+        )}
+        {selectedEntity === null && (  
+          <RBTutorials/>
+        )}
       </div>}
     </>
     
