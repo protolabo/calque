@@ -12,7 +12,9 @@ const EdgeEditor = (props: EdgeEditorProps) => {
   const edge = getEdge(graphHandler.graph, props.edgeId);
 
   const updateField = (fieldName: keyof typeof edge, value: string | number) => {
+    const updatedEdge = { ...edge, [fieldName]: value };
     updateEdge(graphHandler, { ...edge, [fieldName]: value });
+    graphHandler.setLastEditedEdge(updatedEdge);
   };
 
   return (

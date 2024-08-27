@@ -101,7 +101,7 @@ function insertNode(handler: GraphHandler, x: number, y: number): NodeState {
     color: lastEditedNode?.color || '#FFFFFF',
     stroke: lastEditedNode?.stroke || '#3E4256',
     strokeWidth: lastEditedNode?.strokeWidth || 10,
-    description: lastEditedNode?.description || '',
+    description: '',
   };
 
   const graph = {
@@ -115,13 +115,14 @@ function insertNode(handler: GraphHandler, x: number, y: number): NodeState {
 }
 
 function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
-  const edge = {
+  const { lastEditedEdge } = handler;
+  const edge : EdgeState = {
     id: handler.graph.autoIncrement,
     name: `edge-${handler.graph.autoIncrement}`,
     node1id,
     node2id,
-    stroke: '#3E4256',
-    strokeWidth: 15,
+    stroke: lastEditedEdge?.stroke || '#3E4256',
+    strokeWidth: lastEditedEdge?.strokeWidth || 15,
     description: '',
   };
 
