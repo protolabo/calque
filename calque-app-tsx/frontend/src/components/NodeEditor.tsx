@@ -13,7 +13,9 @@ const NodeEditor: React.FC<NodeEditorProps> = ({ nodeId }) => {
   const node = getNode(graphHandler.graph, nodeId);
 
   const updateField = (fieldName: keyof typeof node, value: string | number) => {
+    const updatedNode = { ...node, [fieldName]: value };
     updateNode(graphHandler, { ...node, [fieldName]: value });
+    graphHandler.setLastEditedNode(updatedNode);
   };
 
   return (

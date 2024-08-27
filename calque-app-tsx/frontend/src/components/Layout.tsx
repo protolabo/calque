@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Navbar } from './Navbar';
-import { GraphState, emptyGraph } from '../models/State';
+import { GraphState, NodeState, emptyGraph } from '../models/State';
 import { loadState, saveState } from '../redux/localStorage';
 
 type Page = 'menu' | 'creation' | 'enduser'
@@ -37,6 +37,8 @@ interface AppHandler {
 interface GraphHandler {
   graph: GraphState;
   setGraph: React.Dispatch<GraphState>;
+  lastEditedNode: NodeState | null;
+  setLastEditedNode: (node: NodeState | null) => void;
 }
 
 interface SelectedEntityHandler {
@@ -52,6 +54,7 @@ const Layout = () => {
   const [mode, setMode] = useState<Mode>('edit');
   const [tool, setTool] = useState<Tool>('select');
   const [graph, setGraph] = useState<GraphState>(loadState() || emptyGraph);
+  const [lastEditedNode, setLastEditedNode] = useState<NodeState | null>(null);
   const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
   const [page, setPage] = useState<Page>(() => {
     const path = window.location.pathname;
@@ -116,7 +119,7 @@ const Layout = () => {
 
   return (
     <AppContext.Provider value={{ page, setPage, mode, setMode, tool, setTool }}>
-      <GraphContext.Provider value={{ graph, setGraph }}>
+      <GraphContext.Provider value={{ lastEditedNode, setLastEditedNode, graph, setGraph }}>
         <SelectedEntityContext.Provider value={{ selectedEntity, setSelectedEntity }}>
           <Navbar />
           <Outlet />

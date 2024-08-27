@@ -91,16 +91,17 @@ function getImage(graph: GraphState, imageId: number): ImageState {
 }
 
 function insertNode(handler: GraphHandler, x: number, y: number): NodeState {
+  const { lastEditedNode } = handler;
   const node: NodeState = {
     id: handler.graph.autoIncrement,
     name: `node-${handler.graph.autoIncrement}`,
     x,
     y,
-    size: 15,
-    color: '#FFFFFF',
-    stroke: '#3E4256',
-    strokeWidth: 10,
-    description: '',
+    size: lastEditedNode?.size || 15,
+    color: lastEditedNode?.color || '#FFFFFF',
+    stroke: lastEditedNode?.stroke || '#3E4256',
+    strokeWidth: lastEditedNode?.strokeWidth || 10,
+    description: lastEditedNode?.description || '',
   };
 
   const graph = {
