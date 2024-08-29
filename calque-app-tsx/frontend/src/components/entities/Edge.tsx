@@ -56,17 +56,29 @@ const Edge = (props: EdgeProps)  => {
       />
     
     {mode === 'edit' && (isSelected ? (
-      <line
-        x1={node1.x}
-        y1={node1.y}
-        x2={node2.x}
-        y2={node2.y}
-        stroke="blue"
-        strokeWidth={props.edge.strokeWidth + 3}
-        opacity={0.5}
-        onMouseDown={handleMouseDown}
-        data-description={props.edge.description}
-      />
+      <>
+        <line
+          x1={node1.x}
+          y1={node1.y}
+          x2={node2.x}
+          y2={node2.y}
+          stroke="#0000FF"
+          strokeWidth={props.edge.strokeWidth + 10}
+          opacity={0.5}
+          onMouseDown={handleMouseDown}
+          data-description={props.edge.description}
+        />
+        <line
+          x1={node1.x}
+          y1={node1.y}
+          x2={node2.x}
+          y2={node2.y}
+          stroke={props.edge.stroke}
+          strokeWidth={props.edge.strokeWidth}
+          onMouseDown={handleMouseDown}
+          data-description={props.edge.description}
+        />
+      </>
     ) : (
       <g/>
     ))}

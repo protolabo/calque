@@ -69,7 +69,9 @@ const MyImage = (props: ImageProps) => {
         />
         {mode === 'edit' && (isSelected ? (
           <rect 
-            stroke="blue" 
+            stroke="#0000FF" 
+            fill="#FFFFFF"
+            fillOpacity={0}
             strokeWidth={3} 
             width={props.image.width} 
             height={props.image.width * props.image.ratio} 

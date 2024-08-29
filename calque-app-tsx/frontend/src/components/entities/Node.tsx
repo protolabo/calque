@@ -70,12 +70,14 @@ const Node = (props: NodeProps) => {
         />
       {mode === 'edit' && (isSelected ? (
         <circle 
-          stroke="blue"
-          strokeWidth={props.node.strokeWidth}
+          stroke="#0000FF"
+          fill="#FFFFFF"
+          fillOpacity={0}
+          strokeWidth={6}
           cx={props.node.x}
           cy={props.node.y}
-          r={props.node.size + 3}
-          opacity="0.5"
+          r={props.node.size + (props.node.strokeWidth / 2)}
+          opacity="0.3"
           onClick={handleClick}
           onMouseDown={handleMouseDown}
         />
