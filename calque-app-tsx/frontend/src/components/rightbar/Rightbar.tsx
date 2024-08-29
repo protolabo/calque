@@ -1,6 +1,6 @@
 import React, { ChangeEvent, ReactNode, useContext } from 'react';
 import NodeEditor from './NodeEditor';
-import { AppContext, Entity, SelectedEntityContext } from './Layout';
+import { AppContext, Entity, SelectedEntityContext } from '../Layout';
 import EdgeEditor from './EdgeEditor';
 import ImageEditor from './ImageEditor';
 

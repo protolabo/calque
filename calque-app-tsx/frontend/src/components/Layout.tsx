@@ -1,7 +1,9 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Navbar } from './Navbar';
-import { EdgeState, GraphState, NodeState, emptyGraph } from '../models/State';
+import { Navbar } from './navbar/Navbar';
+import { GraphState, emptyGraph } from '../models/graph';
+import { EdgeState } from '../models/edge';
+import { NodeState } from '../models/node';
 import { loadState, saveState } from '../redux/localStorage';
 
 type Page = 'menu' | 'creation' | 'enduser'

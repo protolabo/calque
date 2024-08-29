@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { GraphContext } from './Layout';
-import { getImage, updateImage } from '../models/State';
+import { GraphContext } from '../Layout';
+import { getImage, updateImage } from '../../models/image';
 import { InputField, Editor, EditorTitle } from './Rightbar'
 
 export interface ImageEditorProps {

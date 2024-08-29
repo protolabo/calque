@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useContext } from "react";
 import { AppContext, GraphContext, SelectedEntityContext } from "../components/Layout";
-import { emptyGraph } from "../models/State";
+import { emptyGraph } from "../models/graph";
 import { resetState } from "../redux/localStorage";
 import { BiImport } from "react-icons/bi";
 import { PiGraph } from "react-icons/pi";

@@ -3,7 +3,7 @@ import { FaRegEdit } from 'react-icons/fa';
 import { LiaToggleOffSolid } from 'react-icons/lia';
 import { LiaToggleOnSolid } from 'react-icons/lia';
 import { MdPreview } from 'react-icons/md';
-import { AppContext, SelectedEntityContext } from './Layout';
+import { AppContext, SelectedEntityContext } from '../Layout';
 import { TiExport } from 'react-icons/ti';
 import { FaRegSave } from "react-icons/fa";
 

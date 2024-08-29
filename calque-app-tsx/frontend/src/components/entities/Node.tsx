@@ -1,7 +1,8 @@
 import { useContext, useEffect } from 'react';
-import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
-import { CanvasContext } from './Canvas';
-import { NodeState, deleteNode, insertEdge } from '../models/State';
+import { AppContext, GraphContext, SelectedEntityContext } from '../Layout';
+import { CanvasContext } from '../Canvas';
+import { NodeState, deleteNode } from '../../models/node';
+import { insertEdge } from '../../models/edge'
 
 interface NodeProps {
   node: NodeState;

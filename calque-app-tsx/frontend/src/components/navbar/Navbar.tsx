@@ -1,8 +1,8 @@
 import React, { ReactNode, useContext } from "react";
 import ToolBar from './ToolBar';
-import Logo from "../assets/Logo.asset";
+import Logo from "../../assets/Logo.asset";
 import ModeSwitcher from "./ModeSwitcher";
-import { AppContext } from './Layout';
+import { AppContext } from '../Layout';
 import { Link } from "react-router-dom";
 
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useContext} from 'react';
-import { Tool, AppContext } from './Layout';
+import { Tool, AppContext } from '../Layout';
 
 //icons
 import { VscCircleLargeFilled} from "react-icons/vsc";
 //import { FaHandPaper } from "react-icons/fa";
-import Edge from "./../assets/Edge.asset";
+import Edge from "../../assets/Edge.asset";
 import { RiCursorFill } from "react-icons/ri";
 //General components
 import {NbCompDrop} from './Navbar';

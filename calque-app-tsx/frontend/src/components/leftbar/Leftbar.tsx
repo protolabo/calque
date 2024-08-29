@@ -4,11 +4,11 @@ import { ReactNode, useContext, useState, FC } from "react";
 // import { FiPlus } from "react-icons/fi";
 import { MdLayers } from "react-icons/md";
 import { IconType } from "react-icons";
-import LineIcon from "./../assets/Line.asset";
+import LineIcon from "../../assets/Line.asset";
 import { BiSolidPurchaseTag } from "react-icons/bi";
 import { GoTriangleDown, GoTriangleRight } from "react-icons/go";
 
-import { AppContext } from './Layout';
+import { AppContext } from '../Layout';
 
 interface LbSecTitleProps {
   children: ReactNode;

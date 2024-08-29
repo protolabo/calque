@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/models/State.ts"],
+  "include": ["src", "src/models/graph.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

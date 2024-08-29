@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { GraphContext } from './Layout';
-import { getEdge, updateEdge } from '../models/State';
+import { GraphContext } from '../Layout';
+import { getEdge, updateEdge } from '../../models/edge';
 import { InputField, Editor, EditorTitle } from './Rightbar'
 
 export interface EdgeEditorProps {

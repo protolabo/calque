@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import Edge from './Edge';
+import Edge from './entities/Edge';
 import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
-import Node from './Node';
-import { getImage, getNode, insertImage, insertNode, updateImage, updateNode } from '../models/State';
-import MyImage from './Image';
+import Node from './entities/Node';
+import { getImage, insertImage, updateImage } from '../models/image';
+import { getNode, insertNode, updateNode } from '../models/node'
+import MyImage from './entities/Image';
 
 function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.MouseEvent<T>) {
   const bounds = canvas.getBoundingClientRect();

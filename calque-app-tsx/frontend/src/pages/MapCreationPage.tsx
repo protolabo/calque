@@ -1,6 +1,6 @@
 import Canvas from "../components/Canvas"
 // import Leftbar from "../components/Leftbar"
-import Rightbar from "../components/Rightbar"
+import Rightbar from "../components/rightbar/Rightbar"
 // import { AppContext } from "../components/Layout"
 
 function MapCreationPage() {

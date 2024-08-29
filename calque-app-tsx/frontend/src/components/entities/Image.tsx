@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
-import { deleteImage, ImageState } from "../models/State"
-import { AppContext, GraphContext, SelectedEntityContext } from "./Layout";
-import { CanvasContext } from "./Canvas";
+import { deleteImage, ImageState } from "../../models/image"
+import { AppContext, GraphContext, SelectedEntityContext } from "../Layout";
+import { CanvasContext } from "../Canvas";
 
 interface ImageProps {
     image: ImageState;

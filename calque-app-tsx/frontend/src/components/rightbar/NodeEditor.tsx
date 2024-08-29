@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { GraphContext } from './Layout';
-import { getNode, updateNode } from '../models/State';
+import { GraphContext } from '../Layout';
+import { getNode, updateNode } from '../../models/node';
 import { InputField, Editor, EditorTitle } from './Rightbar'
 
 export interface NodeEditorProps {
