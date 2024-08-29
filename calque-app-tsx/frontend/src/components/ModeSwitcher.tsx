@@ -5,7 +5,7 @@ import { LiaToggleOnSolid } from 'react-icons/lia';
 import { MdPreview } from 'react-icons/md';
 import { AppContext, SelectedEntityContext } from './Layout';
 import { TiExport } from 'react-icons/ti';
-// import { FaRegSave } from "react-icons/fa";
+import { FaRegSave } from "react-icons/fa";
 
 const ModeSwitcher = () => {
   const { page, mode, setMode } = useContext(AppContext);
@@ -36,8 +36,6 @@ const ModeSwitcher = () => {
       }
     }, 0);
   };
-
-  /*
 
   const generateRandomString = (length: number) => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -111,7 +109,6 @@ const ModeSwitcher = () => {
 
 
   }
-        */
 
   return (
     <div className="flex justify-end items-center gap-4">
@@ -133,11 +130,11 @@ const ModeSwitcher = () => {
             </button>
             <MdPreview className={previewIconStyle} />
           </div>
-          {/*<button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
+          <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
             onClick={saveToDatabase}>
-              Sauvegarder
+              Save
               <FaRegSave className='w-6 h-6'/>
-          </button>*/}
+          </button>
 
           <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
             onClick={exportMap}>
