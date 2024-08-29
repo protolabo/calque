@@ -1,6 +1,6 @@
 import ExportButton from "./ExportButton"
 import ModeSwitcher from "./ModeSwitcher"
-import SaveButton from "./SaveButton"
+// import SaveButton from "./SaveButton"
 import { AppContext } from '../Layout';
 import { useContext } from "react";
 
@@ -11,7 +11,7 @@ const NavbarRight = () => {
       {page === 'creation' &&
       <>
         <ModeSwitcher/>
-        <SaveButton/>
+        {/*<SaveButton/>*/}
         <ExportButton/>
       </>
       }
