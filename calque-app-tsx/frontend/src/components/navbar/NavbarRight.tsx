@@ -1,8 +1,22 @@
+import ExportButton from "./ExportButton"
+import ModeSwitcher from "./ModeSwitcher"
+import SaveButton from "./SaveButton"
+import { AppContext } from '../Layout';
+import { useContext } from "react";
 
 const NavbarRight = () => {
-    // TODO: decompose the modeswitcher - this defines the structure of the right side of the navbar
+  const { page } = useContext(AppContext);
   return (
-    <div>NavbarRight</div>
+    <div className="flex justify-end items-center gap-4">
+      {page === 'creation' &&
+      <>
+        <ModeSwitcher/>
+        <SaveButton/>
+        <ExportButton/>
+      </>
+      }
+    </div>
+    
   )
 }
 
