@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet IFT3150 | Calque</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="page-header">
+        <!-- <img style="display: block" src="images/logo_calque.png" height="120" alt="" /> -->
+    
+        <h1 class="page-title">
+            Calque <br>
+            <span style="font-size: 0.65em;">IFT3150 &ndash; Projet informatique</span>
+        </h1>        
+        <p style="font-size: 1.7em;">Superviseur: Louis-Edouard LAFONTANT</p>
+        
+        <ul class="bare-list page-info">
+            <li class="contributors">
+                
+            </li>
+            <li class="doc">
+                <a target="_blank" href="https://github.com/protolabo/calque">Code <img src="images/github-mark-white.svg" alt="Logo GitHub"></a>
+            </li>
+            <!-- <li class="doc">
+                <a taget="_blank" href="https://docs.google.com/presentation/d/1b4JIs86OpOZ3SCUYAlQoB0SVqXK6mbaxtHMvbtew4Bc/edit?usp=sharing">
+                    Présentation
+                </a>
+            </li>  -->
+            <!-- <li class="doc">
+                <a taget="_blank" 
+                    href="https://docs.google.com/document/d/1GlumxZeB6VvBMYLJSd_r3qqyfvXsnurGMUQ12wWbR2w/edit?usp=sharing">Rapport</a>
+            </li> -->
+        </ul>
+    </header>
+
+    <main class="page-body">
+        <header class="content-wrapper">
+            <!-- <h2>Interprétation: </h2> -->
+            <h2>Description</h2>
+        </header>
+
+        
+        <section class="content-wrapper requirements-section">
+            <h2>Exigences</h2>
+
+            <h3>Besoins fonctionnels</h3>
+
+        </section>
+
+        <section class="content-wrapper">
+            <h2>Infrastructure</h2>
+
+            <!-- TODO: Décrire l'infrastructure de l'application -->
+        </section>
+
+        <section class="content-wrapper progress-section">
+            <header class="progress-section-header">
+                <h2 style="font-size: 3.3em; font-weight: 800;">Rapport d'avancement</h2>
+                <ul class="bare-list phases">
+                    <li class="phase fit-content" title="Exigences & Analyse">Exigences & Analyse</li>
+                    <li class="phase fit-content current" title="Prototypage & Conception">Prototypage & Conception</li>
+                    <li class="phase fit-content" title="Implémentation: Infrastructure & Application">Implémentation: Infrastructure & Application</li>
+                    <li class="phase fit-content" title="Validation">Validation</li>
+                </ul>
+                <div class="timeline"></div>
+            </header>
+   
+
+            <section class="week">
+                <header class="week-header">
+                    <h3 class="week-title">Semaine 2 &ndash;
+                        <time datetime="2024-05-13">Lundi 13 mai 2024</time>
+                    </h3>
+                    <p>Élaboration des exigences & Analyse préliminaire</p>
+                </header>
+                <div class="week-content">
+                    <h4 class="title">Objectifs</h4>
+               
+
+                    <h4 class="title">Réalisations</h4>
+               
+                    <h4 class="title">Notes</h4>
+                </div>
+            </section>
+
+            <section class="week">
+                <header class="week-header">
+                    <h3 class="week-title">Semaine 1 &ndash;
+                        <time datetime="2024-05-06">Lundi 6 mai 2024</time>
+                    </h3>
+                    <p>Ouverture de projet & Élaboration des exigences</p>
+                </header>
+                <div class="week-content">
+                    <h4 class="title">Objectifs</h4>
+                
+                    <h4 class="title">Réalisations</h4>
+                    
+
+                    <h4 class="title">Notes</h4>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <a href="https://github.com/protolabo/calque" target="_blank">Répertoire GitHub</a>
+        <p>Dernière mise à jour: 13 septembre 2024</p>
+    </footer>
+
+    <script>
+        const NB_WEEK = 15;
+        let projetStart = new Date("2024-09-02");
+        let current = (Date.now() - projetStart) / 1000 / 60 / 60 / 24 / 7;
+        let progress = Math.round((current/NB_WEEK) * 100);
+
+        let timeline = document.querySelector('.timeline');
+        timeline.style.background = `linear-gradient(to right, rgb(var(--accent)) ${progress}%, #d5d5d5 0%)`;
+    </script>
+</body>
+
+</html>
