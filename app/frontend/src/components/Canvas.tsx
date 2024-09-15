@@ -185,10 +185,10 @@ const Canvas = () => {
           <svg
             ref={canvasRef}
             id="canvas"
-            width="1280"
-            height="750"
-            viewBox="0 0 1280 750"
-            fill="white"
+            width="1100"
+            height="980"
+            viewBox="0 0 1100 980"
+            fill="#FFFFFF"
             xmlns="http://www.w3.org/2000/svg"
             onClick={handleClick}
             onMouseMove={handleMouseMove}

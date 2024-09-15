@@ -4,7 +4,8 @@ import React, { createContext, useContext, useRef, useState } from 'react';
 import * as d3 from "d3";
 import { BaseType } from "d3";
 import { Link } from "react-router-dom";
-//import { Entity, SelectedEntityContext } from "../components/Layout";
+import Footer from "../components/Footer";
+import { useImportSVG } from '../hooks/useImportSVG'; // Import the custom hook
 
 /**
  * Essayez d'importer tresorcarte.calque qui se trouve dans /public
@@ -17,151 +18,61 @@ interface SelectedEntityHandler {
 
 const SelectedEntityContext = createContext<SelectedEntityHandler>(undefined as any);
 
-function UserNavBar(setSelectedEntity: React.Dispatch<React.SetStateAction<BaseType | null>>) {
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    //const [ selectedEntity, setSelectedEntity ] = useState<Entity | null>(null);
-
-
-    // Function to handle button click and trigger file input
-    const handleImportClick = () => {
-        if (fileInputRef.current) {
-            fileInputRef.current.click();
-        }
-    };
-
-    // Function to handle file selection and read SVG content
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            const fileName = file.name;
-            if (fileName.includes('.calque')) {
-                const fileReader = new FileReader();
-
-                fileReader.onload = (e) => {
-                    const fileContent = e.target?.result as string;
-                    setTimeout(() => {
-                        if (fileContent) {
-                            document.getElementById('Map')!.innerHTML = fileContent;
-                            d3.select('#Map')
-                                .selectAll('circle')
-                                .attr('og-fill', function() { return d3.select(this).attr('fill') })
-                                .attr('og-stroke', function() { return d3.select(this).attr('stroke')})
-                                .attr('id', function() { return d3.select(this).attr('data-id')})
-                                .on('mouseover', function() {return handleNodeMouseOver(d3.select(this))})
-                                .on('mouseout', function() {return handleNodeMouseOut(d3.select(this))})
-                                .on('click', function() {return setSelectedEntity(this)});
-
-                            d3.select('#Map')
-                                .selectAll('line')
-                                .attr('og-color', function() { return d3.select(this).attr('stroke') })
-                                .attr('id', function() { return d3.select(this).attr('data-id')})
-                                .on('mouseover', function() {return handleEdgeMouseOver(d3.select(this))})
-                                .on('mouseout', function() {return handleEdgeMouseOut(d3.select(this))})
-                                .on('click', function() {return setSelectedEntity(this)});
-
-                            d3.select('#Map')
-                                .selectAll('image')
-                                .attr('id', function() { return d3.select(this).attr('data-id')})
-                                .attr('og-opacity', function() { return d3.select(this).attr('opacity') })
-                                .on('mouseover', function() {return handleImageMouseOver(d3.select(this))})
-                                .on('mouseout', function() {return handleImageMouseOut(d3.select(this))})
-                                .on('click', function() {return setSelectedEntity(this)});
-                        }
-                    }, 0);
-                };
-
-                fileReader.readAsText(file);
-            }
-            else alert(`Ce n'est pas un fichier '.calque'. Veuillez choisir un fichier '.calque'.`);
-        }
-    };
-
-    const handleNodeMouseOver = (node: d3.Selection<BaseType, unknown, null, undefined>) => {
-        node.transition()
-            .duration(200)
-            .attr('fill', 'orange')
-            .attr('stroke', 'red');
-    }
-
-    const handleEdgeMouseOver = (edge: d3.Selection<BaseType, unknown, null, undefined>) => {
-        edge.transition()
-            .duration(200)
-            .attr('stroke', 'orange');
-    }
-    const handleImageMouseOver = (image: d3.Selection<BaseType, unknown, null, undefined>) => {
-      image.transition()
-          .duration(200)
-          .attr('opacity', '0.5');
+interface UserNavBarProps {
+    setSelectedEntity: React.Dispatch<React.SetStateAction<d3.BaseType | null>>;
   }
 
-    const handleNodeMouseOut = (node: d3.Selection<BaseType, unknown, null, undefined>) => {
-        node.transition()
-            .duration(200)
-            .attr('fill', () => node.attr('og-fill'))
-            .attr('stroke', () => node.attr('og-stroke'));
-    }
-
-    const handleEdgeMouseOut = (edge: d3.Selection<BaseType, unknown, null, undefined>) => {
-        edge.transition()
-            .duration(200)
-            .attr('stroke', () => edge.attr('og-color'))
-    }
-
-    const handleImageMouseOut = (image: d3.Selection<BaseType, unknown, null, undefined>) => {
-      image.transition()
-          .duration(200)
-          .attr('opacity', () => image.attr('og-opacity'))
-  }
-
-    /*const handleNodeClick = (node: d3.Selection<BaseType, unknown, null, undefined>) => {
-        setSelectedEntity({ kind: 'node', id: node.attr('id') as unknown as number ?? 0 }); // TODO mieux gérer les id
-    }
-
-    const handleEdgeClick = (edge: d3.Selection<BaseType, unknown, null, undefined>) => {
-        setSelectedEntity({ kind: 'edge', id: edge.attr('id') as unknown as number ?? 0 }); // TODO mieux gérer les id
-
-    }*/
-
+const UserNavBar: React.FC<UserNavBarProps> = ({ setSelectedEntity }) => {
+    const { fileInputRef, handleImportClick, handleFileChange } = useImportSVG(setSelectedEntity);
+  
     return (
-      <div>
+      <div className="fixed w-screen z-50">
         <div className="flex flex-row justify-between bg-primary p-2 items-center">
-            <div className="flex flex-row items-center gap-2">
-            <Link to={"/"}><LogoIcon/></Link>
+          <div className="flex flex-row items-center gap-2">
+            <Link to={"/"}>
+              <LogoIcon />
+            </Link>
+          </div>
+          <div className="flex justify-center grow">
+            <div className="text-white flex gap-2 items-center font-bold text-xl px-1">
+              <div>Interact with an existing map</div>
             </div>
-            <div className="flex justify-center grow">
-                <div className="text-white flex gap-2 items-center font-bold text-xl px-1">
-                <div>Interact with an existing map</div>
-                </div>
-            </div>
-            <div className="flex flex-row gap-2 items-center text-white">
-                <button className='flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600'
-                    onClick={handleImportClick}>
-                    Import
-                    <CgImport className='w-6 h-6'/>
-                </button>
-                <input
-                    type="file"
-                    accept=".svg"
-                    ref={fileInputRef}
-                    style={{ display: 'none' }}
-                    onChange={handleFileChange}
-                />
-            </div>
-        </div>
-        
-        {/*svgContent && (
-            <div className="importedSVG"
-            dangerouslySetInnerHTML={{ __html: svgContent }}
-            style={{ border: '1px solid black', marginTop: '10px'}}
+          </div>
+          <div className="flex flex-row gap-2 items-center text-white">
+            <button
+              className="flex items-center bg-blue-500 px-4 py-1 rounded-lg gap-2 text-lg hover:bg-blue-600"
+              onClick={handleImportClick}
+            >
+              Import
+              <CgImport className="w-6 h-6" />
+            </button>
+            <input
+              type="file"
+              accept=".svg"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              onChange={handleFileChange}
             />
-        )*/}
+          </div>
+        </div>
       </div>
-    )
-}
+    );
+  };
+  
 
 function MapSVG() {
     return (
-        <div id="Map" className="basis-5/6"></div>
+        <div id="Map" className="basis-4/6 z-30"></div>
+    )
+}
+
+function LeftBar() {
+    return(
+        <div className="sticky shrink-0 basis-1/6 top-0 fixed w-64 pt-12 left-0 bg-secondary z-40 h-screen sm:translate-x-0">
+            {/**sticky shrink-0 basis-1/6 w-64 top-0 bg-secondary fixed z-40 h-screen sm:translate-x-0 pt-12 */}
+            <div className="mx-4 mt-8">Click on "Import" to import an existing .calque map.</div>
+            <div className="mx-4 mt-8">It will appear on the white canvas!</div>
+        </div>
     )
 }
 
@@ -172,16 +83,31 @@ function RightBar() {
         description = d3.select(selectedEntity)
                         .attr('data-description');
     }
-    else description = '';
+    else description = 'Entity description goes here';
     return (
-        <div className="sticky basis-1/6 w-64 top-0 right-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
+        <div className="shrink-0 sticky basis-1/6 w-64 top-0 right-0 bg-secondary fixed z-40 h-screen sm:translate-x-0 pt-12">
         {selectedEntity !== null && (
           <>
             <div className="m-2 mt-8 font-bold text-center">{description}</div>
           </>
         )}
+        {selectedEntity === null && (
+            <>
+                <div className="m-2 mt-8 font-bold text-center">Description goes here</div>
+            </>
+        )}
         </div>        
     );
+}
+
+const MiddleContent = () => {
+    return(
+        <div className="flex flex-row">
+            <LeftBar />
+            <MapSVG />
+            <RightBar />
+        </div>
+    )
 }
 
 function EndUserPage() { 
@@ -190,11 +116,11 @@ function EndUserPage() {
     return (
         <>
             <SelectedEntityContext.Provider value={{ selectedEntity, setSelectedEntity }}>
-                {UserNavBar(setSelectedEntity)}
-                <div className="flex flex-row">
-                    <MapSVG />
-                    <RightBar />
-                </div>
+                <div className="grid grid-row-3">
+                    <UserNavBar setSelectedEntity={setSelectedEntity} />
+                    <MiddleContent/>
+                    <Footer/>   
+                </div>         
             </SelectedEntityContext.Provider>
         </>
     )

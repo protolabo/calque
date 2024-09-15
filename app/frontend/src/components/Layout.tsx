@@ -5,6 +5,7 @@ import { GraphState, emptyGraph } from '../models/graph';
 import { EdgeState } from '../models/edge';
 import { NodeState } from '../models/node';
 import { loadState, saveState } from '../redux/localStorage';
+// import Footer from './Footer';
 
 type Page = 'menu' | 'creation' | 'enduser'
 type Mode = 'view' | 'edit';

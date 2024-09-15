@@ -72,7 +72,7 @@ const Rightbar = () => {
   return (
     <>
     {mode === 'edit' && 
-      <div className="sticky basis-1/6 w-64 top-0 bg-secondary fixed z-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
+      <div className="sticky basis-1/6 w-64 top-0 bg-secondary z-40 h-screen sm:translate-x-0 overflow-y-scroll">
         {selectedEntity !== null && (
           <EntityEditor entity={selectedEntity} />
         )}
@@ -90,7 +90,7 @@ interface EntityEditorProps {
 }
 
 const Editor = (props: {children: ReactNode}) => {
-  const divclasses = 'mx-auto p-4'
+  const divclasses = 'mx-auto p-4 overflow-y-auto'
   return(
     <div className={divclasses}>
       {props.children}
