@@ -1,12 +1,18 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import Edge from './entities/Edge';
-import { AppContext, GraphContext, SelectedEntityContext } from './Layout';
-import Node from './entities/Node';
-import { getImage, insertImage, updateImage } from '../models/image';
-import { getNode, insertNode, updateNode } from '../models/node'
-import MyImage from './entities/Image';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import Edge from "./entities/Edge";
+import { AppContext, GraphContext, SelectedEntityContext } from "./Layout";
+import Node from "./entities/Node";
+import { getImage, insertImage, updateImage } from "../models/image";
+import { getNode, insertNode, updateNode } from "../models/node";
+import MyImage from "./entities/Image";
+import { resetState } from "../redux/localStorage.ts";
+import { useLayers } from "../contexts/UseLayers.tsx";
+import { emptyGraph } from "../models/graph.ts";
 
-function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.MouseEvent<T>) {
+function getPointerCanvasCoordinates<T>(
+  canvas: SVGSVGElement,
+  event: React.MouseEvent<T>,
+) {
   const bounds = canvas.getBoundingClientRect();
   return {
     x: Math.round(event.clientX - bounds.left),
@@ -15,13 +21,13 @@ function getPointerCanvasCoordinates<T>(canvas: SVGSVGElement, event: React.Mous
 }
 
 type CanvasAction =
-  | { kind: 'drag', nodeId: number }
-  | { kind: 'edge', nodeId: number }
-  | { kind: 'dragImg', imgId: number, offsetX: number, offsetY: number }
-  
+  | { kind: "drag"; nodeId: number }
+  | { kind: "edge"; nodeId: number }
+  | { kind: "dragImg"; imgId: number; offsetX: number; offsetY: number };
+
 interface CanvasHandler {
   ref: React.RefObject<SVGSVGElement>;
-  action: CanvasAction | null,
+  action: CanvasAction | null;
   setAction: React.Dispatch<CanvasAction | null>;
 }
 
@@ -36,24 +42,33 @@ const Canvas = () => {
   //const [image, setImage] = useState<string | null>(null);
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
-    console.log("canvas is clicked")
-    if (mode === 'edit' && tool === 'node') {
-      const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
+    console.log("canvas is clicked");
+    if (mode === "edit" && tool === "node") {
+      const coordinates = getPointerCanvasCoordinates(
+        event.currentTarget,
+        event,
+      );
       const node = insertNode(graphHandler, coordinates.x, coordinates.y);
-      setSelectedEntity({ kind: 'node', id: node.id });
-    } 
-    if (event.target === event.currentTarget || event.target instanceof SVGImageElement) {
-      if (tool !== 'node') {
+      setSelectedEntity({ kind: "node", id: node.id });
+    }
+    if (
+      event.target === event.currentTarget ||
+      event.target instanceof SVGImageElement
+    ) {
+      if (tool !== "node") {
         setSelectedEntity(null);
       }
     }
-  }
+  };
 
   const handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
     if (action !== null) {
-      switch(action.kind) {
-        case 'drag':
-          const coordinates = getPointerCanvasCoordinates(event.currentTarget, event);
+      switch (action.kind) {
+        case "drag":
+          const coordinates = getPointerCanvasCoordinates(
+            event.currentTarget,
+            event,
+          );
           const node = getNode(graphHandler.graph, action.nodeId);
           updateNode(graphHandler, {
             ...node,
@@ -61,11 +76,14 @@ const Canvas = () => {
             y: coordinates.y,
           });
           break;
-        case 'dragImg':
-          const canvasCoordinates = getPointerCanvasCoordinates(event.currentTarget, event);
+        case "dragImg":
+          const canvasCoordinates = getPointerCanvasCoordinates(
+            event.currentTarget,
+            event,
+          );
           const newX = canvasCoordinates.x - action.offsetX;
           const newY = canvasCoordinates.y - action.offsetY;
-              
+
           const image = getImage(graphHandler.graph, action.imgId);
           updateImage(graphHandler, {
             ...image,
@@ -73,7 +91,7 @@ const Canvas = () => {
             y: newY,
           });
           break;
-        case 'edge':
+        case "edge":
           // TODO peut-être étirer un edge du node1 au prochain node?
           break;
         default:
@@ -90,14 +108,14 @@ const Canvas = () => {
 
   const handleMouseUp = () => {
     if (action !== null) {
-      switch(action.kind) {
-        case 'drag':
+      switch (action.kind) {
+        case "drag":
           setAction(null);
           break;
-        case 'dragImg':
+        case "dragImg":
           setAction(null);
           break;
-        case 'edge':
+        case "edge":
           // TODO supprimer la "demi-edge" qui suivait le curseur si on n'est pas sur un node, sinon créer le edge?? maybe??
           break;
         default:
@@ -107,28 +125,33 @@ const Canvas = () => {
   };
 
   const handlePaste = (event: React.ClipboardEvent<SVGSVGElement>) => {
-    console.log("Ctrl + V used")
+    console.log("Ctrl + V used");
     const clipboardData = event.clipboardData;
-    if (mode !== 'edit' || !clipboardData) {
-      console.log("Item cannot be pasted")
+    if (mode !== "edit" || !clipboardData) {
+      console.log("Item cannot be pasted");
       return;
     }
 
     let items = clipboardData.items;
     if (items) {
       for (const item of items) {
-        if (item.type.includes('image')) {
+        if (item.type.includes("image")) {
           const file = item.getAsFile();
           if (file) {
             const reader = new FileReader();
             reader.onloadend = (e: ProgressEvent<FileReader>) => {
               const imageData = e.target?.result;
-              if (typeof imageData === 'string') {
+              if (typeof imageData === "string") {
                 const img = new Image();
                 img.onload = () => {
-                  //setImage(imageData); 
-                  const newImage = insertImage(graphHandler, imageData, img.width, img.height);
-                  setSelectedEntity({ kind: 'image', id: newImage.id });
+                  //setImage(imageData);
+                  const newImage = insertImage(
+                    graphHandler,
+                    imageData,
+                    img.width,
+                    img.height,
+                  );
+                  setSelectedEntity({ kind: "image", id: newImage.id });
                 };
                 img.src = imageData;
               }
@@ -139,13 +162,38 @@ const Canvas = () => {
         }
       }
     }
-  }
+  };
+
+  const { layers, activeLayerId, updateCanvasState } = useLayers();
+  useEffect(() => {
+    updateCanvasState(graphHandler.graph);
+  }, [graphHandler.graph]);
+
+  const activeLayer = layers.find((layer) => layer.id === activeLayerId);
+  useEffect(() => {
+    // this initialises or restores the canvas state when the active layer changes\
+    console.log(
+      "Switched to Layer:",
+      activeLayerId,
+      "State:",
+      activeLayer?.canvasState,
+    );
+  }, [activeLayerId, activeLayer]);
+
+  useEffect(() => {
+    console.log("Active layer is :" + activeLayerId);
+    setSelectedEntity(null);
+    resetState();
+    graphHandler.setGraph(
+      activeLayer?.canvasState ? activeLayer?.canvasState : emptyGraph,
+    );
+  }, [activeLayerId]);
 
   useEffect(() => {
     if (canvasRef.current) {
       canvasRef.current.focus();
     }
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const handlePaste = (event: ClipboardEvent) => {
@@ -154,12 +202,12 @@ const Canvas = () => {
     };
 
     const canvasElem = canvasRef.current;
-    canvasElem?.addEventListener('paste', handlePaste);
+    canvasElem?.addEventListener("paste", handlePaste);
 
     canvasElem?.focus();
 
     return () => {
-      canvasElem?.removeEventListener('paste', handlePaste);
+      canvasElem?.removeEventListener("paste", handlePaste);
     };
   }, []);
 
@@ -197,16 +245,16 @@ const Canvas = () => {
             onPaste={handlePaste}
           >
             <g>
-              {graphHandler.graph.images.map(image => (
-                <MyImage key={image.id} image={image}/>
+              {graphHandler.graph.images.map((image) => (
+                <MyImage key={image.id} image={image} />
               ))}
-              {graphHandler.graph.edges.map(edge => (
+              {graphHandler.graph.edges.map((edge) => (
                 <Edge key={edge.id} edge={edge} />
               ))}
-              {graphHandler.graph.nodes.map(node => (
+              {graphHandler.graph.nodes.map((node) => (
                 <Node key={node.id} node={node} />
               ))}
-            </g> 
+            </g>
           </svg>
         </CanvasContext.Provider>
       </div>

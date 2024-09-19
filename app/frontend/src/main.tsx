@@ -1,13 +1,20 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import { BrowserRouter } from 'react-router-dom'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
+import { SizeProvider } from "./contexts/SizeContext.tsx";
+import { UseLayers } from "./contexts/UseLayers.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+// @ts-ignore
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-        <BrowserRouter>
+    <BrowserRouter>
+      <SizeProvider>
+        <UseLayers>
           <App />
-        </BrowserRouter>
+        </UseLayers>
+      </SizeProvider>
+    </BrowserRouter>
   </React.StrictMode>,
-)
+);

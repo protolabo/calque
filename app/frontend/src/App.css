@@ -6,3 +6,19 @@
     background-image: var(--background-svg); 
     background-repeat: none;
 }
+
+.button__layers{
+    background-color: #afc3ef;
+    padding:8px;
+    border: 1px solid #000066;
+}
+
+.button__layers__add-option{
+    background-color: #606983;
+    padding:8px;
+    border: 1px solid #606983;
+}
+
+.button__layers--active{
+    background-color: #89a5ef;
+}
