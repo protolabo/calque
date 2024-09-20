@@ -37,6 +37,7 @@ body:after {
     content: "";
     position: absolute;
     top: 0; right: 0; left: 0; bottom: 0;
+    background: #222 url('../images/logo_calque_dark.png') 50%/cover no-repeat;
     opacity: 0.2;
     z-index: -1;
 }
