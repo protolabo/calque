@@ -1,6 +1,6 @@
 import { CgImport } from "react-icons/cg";
 import LogoIcon from "../assets/Logo.asset"
-import React, { createContext, useContext, useRef, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import * as d3 from "d3";
 import { BaseType } from "d3";
 import { Link } from "react-router-dom";

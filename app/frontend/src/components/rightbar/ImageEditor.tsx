@@ -4,7 +4,7 @@ import { getImage, updateImage } from '../../models/image';
 import { InputField, Editor, EditorTitle } from './Rightbar'
 
 export interface ImageEditorProps {
-  imageId: number;
+  imageId: string;
 }
 
 const ImageEditor: React.FC<ImageEditorProps> = ({ imageId }) => {

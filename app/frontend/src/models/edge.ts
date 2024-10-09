@@ -1,35 +1,47 @@
 import { GraphHandler } from "../components/Layout";
 import { GraphState } from "./graph";
+// @ts-ignore
+import { v4 as uuidv4 } from 'uuid';
 
 interface EdgeState {
-    id: number;
+    id: string;
     name: string;
-    node1id: number;
-    node2id: number;
+    node1id: string;
+    node2id: string;
     stroke: string;
     strokeWidth: number;
     description: string;
 }
 
-function getEdge(graph: GraphState, edgeId: number): EdgeState {
-  const edge = graph.edges.find(edge => edge.id === edgeId);
+function getEdge(graph: GraphState, edgeId: string): EdgeState | null {
+  const edge = graph.edges.find((edge) => edge.id === edgeId);
   if (edge === undefined) {
-    throw `No edge ${edgeId} found in the graph.`;
+    console.error(`No edge ${edgeId} found in the graph.`)
+    return null;
   }
 
   return edge;
 }
 
-function insertEdge(handler: GraphHandler, node1id: number, node2id: number) {
+function insertEdge(handler: GraphHandler, node1id: string, node2id: string) {
   const { lastEditedEdge } = handler;
-  const edge : EdgeState = {
-    id: handler.graph.autoIncrement,
+
+  const sourceNode = handler.graph.nodes.find(node => node.id === node1id);
+  const targetNode = handler.graph.nodes.find(node => node.id === node2id);
+
+  if (!sourceNode || !targetNode) {
+    console.error(`Cannot create edge. Missing node(s): ${!sourceNode ? node1id : ''} ${!targetNode ? node2id : ''}`);
+    return; // Prevent edge creation if nodes are missing
+  }
+
+  const edge: EdgeState = {
+    id: `${handler.graph.autoIncrement}-${uuidv4()}`,
     name: `edge-${handler.graph.autoIncrement}`,
     node1id,
     node2id,
-    stroke: lastEditedEdge?.stroke || '#3E4256',
+    stroke: lastEditedEdge?.stroke || "#3E4256",
     strokeWidth: lastEditedEdge?.strokeWidth || 15,
-    description: '',
+    description: "",
   };
 
   const graph = {
@@ -51,7 +63,7 @@ function updateEdge(handler: GraphHandler, updatedEdge: EdgeState) {
   handler.setGraph(graph);
 }
 
-function deleteEdge(handler: GraphHandler, edgeId: number) {
+function deleteEdge(handler: GraphHandler, edgeId: string) {
   const graph = {
     ...handler.graph,
     edges: handler.graph.edges.filter(edge => edge.id !== edgeId),

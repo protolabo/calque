@@ -3,9 +3,11 @@ import { AppContext, GraphContext, SelectedEntityContext } from '../Layout';
 import { deleteEdge, EdgeState } from '../../models/edge';
 import { getNode } from '../../models/node'
 import { CanvasContext } from '../Canvas';
+import {GraphState} from "../../models/graph.ts";
 
 interface EdgeProps {
   edge: EdgeState;
+  graph: GraphState;
 }
 
 const Edge = (props: EdgeProps)  => {
@@ -14,8 +16,13 @@ const Edge = (props: EdgeProps)  => {
   const { selectedEntity, setSelectedEntity } = useContext(SelectedEntityContext);
   const { setAction } = useContext(CanvasContext);
 
-  const node1 = getNode(graphHandler.graph, props.edge.node1id);
-  const node2 = getNode(graphHandler.graph, props.edge.node2id);
+  const node1 = getNode(props.graph, props.edge.node1id);
+  const node2 = getNode(props.graph, props.edge.node2id);
+
+  if (!node1 || !node2) {
+    // Nodes not found; skip rendering this edge
+    return null;
+  }
 
   const isSelected = selectedEntity && selectedEntity.kind === 'edge' && selectedEntity.id === props.edge.id;
 
@@ -25,6 +32,7 @@ const Edge = (props: EdgeProps)  => {
     }
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => { 
       if (mode === 'edit' && isSelected && (event.key === 'Delete')) {

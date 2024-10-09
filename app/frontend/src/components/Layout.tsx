@@ -1,35 +1,35 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import { Navbar } from './navbar/Navbar';
-import { GraphState, emptyGraph } from '../models/graph';
-import { EdgeState } from '../models/edge';
-import { NodeState } from '../models/node';
-import { loadState, saveState } from '../redux/localStorage';
+import React, { createContext, useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import { Navbar } from "./navbar/Navbar";
+import { GraphState, emptyGraph } from "../models/graph";
+import { EdgeState } from "../models/edge";
+import { NodeState } from "../models/node";
+import { loadState, saveState } from "../redux/localStorage";
 // import Footer from './Footer';
 
-type Page = 'menu' | 'creation' | 'enduser'
-type Mode = 'view' | 'edit';
-type Tool = 'select' | 'node' | 'edge' | 'pan';
+type Page = "menu" | "creation" | "enduser";
+type Mode = "view" | "edit";
+type Tool = "select" | "node" | "edge" | "pan";
 
 const pageToPathMap: Record<Page, string> = {
-  menu: '/',
-  creation: '/create-map',
-  enduser: '/map'
+  menu: "/",
+  creation: "/create-map",
+  enduser: "/map",
 };
 
 const pathToPageMap: Record<string, Page> = {
-  '/': 'menu',
-  '/create-map': 'creation',
-  '/map': 'enduser',
+  "/": "menu",
+  "/create-map": "creation",
+  "/map": "enduser",
 };
 
 type Entity =
-  | { kind: 'node', id: number }
-  | { kind: 'edge', id: number }
-  | { kind: 'image', id: number }
+  | { kind: "node"; id: string }
+  | { kind: "edge"; id: string }
+  | { kind: "image"; id: string };
 
 interface AppHandler {
-  page: Page
+  page: Page;
   setPage: React.Dispatch<React.SetStateAction<Page>>;
   mode: Mode;
   setMode: React.Dispatch<Mode>;
@@ -53,37 +53,39 @@ interface SelectedEntityHandler {
 
 const AppContext = createContext<AppHandler>(undefined as any);
 const GraphContext = createContext<GraphHandler>(undefined as any);
-const SelectedEntityContext = createContext<SelectedEntityHandler>(undefined as any);
+const SelectedEntityContext = createContext<SelectedEntityHandler>(
+  undefined as any,
+);
 
 const Layout = () => {
-  const [mode, setMode] = useState<Mode>('edit');
-  const [tool, setTool] = useState<Tool>('select');
+  const [mode, setMode] = useState<Mode>("edit");
+  const [tool, setTool] = useState<Tool>("select");
   const [graph, setGraph] = useState<GraphState>(loadState() || emptyGraph);
   const [lastEditedNode, setLastEditedNode] = useState<NodeState | null>(null);
   const [lastEditedEdge, setLastEditedEdge] = useState<EdgeState | null>(null);
   const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
   const [page, setPage] = useState<Page>(() => {
     const path = window.location.pathname;
-    return pathToPageMap[path] || 'menu';
+    return pathToPageMap[path] || "menu";
   });
 
   const navigateTo = (page: Page) => {
     const path = pageToPathMap[page];
-    window.history.pushState({}, '', path);
-    handlePageChange(page); 
+    window.history.pushState({}, "", path);
+    handlePageChange(page);
   };
 
   const handlePageChange = (page: Page) => {
     switch (page) {
-      case 'creation':
-        navigateTo('creation')
+      case "creation":
+        navigateTo("creation");
         break;
-      case 'enduser':
-        navigateTo('enduser')
+      case "enduser":
+        navigateTo("enduser");
         break;
-      case 'menu':
+      case "menu":
       default:
-        navigateTo('menu')
+        navigateTo("menu");
         break;
     }
   };
@@ -99,34 +101,46 @@ const Layout = () => {
   // Update URL
   useEffect(() => {
     const path = pageToPathMap[page];
-    window.history.pushState({}, '', path);
+    window.history.pushState({}, "", path);
   }, [page]);
 
   // Go back go forward <- ->
   useEffect(() => {
     const handlePopState = () => {
-      console.log("page is being changed")
+      console.log("page is being changed");
       const path = window.location.pathname;
       const newPage = pathToPageMap[path];
-      
+
       if (newPage && newPage !== page) {
-        setPage(newPage); 
-        console.log("going to a new page")
-      } 
+        setPage(newPage);
+        console.log("going to a new page");
+      }
     };
-    
-    window.addEventListener('popstate', handlePopState);
-    
+
+    window.addEventListener("popstate", handlePopState);
+
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener("popstate", handlePopState);
     };
   }, []);
-  
 
   return (
-    <AppContext.Provider value={{ page, setPage, mode, setMode, tool, setTool }}>
-      <GraphContext.Provider value={{ lastEditedEdge, setLastEditedEdge, lastEditedNode, setLastEditedNode, graph, setGraph }}>
-        <SelectedEntityContext.Provider value={{ selectedEntity, setSelectedEntity }}>
+    <AppContext.Provider
+      value={{ page, setPage, mode, setMode, tool, setTool }}
+    >
+      <GraphContext.Provider
+        value={{
+          lastEditedEdge,
+          setLastEditedEdge,
+          lastEditedNode,
+          setLastEditedNode,
+          graph,
+          setGraph,
+        }}
+      >
+        <SelectedEntityContext.Provider
+          value={{ selectedEntity, setSelectedEntity }}
+        >
           <Navbar />
           <Outlet />
         </SelectedEntityContext.Provider>

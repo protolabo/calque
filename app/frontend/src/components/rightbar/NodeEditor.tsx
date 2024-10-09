@@ -4,13 +4,17 @@ import { getNode, updateNode } from '../../models/node';
 import { InputField, Editor, EditorTitle } from './Rightbar'
 
 export interface NodeEditorProps {
-  nodeId: number;
+  nodeId: string;
 }
 
 const NodeEditor: React.FC<NodeEditorProps> = ({ nodeId }) => {
   // const [ nodeState, setNodeState ] = useState(currentNodeState)
   const graphHandler = useContext(GraphContext);
   const node = getNode(graphHandler.graph, nodeId);
+
+    if (!node){
+        return null; //TODO: handle this better when doing layers connections
+    }
 
   const updateField = (fieldName: keyof typeof node, value: string | number) => {
     const updatedNode = { ...node, [fieldName]: value };

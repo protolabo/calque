@@ -4,12 +4,16 @@ import { getEdge, updateEdge } from '../../models/edge';
 import { InputField, Editor, EditorTitle } from './Rightbar'
 
 export interface EdgeEditorProps {
-  edgeId: number;
+  edgeId: string;
 }
 
 const EdgeEditor = (props: EdgeEditorProps) => {
   const graphHandler = useContext(GraphContext);
   const edge = getEdge(graphHandler.graph, props.edgeId);
+
+  if (!edge){
+      return null; //TODO: handle this better when doing layers connections
+  }
 
   const updateField = (fieldName: keyof typeof edge, value: string | number) => {
     const updatedEdge = { ...edge, [fieldName]: value };

@@ -25,7 +25,8 @@
     "react-zoom-pan-pinch": "^3.6.1",
     "react-zoomable-ui": "^0.11.0",
     "redux": "^5.0.1",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",

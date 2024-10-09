@@ -23,7 +23,7 @@ const Node = (props: NodeProps) => {
         setAction({ kind: 'edge', nodeId: props.node.id });
       } else if (action.kind === 'edge' && action.nodeId !== props.node.id) {
         const edge = insertEdge(graphHandler, action.nodeId, props.node.id);
-        setSelectedEntity({ kind: 'edge', id: edge.id })
+        setSelectedEntity({ kind: "edge", id: !(edge && edge.id) ? 0 : edge.id });
         setAction(null);
       }
     }

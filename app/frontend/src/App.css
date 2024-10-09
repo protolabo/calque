@@ -6,3 +6,107 @@
     background-image: var(--background-svg); 
     background-repeat: none;
 }
+
+.button__layers{
+    background-color: #afc3ef;
+    padding:8px;
+    border: 1px solid #000066;
+}
+
+.button__layers__add-option{
+    background-color: #606983;
+    padding:8px;
+    border: 1px solid #606983;
+}
+
+.button__layers--active{
+    background-color: #89a5ef;
+}
+
+/*Layer panel CSS */
+.layer-panel {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 250px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.layer-panel__title {
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight:600;
+}
+
+.layer-panel ul {
+    list-style: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.layer-panel li {
+    margin-bottom: 10px;
+    padding:6px
+}
+
+.layer-panel li.active {
+    background-color: #f0f0f0;
+}
+
+.layer-panel .layer-details {
+    margin-top: 5px;
+    padding-left: 10px;
+    border-left: 2px solid #ccc;
+}
+
+.button__layers__add-option {
+    background-color: #606983;
+    padding: 4px;
+    border: 1px solid #606983;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.button__layers__add-option:hover {
+    background-color: #505a73;
+}
+
+.expand-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    float: right;
+    margin-right: 10px;
+}
+
+.arrow {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    transform: rotate(45deg);
+    transition: transform 0.2s;
+}
+
+.arrow.down {
+    transform: rotate(225deg);
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+}

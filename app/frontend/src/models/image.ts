@@ -2,7 +2,7 @@ import { GraphHandler } from "../components/Layout";
 import { GraphState } from "./graph";
 
 interface ImageState {
-  id: number;
+  id: string;
   name: string;
   x: number;
   y: number;
@@ -14,8 +14,8 @@ interface ImageState {
   description: string;
 }
 
-function getImage(graph: GraphState, imageId: number): ImageState {
-  const image = graph.images.find(image => image.id === imageId);
+function getImage(graph: GraphState, imageId: string): ImageState {
+  const image = graph.images.find((image) => image.id === imageId);
   if (image === undefined) {
     throw `No image ${imageId} found in the graph.`;
   }
@@ -23,10 +23,10 @@ function getImage(graph: GraphState, imageId: number): ImageState {
   return image;
 }
 
-function insertImage(handler: GraphHandler, href: string, width: number, height: number) {
+function insertImage(handler: GraphHandler, href: string, width: number, height: number, layerID: number) {
   const ratio = height / width;
   const image = {
-    id: handler.graph.autoIncrement,
+    id: `${layerID}_${handler.graph.autoIncrement}`,
     name: `image-${handler.graph.autoIncrement}`,
     x: 0,
     y: 0,
@@ -55,7 +55,7 @@ function updateImage(handler: GraphHandler, updatedImage: ImageState) {
   handler.setGraph(graph);
 }
 
-function deleteImage(handler: GraphHandler, imageId: number) {
+function deleteImage(handler: GraphHandler, imageId: string) {
   const graph = {
     ...handler.graph,
     images: handler.graph.images.filter(image => image.id !== imageId),
