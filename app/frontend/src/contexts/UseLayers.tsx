@@ -12,6 +12,7 @@ interface Layer {
   name: string;
   description?: string;
   order: number;
+  visible: boolean;
   canvasState: CanvasState;
   opacity: number;
 }
@@ -27,16 +28,14 @@ interface LayerContextType {
 
 const LayerContext = createContext<LayerContextType | undefined>(undefined);
 
-export const UseLayers = (props: {
-  children: React.ReactNode;
-}) => {
-
+export const UseLayers = (props: { children: React.ReactNode }) => {
   const [layers, setLayers] = useState<Layer[]>([
     {
       id: 1,
       name: "Layer 1",
       order: 1,
       opacity: 1,
+      visible: true,
       canvasState: { images: [], nodes: [], edges: [], autoIncrement: 0 },
     },
   ]);
@@ -51,7 +50,8 @@ export const UseLayers = (props: {
         name: `Layer ${newId}`,
         order: newOrder,
         opacity: 1 - newOrder * 0.1,
-        canvasState: {images: [], nodes: [], edges: [], autoIncrement: 0},
+        visible: true,
+        canvasState: { images: [], nodes: [], edges: [], autoIncrement: 0 },
       },
     ]);
     setActiveLayerId(newId);
@@ -60,10 +60,10 @@ export const UseLayers = (props: {
   const setActiveLayer = (id: number) => {
     setActiveLayerId(id);
     setLayers((prevLayers) =>
-        prevLayers.map((layer) => ({
-          ...layer,
-          opacity: layer.id === id ? 1 : 1 - layer.order * 0.2,
-        }))
+      prevLayers.map((layer) => ({
+        ...layer,
+        opacity: layer.id === id ? 1 : 1 - layer.order * 0.2,
+      })),
     );
   };
 
@@ -83,7 +83,7 @@ export const UseLayers = (props: {
         addLayer,
         setActiveLayer,
         updateCanvasState,
-        setLayers
+        setLayers,
       }}
     >
       {props.children}
