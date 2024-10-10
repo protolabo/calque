@@ -67,6 +67,7 @@ const Canvas = () => {
   };
 
   const handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
+    // Need to check if can move canva or only node/edge
     if (action !== null) {
       switch (action.kind) {
         case "drag":
